@@ -1,0 +1,70 @@
+					<div class="row clearfix">
+
+						<div class="grid-6">
+
+							<p>Everyone can design. Even if there appears to be an 'entry barrier' sometimes.</p>
+
+						</div>
+
+						<div class="grid-6 hide-small"><img class="center" src="assets/images/design-1.svg"></div>
+
+					</div>
+
+					<div class="row clearfix row-close">
+
+						<div class="grid-6 hide-small"><img class="center" src="assets/images/design-2.svg"></div>
+
+						<div class="grid-6">
+
+							<p>There shouldn't be!</p>
+
+							<p>ripsaw.js is a lightweight JavaScript library that aspires to power a suite of maker apps tailored specifically to people without a design background. These browser apps are conceived to make design a simple, intuitive and clean process, in a way that does not compromise freedom of expression.</p>
+
+							<p>This project was born as a proof of concept to this idea.</p>
+
+						</div>
+
+					</div>
+
+					<div class="row clearfix row-close">
+
+						<div class="grid-6">
+
+							<p>Could you imagine designing a freeform fork such as this one with only 15 minutes of 3d modeling experience?</p>
+							
+						</div>
+
+						<div class="grid-6"><img class="center" src="assets/images/fork3d.svg"></div>
+
+					</div>
+
+					<div class="row row-close clearfix">
+
+						<p class="grid-12 center">See for yourself - check out ripsaw's two live demos below:</p>
+
+					</div>
+
+
+					<div class="row clearfix">
+
+						<div class="demo grid-5 grid-offset-1">
+
+							<a class="center" href="ripsaw-yourk/index.html" target="_blank"><div class="icon-group"><i class="fa fa-play-circle-o fa-5x" data-ch="1"></i><i class="fa fa-child fa-2x"></i></div></a>
+
+							<p class="center">A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.</p>
+
+						</div>
+
+						<div class="demo grid-5">
+
+							<a class="center" href="http://ripsaw-demo.herokuapp.com" target="_blank"><div class="icon-group"><i class="fa fa-play-circle-o fa-5x" data-ch="1"></i><i class="fa fa-users fa-2x"></i></div></a>
+
+							<p class="center">Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's.</p>
+
+						</div>
+
+					</div>
+
+					<div class="row clearfix">
+						<p class="grid-12 center">Enjoy, browse around and check out the source on <a href="https://github.com/pickled-plugins/ripsaw-demo" target="_blank">GitHub</a>.</p>
+					</div>

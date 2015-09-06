@@ -1,0 +1,61 @@
+.code {
+
+	display: block;
+	margin: auto;
+
+	-webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+	border-radius: 15px;
+	
+	background-color: $color-base;
+	
+	color: white;
+	overflow: scroll;
+
+	.code-filename {
+
+		background-color: darken($color-base, 15);
+		padding: 20px;
+
+	}
+
+	.code-content {
+
+		background-color: $color-base;
+		padding: 20px;
+		
+
+	}
+
+	@media screen and (max-width: $breakpoint) {
+
+		margin-top: 20px;
+		width: 80%;
+		margin-left: 10%;
+
+	}
+
+}
+
+.code-description {
+
+	background-color: lighten($color-base, 60);
+
+	-webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+	border-radius: 15px;
+
+
+	padding: 20px;
+	word-wrap: break-word;
+
+	@media screen and (max-width: $breakpoint) {
+
+		width: 100%;
+		margin: 0;
+
+		background-color: white;
+
+	}
+
+}

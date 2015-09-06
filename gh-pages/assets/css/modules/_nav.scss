@@ -1,0 +1,57 @@
+.nav {
+
+	width: 584px;
+	margin: 80px auto auto auto;
+
+	@media screen and (max-width: $breakpoint) {
+
+		width: 292px;
+
+	}
+
+	li {//
+
+		width: 90px;
+		display: inline-block;
+		margin: 0 auto 25px auto;
+
+		i {
+
+			text-align: center;
+			display: block;
+			margin: auto;
+
+		}
+
+	}
+
+	a.active i {
+
+		color: lighten($color-base, 30);
+
+	}
+
+}
+
+.jumper-hover-help {
+
+	width: 150px;
+	display: none;
+	position: absolute;
+	margin: -40px auto auto 202px; // 15px less left margin
+	text-align: center;
+	padding: 5px 10px;
+	background-color: lighten($color-base, 40);
+	opacity: 0.3;
+	color: white;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+
+	@media screen and (max-width: $breakpoint) {
+
+		margin-left: 56px; // 15px less left margin
+
+	}
+
+}

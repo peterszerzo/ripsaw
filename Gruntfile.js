@@ -607,9 +607,20 @@ module.exports = function(grunt) {
 
     });
 
+
+    grunt.loadNpmTasks('grunt-gh-pages');
+
+    grunt.config('gh-pages', {
+        options: {
+            base: 'gh-pages'
+        },
+        src: ['**']
+    });
+
     grunt.registerTask('default', tasks.basic);
     grunt.registerTask('minimal', tasks.minimal);
     grunt.registerTask('with-docs', tasks.withDocs);
     grunt.registerTask('spec', tasks.spec);
+    grunt.registerTask('gh-pages', [ 'gh-pages' ]);
 
 };

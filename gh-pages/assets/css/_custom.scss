@@ -1,0 +1,169 @@
+.separator {
+
+	display: block;
+	width: 90%;
+	height: 6px;
+	margin-left: 5%;
+	background-color: lighten($color-base, 60);
+	border-radius: 3px;
+
+	margin-top: 80px;
+	margin-bottom: 40px;
+
+	&:first-child {
+
+		margin-top: 40px;
+		margin-bottom: 80px;
+
+	}
+
+}
+
+.wrapper {
+
+	width: 90%;
+	padding: 0;
+	margin: 70px auto;
+
+}
+
+#banner {
+
+	width: 200px;
+
+}
+
+#footer {
+
+	width: 80px;
+	margin-bottom: 20px;
+
+}
+
+#credit {
+
+	display: block;
+	font-size: 1rem;
+	color: #222;
+	margin: auto auto 65px auto;
+
+}
+
+
+
+i {
+
+	color: $color-base;
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	&:hover { color: $color-hover; }
+
+	.icon-group & {
+
+		color: inherit;
+
+	}
+
+}
+
+
+
+.demo:nth-child(2) {
+
+	@media screen and (max-width: $breakpoint) {
+
+		margin-top: 40px;
+
+	}
+
+}
+
+#tut-nav {
+
+	width: 160px;
+
+}
+
+[id*='-nav'] { margin: 45px auto auto auto; }
+
+.active {
+
+	color: lighten($color-base, 30);
+
+}
+
+p.center {
+
+	width: 100%;
+
+	@media screen and (max-width: $breakpoint) {
+
+		width: 90%;
+		margin-left: 5%;
+
+	}
+
+}
+
+.section {
+
+	margin: 20px auto;
+
+}
+
+#ripsaw-app {
+	
+	height: 350px;
+
+	-webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+	border-radius: 15px;
+
+	display: block;
+
+	@media screen and (max-width: $breakpoint) {
+
+		width: 80%;
+		margin-left: 10%;
+
+	}
+
+	canvas {
+
+		-webkit-border-radius: 15px;
+	    -moz-border-radius: 15px;
+		border-radius: 15px;
+
+	}
+
+}
+
+
+
+.icon-group {
+
+	display: inline;
+
+	&:hover {
+
+		color: $color-hover;
+
+	}
+
+}
+
+
+.img {
+
+	margin: 30px auto;
+
+	img {
+
+		display: inline-block;
+		margin: 10px auto;
+
+	}
+
+}
