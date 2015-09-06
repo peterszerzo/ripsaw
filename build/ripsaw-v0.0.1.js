@@ -1,4 +1,4 @@
-/*! ripsaw v0.0.1 - 2014-12-31 
+/*! ripsaw v0.0.1 - 2015-09-06 
  *  Copyright: Peter Szerzo, 2014 */
 
 /** @namespace */
