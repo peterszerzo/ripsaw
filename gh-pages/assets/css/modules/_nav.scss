@@ -36,9 +36,8 @@
 .jumper-hover-help {
 
 	width: 150px;
-	display: none;
 	position: absolute;
-	margin: -40px auto auto 202px; // 15px less left margin
+	margin: -40px auto 15px 202px; // 15px less left margin
 	text-align: center;
 	padding: 5px 10px;
 	background-color: lighten($color-base, 40);

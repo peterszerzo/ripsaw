@@ -15,17 +15,17 @@ Comp.Concept = class extends React.Component {
 
 					<div className="img">
 
-						<img className="center grid-3 grid-offset-2" src="assets/images/concept/img-01.svg">
+						<img className="center grid-3 grid-offset-2" src="assets/images/concept/img-01.svg" />
 
-						<img className="center grid-3 grid-offset-2" src="assets/images/concept/img-02.svg">
+						<img className="center grid-3 grid-offset-2" src="assets/images/concept/img-02.svg" />
 
 					</div>
 
 					<p className="grid-10 grid-offset-1">ripsaw builds these complex shapes based on mere 5 control points. A slight change in the arrangement of these points produces significant changes in the geometry, which is understood and customized easily by anyone.</p>
 										
 					<div className="img">	
-						<img className="center" src="assets/images/concept/img-03.svg">
-						<img className="center" src="assets/images/concept/img-04.svg">
+						<img className="center" src="assets/images/concept/img-03.svg" />
+						<img className="center" src="assets/images/concept/img-04.svg" />
 
 					</div>
 

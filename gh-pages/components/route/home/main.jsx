@@ -12,13 +12,13 @@ Comp.Home = class extends React.Component {
 
 						</div>
 
-						<div className="grid-6 hide-small"><img className="center" src="assets/images/design-1.svg"></div>
+						<div className="grid-6 hide-small"><img className="center" src="assets/images/design-1.svg" /></div>
 
 					</div>
 
 					<div className="row clearfix row-close">
 
-						<div className="grid-6 hide-small"><img className="center" src="assets/images/design-2.svg"></div>
+						<div className="grid-6 hide-small"><img className="center" src="assets/images/design-2.svg" /></div>
 
 						<div className="grid-6">
 
@@ -40,7 +40,7 @@ Comp.Home = class extends React.Component {
 							
 						</div>
 
-						<div className="grid-6"><img className="center" src="assets/images/fork3d.svg"></div>
+						<div className="grid-6"><img className="center" src="assets/images/fork3d.svg" /></div>
 
 					</div>
 

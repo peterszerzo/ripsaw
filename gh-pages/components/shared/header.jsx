@@ -1,28 +1,111 @@
+(function() {
+
+var { Link } = ReactRouter;
+
 Comp.Header = class extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = { text: undefined };
+	}
 
 	render() {
 		return (
 			<div>
-				<div class="center" id="banner">
-					<img class="center" src="assets/images/logo.svg" />
+				<div className="center" id="banner">
+					<img className="center" src="assets/images/logo.svg" />
 				</div>
 
-				<h1 class="center">ripsaw.js</h1>
-				<h2 class="center">interactive product design in the browser</h2>
+				<h1 className="center">ripsaw.js</h1>
+				<h2 className="center">interactive product design in the browser</h2>
 
-				<div class="nav">
-					<div class="jumper-hover-help"></div>
-					<ul>
-						<li><a id="a-home" href="#pages/home"><i class="fa fa-home fa-3x"></i></a></li>
-						<li><a id="a-concept" href="#pages/concept"><i class="fa fa-lightbulb-o fa-3x"></i></a></li>
-						<li><a id="a-tutorial" href="#pages/tutorial"><i class="fa fa-mortar-board fa-3x"></i></a></li>
-						<li><a id="a-documentation" href="#pages/documentation"><i class="fa fa-book fa-3x"></i></a></li>
-						<li><a id="a-code" href="#pages/code"><i class="fa fa-github fa-3x"></i></a></li>
-						<li><a href="ripsaw-yourk/index.html" target="_blank"><i class="fa fa-play-circle-o fa-3x"></i></a></li>
-					</ul>
+				<div className="nav">
+					{ this.renderHelp() }
+					<Nav changeText={this.changeText.bind(this)} />
 				</div>
 			</div>
 		);
 	}
 
+	renderHelp() {
+		var text = this.state.text;
+		if (!text) { return; }
+		return (<div className="jumper-hover-help">{ text }</div>);
+	}
+
+	changeText(text) {
+		this.setState({ text: text });
+	}
+
 }
+
+var buttons = [
+	{
+		'name': 'Home',
+		'icon': 'home',
+		'url': 'home'
+	},
+	{
+		'name': 'Concept',
+		'icon': 'lightbulb-o',
+		'url': 'home'
+	},
+	{
+		'name': 'Tutorial',
+		'icon': 'mortar-board',
+		'url': 'home'
+	},
+	{
+		'name': 'Documentation',
+		'icon': 'book',
+		'url': 'home'
+	},
+	{
+		'name': 'Code',
+		'icon': 'github',
+		'url': 'home'
+	},
+	{
+		'name': 'Demo',
+		'icon': 'play-circle',
+		'url': 'home'
+	}
+]
+
+
+class Nav extends React.Component {
+
+	render() {
+		return (
+			<ul>
+				{ this.renderButtons() }
+			</ul>
+		);
+	}
+
+	renderButtons() {
+		return buttons.map((button, i) => {
+			var cls = `fa fa-${button.icon} fa-3x`;
+			return (
+				<li>
+					<Link 
+						to='home' 
+						onMouseEnter={this.changeText.bind(this, button.name)} 
+						onMouseLeave={this.changeText.bind(this, undefined)}
+					>
+						<i className={cls} />
+					</Link>
+				</li>
+			);
+		});
+	}
+
+	changeText(text) {
+		this.props.changeText(text);
+	}
+
+}
+
+
+} ());
+

@@ -1,5 +1,0 @@
-(function() {
-
-Comp.routes = 'apples';
-
-}());
