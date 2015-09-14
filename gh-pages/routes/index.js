@@ -1,0 +1,5 @@
+(function() {
+
+Comp.routes = 'apples';
+
+}());

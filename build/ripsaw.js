@@ -1,6 +1,3 @@
-/*! ripsaw v0.0.1 - 2015-09-06 
- *  Copyright: Peter Szerzo, 2014 */
-
 /** @namespace */
 var RIPSAW = {
 
@@ -161,15 +158,6 @@ var RIPSAW = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 RIPSAW.textAssets = {
 
     shapeLibrary: {
@@ -208,15 +196,6 @@ RIPSAW.textAssets = {
     rhinoPythonScriptFooter: 'Main()'
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** Assign touch handlers corresponding to mouse event handlers. */
 RIPSAW.touchHandler = function(event) {
@@ -451,15 +430,6 @@ RIPSAW.tearDown = function() {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 RIPSAW.events = {
 
     on: function(name, callback) {
@@ -518,15 +488,6 @@ RIPSAW.events = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /**
  * Constructs observer instances in the functional pattern.
@@ -628,15 +589,6 @@ RIPSAW.observer = function() {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * Prototypal inheritance.
  * @param {Object} o - Inherited object.
@@ -719,15 +671,6 @@ RIPSAW.extend = function(child, parent) {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /**
  * Returns whether two numbers are nearly equal (RIPSAW.delta).
  * @param {number} n1 - First number.
@@ -786,15 +729,6 @@ RIPSAW.sineAnimate = function(time, period, startPhase, startTime, endTime) {
     return Math.sin(t / period * 2 * Math.PI + startPhase);
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /**
  * @constructor
@@ -1000,15 +934,6 @@ RIPSAW.Matrix.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @constructor
@@ -1355,15 +1280,6 @@ RIPSAW.Vector.prototype = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @param {number} x x-coordinate.
@@ -1457,15 +1373,6 @@ RIPSAW.DragNode.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @constructor
@@ -1728,15 +1635,6 @@ RIPSAW.PointCloud.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @constructor
@@ -2069,15 +1967,6 @@ RIPSAW.Line.prototype = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @param {number} [r=1] - Radial distance from source (cylindrical coordinate).
@@ -2262,15 +2151,6 @@ RIPSAW.Camera.prototype = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /**
  * @namespace colors
  * @memberof RIPSAW
@@ -2352,15 +2232,6 @@ RIPSAW.colors = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /**
  * @namespace pen
@@ -2748,15 +2619,6 @@ RIPSAW.pen = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /**
  * Created using the immediately invoked functional pattern, inheriting from observer.
  * @namespace mouse
@@ -2941,15 +2803,6 @@ RIPSAW.mouse = (function() {
 
 }());
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /**
  * Created using the immediately invoked functional pattern, inheriting from observer.
  * @namespace stage
@@ -3016,15 +2869,6 @@ RIPSAW.stage = (function() {
     return that;
 
 }());
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /**
  * @namespace tutorial
@@ -3100,15 +2944,6 @@ RIPSAW.tutorial = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @class
@@ -3260,15 +3095,6 @@ RIPSAW.MenuButton.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @class
@@ -3555,15 +3381,6 @@ RIPSAW.Navigation.prototype = {
 
 RIPSAW.nav = new RIPSAW.Navigation();
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @param {number} x0 Drawing origin x-coordinate (relative coordinates).
@@ -3647,15 +3464,6 @@ RIPSAW.MasterPiece.prototype = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @param {String} [binaryString="11000"] A string of 1's and 0's corresponding to allowed or not allowed for a given permission
@@ -3723,15 +3531,6 @@ RIPSAW.MasterPiecePermissions.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @constructor
@@ -3988,15 +3787,6 @@ RIPSAW.BezierSVGPath.prototype = {
 
 };
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @param {RIPSAW.Vector} v1 - Left handle end.
@@ -4232,15 +4022,6 @@ RIPSAW.BezierHandle.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @constructor
@@ -5028,15 +4809,6 @@ RIPSAW.Bezier2D.prototype = {
 
 RIPSAW.inheritPrototype(RIPSAW.MasterPiece, RIPSAW.Bezier2D);
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /** 
  * @constructor
  * @extends RIPSAW.MasterPiece
@@ -5321,15 +5093,6 @@ RIPSAW.Bezier3D.prototype = {
 };
 
 RIPSAW.inheritPrototype(RIPSAW.MasterPiece, RIPSAW.Bezier3D);
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /** 
  * @class
@@ -5677,15 +5440,6 @@ RIPSAW.Pantograph.prototype = {
 
 RIPSAW.inheritPrototype(RIPSAW.MasterPiece, RIPSAW.Pantograph);
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 RIPSAW.CurvingPantograph = function(n, l, c1, c2, x0, y0, scale) {
 
     // classical inheritance - prototype is inherited after subclass prototype is set
@@ -6006,15 +5760,6 @@ RIPSAW.CurvingPantograph.prototype = {
 
 RIPSAW.inheritPrototype(RIPSAW.MasterPiece, RIPSAW.CurvingPantograph);
 
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
-
 /**
  * Intersection node of a Voronoi wavefront.
  * @param {Array} p - Array of intersection points.
@@ -6096,15 +5841,6 @@ RIPSAW.VoronoiIntersection.prototype = {
     }
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 RIPSAW.voronoiWave = function() {
 
@@ -6234,15 +5970,6 @@ RIPSAW.voronoiWave = function() {
     return that;
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 RIPSAW.voronoiWaveFront = function(controlNodesArg) {
 
@@ -6454,15 +6181,6 @@ RIPSAW.voronoiWaveFront = function(controlNodesArg) {
     return that;
 
 };
-
-
-
-
-
-/*     ~~~~~     */
-/* ~~~~~~~~~~~~~ */
-/*   ~~~~~~~~~   */
-
 
 /**
  * @constructor

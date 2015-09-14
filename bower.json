@@ -1,7 +1,7 @@
 {
   "name": "ripsaw-js",
   "version": "0.0.1",
-  "homepage": "http://pickled-plugins.github.io/ripsaw",
+  "homepage": "http://pickled-plugins.github.io/ripsaw-js",
   "authors": [
     "Peter Szerzo <szerzo.peter@gmail.com>"
   ],
@@ -18,6 +18,12 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components"
-  ]
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.3",
+    "react-router": "~0.13.3"
+  }
 }
