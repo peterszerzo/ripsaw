@@ -1,5 +1,7 @@
 "use strict";
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -117,23 +119,24 @@ Comp.Footer = (function (_React$Component) {
 	}, {
 		'name': 'Concept',
 		'icon': 'lightbulb-o',
-		'url': 'home'
+		'url': 'concept'
 	}, {
 		'name': 'Tutorial',
 		'icon': 'mortar-board',
-		'url': 'home'
+		'url': 'tutorial'
 	}, {
 		'name': 'Documentation',
 		'icon': 'book',
-		'url': 'home'
+		'url': 'documentation'
 	}, {
 		'name': 'Code',
 		'icon': 'github',
-		'url': 'home'
+		'url': 'code'
 	}, {
 		'name': 'Demo',
 		'icon': 'play-circle',
-		'url': 'home'
+		'url': 'public/ripsaw-yourk/index.html',
+		isOutsideLink: true
 	}];
 
 	var Nav = (function (_React$Component3) {
@@ -160,17 +163,18 @@ Comp.Footer = (function (_React$Component) {
 				var _this = this;
 
 				return buttons.map(function (button, i) {
-					var cls = "fa fa-" + button.icon + " fa-3x";
+					var cls = "fa fa-" + button.icon + " fa-3x",
+					    Comp = button.isOutsideLink ? 'a' : Link,
+					    hrefProp = button.isOutsideLink ? { href: button.url } : { to: button.url };
 					return React.createElement(
 						"li",
 						null,
 						React.createElement(
-							Link,
-							{
-								to: "home",
+							Comp,
+							_extends({}, hrefProp, {
 								onMouseEnter: _this.changeText.bind(_this, button.name),
 								onMouseLeave: _this.changeText.bind(_this, undefined)
-							},
+							}),
 							React.createElement("i", { className: cls })
 						)
 					);
@@ -530,86 +534,113 @@ Comp.Home = (function (_React$Component7) {
 	return _class6;
 })(React.Component);
 
-Comp.Documentation = (function (_React$Component8) {
-	_inherits(_class7, _React$Component8);
+(function () {
+	var _ReactRouter2 = ReactRouter;
+	var Link = _ReactRouter2.Link;
 
-	function _class7() {
-		_classCallCheck(this, _class7);
+	Comp.Tutorial = (function (_React$Component8) {
+		_inherits(_class7, _React$Component8);
 
-		_get(Object.getPrototypeOf(_class7.prototype), "constructor", this).apply(this, arguments);
-	}
+		function _class7() {
+			_classCallCheck(this, _class7);
 
-	_createClass(_class7, [{
-		key: "render",
-		value: function render() {
-			return React.createElement(
-				"div",
-				null,
-				React.createElement(
+			_get(Object.getPrototypeOf(_class7.prototype), "constructor", this).apply(this, arguments);
+		}
+
+		_createClass(_class7, [{
+			key: "render",
+			value: function render() {
+				var Nav = Comp.TutorialNav;
+				return React.createElement(
+					"div",
+					null,
+					React.createElement(Nav, null),
+					React.createElement(
+						"div",
+						{ className: "row clearfix" },
+						React.createElement(
+							"p",
+							{ className: "grid-12 center" },
+							"This tutorial walks through creating a simple guided design app on your webpage."
+						),
+						React.createElement(
+							"p",
+							{ className: "grid-12 center" },
+							"Use the puzzle pieces to navigate through the steps."
+						)
+					)
+				);
+			}
+		}]);
+
+		return _class7;
+	})(React.Component);
+
+	Comp.TutorialNav = (function (_React$Component9) {
+		_inherits(_class8, _React$Component9);
+
+		function _class8() {
+			_classCallCheck(this, _class8);
+
+			_get(Object.getPrototypeOf(_class8.prototype), "constructor", this).apply(this, arguments);
+		}
+
+		_createClass(_class8, [{
+			key: "render",
+			value: function render() {
+				return React.createElement(
 					"div",
 					{ id: "tut-nav" },
 					React.createElement(
-						"a",
-						{ href: "#pages/tutorial/1" },
+						Link,
+						{ to: "tutorial-page" },
 						React.createElement("i", { className: "fa fa-puzzle-piece fa-2x" })
 					),
 					React.createElement(
-						"a",
-						{ href: "#pages/tutorial/2" },
+						Link,
+						{ to: "tutorial-page" },
 						React.createElement("i", { className: "fa fa-puzzle-piece fa-2x" })
 					),
 					React.createElement(
-						"a",
-						{ href: "#pages/tutorial/3" },
+						Link,
+						{ to: "tutorial-page" },
 						React.createElement("i", { className: "fa fa-puzzle-piece fa-2x" })
 					),
 					React.createElement(
-						"a",
-						{ href: "#pages/tutorial/4" },
+						Link,
+						{ to: "tutorial-page" },
 						React.createElement("i", { className: "fa fa-puzzle-piece fa-2x" })
 					)
-				),
-				React.createElement(
-					"div",
-					{ className: "row clearfix" },
-					React.createElement(
-						"p",
-						{ className: "grid-12 center" },
-						"This tutorial walks through creating a simple guided design app on your webpage."
-					),
-					React.createElement(
-						"p",
-						{ className: "grid-12 center" },
-						"Use the puzzle pieces to navigate through the steps."
-					)
-				)
-			);
-		}
-	}]);
+				);
+			}
+		}]);
 
-	return _class7;
-})(React.Component);
+		return _class8;
+	})(React.Component);
+})();
+
+;
 
 (function () {
 
 	var Router = ReactRouter;
-	var _ReactRouter2 = ReactRouter;
-	var Route = _ReactRouter2.Route;
-	var RouteHandler = _ReactRouter2.RouteHandler;
-	var Link = _ReactRouter2.Link;
-	var HistoryLocation = _ReactRouter2.HistoryLocation;
-	var HashLocation = _ReactRouter2.HashLocation;
-	var Redirect = _ReactRouter2.Redirect;
-
-	Comp.routes = 'apples';
-
+	var _ReactRouter3 = ReactRouter;
+	var Route = _ReactRouter3.Route;
+	var RouteHandler = _ReactRouter3.RouteHandler;
+	var Link = _ReactRouter3.Link;
+	var HistoryLocation = _ReactRouter3.HistoryLocation;
+	var HashLocation = _ReactRouter3.HashLocation;
+	var Redirect = _ReactRouter3.Redirect;
 	var Header = Comp.Header;
 	var Footer = Comp.Footer;
 	var Home = Comp.Home;
+	var Concept = Comp.Concept;
+	var Tutorial = Comp.Tutorial;
 	var Code = Comp.Code;
+	var Documentation = Comp.Documentation;
 
-	var Layout = (function (_React$Component9) {
-		_inherits(Layout, _React$Component9);
+	var Layout = (function (_React$Component10) {
+		_inherits(Layout, _React$Component10);
 
 		function Layout() {
 			_classCallCheck(this, Layout);
@@ -640,13 +671,20 @@ Comp.Documentation = (function (_React$Component8) {
 		{ handler: Layout },
 		React.createElement(Route, { name: "home", path: "home", handler: Home }),
 		React.createElement(Route, { name: "code", path: "code", handler: Code }),
+		React.createElement(Route, { name: "concept", path: "concept", handler: Concept }),
+		React.createElement(
+			Route,
+			{ name: "tutorial", path: "tutorial", handler: Tutorial },
+			React.createElement(Route, { name: "tutorial-page", path: "tutorial/:no", handler: Tutorial })
+		),
+		React.createElement(Route, { name: "documentation", path: "documentation", handler: Documentation }),
 		React.createElement(Redirect, { from: "/", to: "home" })
 	);
 
 	var el = document.getElementsByClassName('wrapper')[0];
 
 	Router.run(routes, Router.HashLocation, function (Root, state) {
-		console.log('routing');
+		console.log(state);
 		React.render(React.createElement(Root, null), el);
 	});
 })();

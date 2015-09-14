@@ -4,12 +4,7 @@
 var Router = ReactRouter;
 var { Route, RouteHandler, Link, HistoryLocation, HashLocation, Redirect } = ReactRouter;
 
-Comp.routes = 'apples';
-
-var Header = Comp.Header;
-var Footer = Comp.Footer;
-var Home = Comp.Home;
-var Code = Comp.Code;
+var { Header, Footer, Home, Concept, Tutorial, Code, Documentation } = Comp;
 
 class Layout extends React.Component {
 	render() {
@@ -29,6 +24,11 @@ var routes = (
 	<Route handler={Layout}>
 		<Route name='home' path='home' handler={Home} />
 		<Route name='code' path='code' handler={Code} />
+		<Route name='concept' path='concept' handler={Concept} />
+		<Route name='tutorial' path='tutorial' handler={Tutorial}>
+			<Route name='tutorial-page' path='tutorial/:no' handler={Tutorial} />
+		</Route>
+		<Route name='documentation' path='documentation' handler={Documentation} />
 		<Redirect from='/' to='home' />
 	</Route>
 );
@@ -36,7 +36,7 @@ var routes = (
 var el = document.getElementsByClassName('wrapper')[0];
 
 Router.run(routes, Router.HashLocation, (Root, state) => {
-	console.log('routing');
+	console.log(state);
 	React.render(<Root />, el);
 });
 

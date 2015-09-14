@@ -29,3 +29,7 @@ gulp.task('pg-css', () => {
 });
 
 gulp.task('pg', [ 'pg-css', 'pg-js-comp', 'pg-js-vendor' ]);
+
+gulp.task('pg-dev', () => {
+	return gulp.watch('./gh-pages/**/*', [ 'pg' ]);
+});

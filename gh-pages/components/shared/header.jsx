@@ -48,27 +48,28 @@ var buttons = [
 	{
 		'name': 'Concept',
 		'icon': 'lightbulb-o',
-		'url': 'home'
+		'url': 'concept'
 	},
 	{
 		'name': 'Tutorial',
 		'icon': 'mortar-board',
-		'url': 'home'
+		'url': 'tutorial'
 	},
 	{
 		'name': 'Documentation',
 		'icon': 'book',
-		'url': 'home'
+		'url': 'documentation'
 	},
 	{
 		'name': 'Code',
 		'icon': 'github',
-		'url': 'home'
+		'url': 'code'
 	},
 	{
 		'name': 'Demo',
 		'icon': 'play-circle',
-		'url': 'home'
+		'url': 'public/ripsaw-yourk/index.html',
+		isOutsideLink: true
 	}
 ]
 
@@ -85,16 +86,18 @@ class Nav extends React.Component {
 
 	renderButtons() {
 		return buttons.map((button, i) => {
-			var cls = `fa fa-${button.icon} fa-3x`;
+			var cls = `fa fa-${button.icon} fa-3x`,
+				Comp = button.isOutsideLink ? 'a' : Link,
+				hrefProp = button.isOutsideLink ? { href: button.url } : { to: button.url };
 			return (
 				<li>
-					<Link 
-						to='home' 
+					<Comp 
+						{...hrefProp}
 						onMouseEnter={this.changeText.bind(this, button.name)} 
 						onMouseLeave={this.changeText.bind(this, undefined)}
 					>
 						<i className={cls} />
-					</Link>
+					</Comp>
 				</li>
 			);
 		});
