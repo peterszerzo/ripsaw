@@ -1,18 +1,20 @@
-<div id="tut-nav">
-	<a href="#pages/tutorial/1"><i class="fa fa-puzzle-piece fa-2x"></i></a>
-	<a href="#pages/tutorial/2"><i class="fa fa-puzzle-piece fa-2x"></i></a>
-	<a href="#pages/tutorial/3"><i class="fa fa-puzzle-piece fa-2x"></i></a>
-	<a href="#pages/tutorial/4"><i class="fa fa-puzzle-piece fa-2x"></i></a>
-</div>
+Comp.Tutorial.Part2 = class extends React.Component {
+
+	render() {
+		var TutorialNav = Comp.TutorialNav;
+		return (
+			<div>
+				<TutorialNav />
 
 <div class="row clearfix">
 
-						<p class="grid-4 code-description">There is much room for customization. Add a new fresh color scheme and change to a new template.</p>
+	<p class="grid-4 code-description">There is much room for customization. Add a new fresh color scheme and change to a new template.</p>
 
-						<div class="code grid-8">
-							<div class="code-filename">ripsaw-app.js</div>
-							<div class="code-content">
-								<pre>
+	<div class="code grid-8">
+		<div class="code-filename">ripsaw-app.js</div>
+		<div class="code-content">
+			<pre>
+`
 var geometry = RIPSAW.textAssets.shapeLibrary["moustache"];
 
 RIPSAW.masterPiece = new RIPSAW.Bezier2D(geometry)
@@ -37,8 +39,14 @@ RIPSAW.colors.activeScheme = "fresh";
 RIPSAW.containerID = 'new-wrapper';
 
 RIPSAW.init().launch();
-								</pre>
-							</div>
-						</div>
+`
+			</pre>
+		</div>
+	</div>
+</div>
 
-					</div>
+			</div>
+		);
+	}
+
+}
