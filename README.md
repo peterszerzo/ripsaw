@@ -1,4 +1,4 @@
 ripsaw-js
 =========
 
-Interactive product design library for the web browser.
+JavaScript library for interactive product design.

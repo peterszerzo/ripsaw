@@ -73,12 +73,12 @@ Comp.Footer = (function (_React$Component) {
 					),
 					React.createElement(
 						"h1",
-						{ className: "center" },
+						{ className: "header__title center" },
 						"ripsaw.js"
 					),
 					React.createElement(
 						"h2",
-						{ className: "center" },
+						{ className: "header__subtitle center" },
 						"interactive product design in the browser"
 					),
 					React.createElement(
@@ -302,7 +302,7 @@ Comp.Documentation = (function (_React$Component5) {
 					),
 					React.createElement(
 						"a",
-						{ href: "doc/RIPSAW.html", target: "_blank" },
+						{ className: "center", href: "doc/RIPSAW.html", target: "_blank" },
 						React.createElement("i", { className: "fa fa-play-circle-o fa-5x", "data-ch": "1" })
 					)
 				)
@@ -313,158 +313,184 @@ Comp.Documentation = (function (_React$Component5) {
 	return _class4;
 })(React.Component);
 
-Comp.Home = (function (_React$Component6) {
-	_inherits(_class5, _React$Component6);
+(function () {
 
-	function _class5() {
-		_classCallCheck(this, _class5);
+	var text = [['Everyone can design. Even if there appears to be an entry barrier sometimes.'], ["There shouldn't be!", "ripsaw.js is a lightweight JavaScript library that powers maker apps navigated easily by people without a design background. Design becomes a simple, intuitive and clean process, posing little compromise freedom of expression."], ["Could you imagine designing a freeform fork such as this one with only 15 minutes of 3d modeling experience?"]];
 
-		_get(Object.getPrototypeOf(_class5.prototype), "constructor", this).apply(this, arguments);
-	}
+	var tutorialIntro = "See for yourself - check out ripsaw's two live demos below:";
 
-	_createClass(_class5, [{
-		key: "render",
-		value: function render() {
-			return React.createElement(
-				"div",
-				{ className: "content__inner" },
-				React.createElement(
-					"div",
-					{ className: "row clearfix" },
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"p",
-							null,
-							"Everyone can design. Even if there appears to be an entry barrier sometimes."
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement("img", { className: "center", src: "assets/images/design-1.svg" })
-					)
-				),
-				React.createElement("div", { className: "content__separator" }),
-				React.createElement(
-					"div",
-					{ className: "row clearfix row-close" },
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement("img", { className: "center", src: "assets/images/design-2.svg" })
-					),
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"p",
-							null,
-							"There shouldn't be!"
-						),
-						React.createElement(
-							"p",
-							null,
-							"ripsaw.js is a lightweight JavaScript library that powers maker apps navigated easily by people without a design background. Design becomes a simple, intuitive and clean process, posing little compromise freedom of expression."
-						)
-					)
-				),
-				React.createElement("div", { className: "content__separator" }),
-				React.createElement(
-					"div",
-					{ className: "row clearfix row-close" },
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"p",
-							null,
-							"Could you imagine designing a freeform fork such as this one with only 15 minutes of 3d modeling experience?"
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement("img", { className: "center", src: "assets/images/fork3d.svg" })
-					)
-				),
-				React.createElement("div", { className: "content__separator" }),
-				React.createElement(
-					"div",
-					{ className: "row row-close clearfix" },
-					React.createElement(
-						"p",
-						{ className: "grid-12 center" },
-						"See for yourself - check out ripsaw's two live demos below:"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "row clearfix" },
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"p",
-							null,
-							"A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial."
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"a",
-							{ href: "ripsaw-yourk/index.html", target: "_blank" },
-							React.createElement("i", { className: "fa fa-play-circle-o fa-5x", "data-ch": "1" })
-						)
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "row clearfix" },
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"p",
-							null,
-							"Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's."
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "grid-6" },
-						React.createElement(
-							"a",
-							{ href: "http://ripsaw-demo.herokuapp.com", target: "_blank" },
-							React.createElement("i", { className: "fa fa-play-circle-o fa-5x", "data-ch": "1" })
-						)
-					)
-				),
-				React.createElement("div", { className: "content__separator" }),
-				React.createElement(
-					"div",
-					{ className: "row clearfix" },
-					React.createElement(
-						"p",
-						{ className: "grid-12 center" },
-						"Enjoy, browse around and check out the source on ",
-						React.createElement(
-							"a",
-							{ href: "https://github.com/pickled-plugins/ripsaw-demo", target: "_blank" },
-							"GitHub"
-						),
-						"."
-					)
-				)
-			);
+	var tutorialTexts = ["A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.", "Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's."];
+
+	Comp.Home = (function (_React$Component6) {
+		_inherits(_class5, _React$Component6);
+
+		function _class5(props) {
+			_classCallCheck(this, _class5);
+
+			_get(Object.getPrototypeOf(_class5.prototype), "constructor", this).call(this, props);
+			this.state = {
+				isModalActive: false
+			};
 		}
-	}]);
 
-	return _class5;
-})(React.Component);
+		_createClass(_class5, [{
+			key: "render",
+			value: function render() {
+				return React.createElement(
+					"div",
+					{ className: "content__inner" },
+					React.createElement(
+						"div",
+						{ className: "row clearfix" },
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement(
+								"p",
+								null,
+								text[0][0]
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement("img", { className: "center", src: "assets/images/design-1.svg" })
+						)
+					),
+					React.createElement("div", { className: "content__separator" }),
+					React.createElement(
+						"div",
+						{ className: "row clearfix row-close" },
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement("img", { className: "center", src: "assets/images/design-2.svg" })
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement(
+								"p",
+								null,
+								text[1][0]
+							),
+							React.createElement(
+								"p",
+								null,
+								text[1][1]
+							)
+						)
+					),
+					React.createElement("div", { className: "content__separator" }),
+					React.createElement(
+						"div",
+						{ className: "row clearfix row-close" },
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement(
+								"p",
+								null,
+								text[2][0]
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement("img", { className: "center", src: "assets/images/fork3d.svg" })
+						)
+					),
+					React.createElement("div", { className: "content__separator" }),
+					React.createElement(
+						"p",
+						{ className: "center", onClick: this.activateModal.bind(this) },
+						tutorialIntro
+					),
+					React.createElement(
+						"div",
+						{ className: "row clearfix" },
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								tutorialTexts[0]
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6" },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								tutorialTexts[1]
+							)
+						)
+					),
+					React.createElement("div", { className: "content__separator" }),
+					React.createElement(
+						"div",
+						{ className: "row clearfix" },
+						React.createElement(
+							"p",
+							{ className: "grid-12 center" },
+							"Enjoy, browse around and check out the source on ",
+							React.createElement(
+								"a",
+								{ href: "https://github.com/pickled-plugins/ripsaw-demo", target: "_blank" },
+								"GitHub"
+							),
+							"."
+						)
+					),
+					this.state.isModalActive ? this.renderModal() : null
+				);
+			}
+		}, {
+			key: "renderModal",
+			value: function renderModal() {
+				return React.createElement(
+					"div",
+					{ className: "modal", onClick: this.deactivateModal.bind(this) },
+					React.createElement("div", { className: "modal__content", id: "ripsaw", onClick: this.stopPropagation.bind(this) })
+				);
+			}
+		}, {
+			key: "componentDidUpdate",
+			value: function componentDidUpdate() {
+				if (this.state.isModalActive) {
+					this.launchApp();
+				}
+			}
+		}, {
+			key: "launchApp",
+			value: function launchApp() {
+				RIPSAW.containerID = 'ripsaw';
+				RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
+				RIPSAW.init();
+				RIPSAW.launch();
+			}
+		}, {
+			key: "stopPropagation",
+			value: function stopPropagation(e) {
+				e.stopPropagation();
+			}
+		}, {
+			key: "activateModal",
+			value: function activateModal() {
+				this.setState({ isModalActive: true });
+			}
+		}, {
+			key: "deactivateModal",
+			value: function deactivateModal() {
+				this.setState({ isModalActive: false });
+			}
+		}]);
+
+		return _class5;
+	})(React.Component);
+})();;
 
 (function () {
 	var _ReactRouter2 = ReactRouter;

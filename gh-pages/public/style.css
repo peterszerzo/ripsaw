@@ -344,26 +344,29 @@ a {
     color: #857da3; }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   margin-top: 45px; }
 
 h2 {
-  font-size: 1.3rem; }
+  font-size: 1.8rem; }
 
 h1, h2 {
   text-align: center;
   margin-left: auto;
   margin-right: auto; }
 
+h2 {
+  font-weight: normal;
+  opacity: 0.8; }
+
 h4 {
   margin-top: 35px; }
 
 p, ul {
-  font-size: 1.1rem; }
+  font-size: 1.2rem; }
 
 p {
-  margin-top: 10px;
-  margin-bottom: auto; }
+  margin: 5px auto; }
 
 ul {
   list-style-position: inside;
@@ -385,6 +388,17 @@ h1, h2, h3, h4, p {
 
 .invisible {
   visibility: hidden; }
+
+.highlighted {
+  background-color: #544d6d;
+  color: white;
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 30px; }
+  .highlighted:hover {
+    opacity: 1; }
 
 .grid-1 {
   width: 1%;
@@ -687,9 +701,15 @@ p.center {
 
 .header {
   font-family: 'Ubuntu Mono';
-  padding: 80px 0 50px 0; }
+  padding: 100px 0 50px 0; }
   .header__logo {
     width: 200px; }
+  .header__title {
+    font-size: 3rem;
+    margin: 20px 0 10px 0; }
+  .header__subtitle {
+    font-size: 1.2rem;
+    margin: 0; }
 
 .footer {
   padding: 80px 0 80px 0; }
@@ -722,42 +742,24 @@ p.center {
     margin: 100px auto;
     background-color: #d9d7e2; }
 
-.modal, .modaloverlay {
-  position: fixed; }
-
 .modal {
-  width: calc(100vw - 60px);
-  height: calc(100vh - 60px);
-  top: -30px;
-  left: 30px;
-  display: none;
-  z-index: 1848;
-  background-color: #3D384F; }
-
-.modal-overlay {
-  width: 100%;
-  height: 100%;
+  position: fixed;
   top: 0;
-  left: 0;
   bottom: 0;
+  left: 0;
   right: 0;
-  background-color: black;
-  visibility: none; }
-
-.modal-s-revealed {
-  opacity: 1;
-  display: block;
-  top: 30px;
-  left: 30px;
-  -webkit-transition: top 2s;
-  transition: top 2s; }
-
-.modal-s-revealed ~ .modal-overlay {
-  display: block;
-  opacity: 0.6; }
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px; }
+  .modal__content {
+    width: 100%;
+    height: 100%;
+    background-color: #3D384F;
+    border-radius: 6px; }
+    .modal__content canvas {
+      border-radius: 6px; }
 
 .nav {
-  margin: 80px auto auto auto;
+  margin: 60px auto auto auto;
   text-align: center; }
   .nav li {
     display: inline-block;
@@ -774,6 +776,7 @@ p.center {
     color: #857da3; }
 
 .nav__help {
+  line-height: 125%;
   width: 150px;
   position: static;
   margin: auto auto 20px auto;

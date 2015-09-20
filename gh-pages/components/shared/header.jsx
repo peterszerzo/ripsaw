@@ -16,8 +16,8 @@ Comp.Header = class extends React.Component {
 					<img className="center" src="assets/images/logo.svg" />
 				</div>
 
-				<h1 className="center">ripsaw.js</h1>
-				<h2 className="center">interactive product design in the browser</h2>
+				<h1 className="header__title center">ripsaw.js</h1>
+				<h2 className="header__subtitle center">interactive product design in the browser</h2>
 
 				<div className="nav">
 					{ this.renderHelp() }
