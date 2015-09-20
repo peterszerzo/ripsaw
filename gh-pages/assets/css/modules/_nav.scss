@@ -1,56 +1,43 @@
 .nav {
 
-	width: 584px;
 	margin: 80px auto auto auto;
+	text-align: center;
 
-	@media screen and (max-width: $breakpoint) {
-
-		width: 292px;
-
-	}
-
-	li {//
-
-		width: 90px;
+	li {
 		display: inline-block;
-		margin: 0 auto 25px auto;
+		margin: 15px;
 
 		i {
-
+			font-size: 35px;
+			@media screen and (min-width: 1000px) {
+				font-size: 50px;
+			}
 			text-align: center;
 			display: block;
 			margin: auto;
-
 		}
 
 	}
 
 	a.active i {
-
 		color: lighten($color-base, 30);
-
 	}
 
 }
 
-.jumper-hover-help {
+.nav__help {
 
 	width: 150px;
-	position: absolute;
-	margin: -40px auto 15px 202px; // 15px less left margin
+	position: static;
+
+	margin: auto auto 20px auto;
 	text-align: center;
+
 	padding: 5px 10px;
-	background-color: lighten($color-base, 40);
-	opacity: 0.3;
+	background-color: lighten($color-base, 20);
+	opacity: 0.4;
 	color: white;
-	-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+
 	border-radius: 5px;
-
-	@media screen and (max-width: $breakpoint) {
-
-		margin-left: 56px; // 15px less left margin
-
-	}
 
 }

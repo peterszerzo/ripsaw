@@ -17,7 +17,11 @@ gulp.task('pg-js-comp', () => {
 });
 
 gulp.task('pg-js-vendor', () => {
-	return gulp.src([ './bower_components/react/react.js', './bower_components/react-router/build/umd/ReactRouter.js' ])
+	return gulp.src([ 
+			'./bower_components/react/react.js', 
+			'./bower_components/react-router/build/umd/ReactRouter.js',
+			'./build/ripsaw.js'
+		])
 		.pipe(concat('vendor.js'))
 		.pipe(gulp.dest('./gh-pages/public/'));
 });

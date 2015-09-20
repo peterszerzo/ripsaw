@@ -1,12 +1,8 @@
 @import "variables";
 
-@import "base/normalize";
-@import "base/base";
-@import "base/type";
+@import "base/manifest";
 
 @import "grid";
 
 @import "custom";
-@import "modules/code";
-@import "modules/nav";
-@import "modules/modal";
+@import "modules/manifest";

@@ -93,23 +93,13 @@ $gutter-width: percentage($gutter-width-float);
 }
 
 .row {
-
-	margin: 80px auto auto auto;
-
-}
-
-.row div {
-
-	height: 100%;
-
+	margin: auto;
 }
 
 .center {
-
 	width: 100%;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-
 }

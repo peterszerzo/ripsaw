@@ -18,7 +18,7 @@ Comp.Tutorial.Part4 = class extends React.Component {
 					<div class="grid-6 row-close">
 
 						<p class="grid-12">Coming up soon in this tutorial series:</p>
-						<br>
+						<br />
 						<p class="grid-12">~ 3d demos</p>
 						<p class="grid-12">~ more and better design experiments</p>
 						<p class="grid-12">~ export to desktop 3d modeling software (Rhino, SketchUp) and 3d printers (MakerBot)</p>

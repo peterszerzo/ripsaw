@@ -11,8 +11,8 @@ Comp.Header = class extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="center" id="banner">
+			<div className='header'>
+				<div className='header__logo center'>
 					<img className="center" src="assets/images/logo.svg" />
 				</div>
 
@@ -28,9 +28,9 @@ Comp.Header = class extends React.Component {
 	}
 
 	renderHelp() {
-		var text = this.state.text;
-		if (!text) { return; }
-		return (<div className="jumper-hover-help">{ text }</div>);
+		var text = this.state.text,
+			cls = text ? 'nav__help' : 'nav__help invisible';
+		return (<div className={ cls }>{ text || 'a' }</div>);
 	}
 
 	changeText(text) {
@@ -63,7 +63,8 @@ var buttons = [
 	{
 		'name': 'Code',
 		'icon': 'github',
-		'url': 'code'
+		'url': 'https://github.com/pickled-plugins/ripsaw-js',
+		isOutsideLink: true
 	},
 	{
 		'name': 'Demo',

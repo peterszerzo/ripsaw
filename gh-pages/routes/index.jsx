@@ -11,9 +11,11 @@ class Layout extends React.Component {
 		return (
 			<div>
 				<Header />
-				<div className="separator"></div>
-				<RouteHandler />
-				<div className="separator"></div>
+				<div className='content'>
+					<div className="content__margin"></div>
+					<RouteHandler />
+					<div className="content__margin"></div>
+				</div>
 				<Footer />
 			</div>
 		);
@@ -25,9 +27,7 @@ var routes = (
 		<Route name='home' path='home' handler={Home} />
 		<Route name='code' path='code' handler={Code} />
 		<Route name='concept' path='concept' handler={Concept} />
-		<Route name='tutorial' path='tutorial' handler={Tutorial}>
-			<Route name='tutorial-page' path='tutorial/:no' handler={Tutorial} />
-		</Route>
+		<Route name='tutorial' path='tutorial' handler={Tutorial} />
 		<Route name='documentation' path='documentation' handler={Documentation} />
 		<Redirect from='/' to='home' />
 	</Route>

@@ -1,11 +1,14 @@
+(function() {
+
+
+
 Comp.Tutorial.Part1 = class extends React.Component {
 
 	render() {
 		var TutorialNav = Comp.TutorialNav;
 		return (
 			<div>
-				<TutorialNav />
-
+			
 				<div class="row clearfix">
 
 					<p class="grid-4 code-description">Setting up a basic ripsaw app is simple. Just include a div with a &#8217;ripsaw-app&#8217; id that will contain ripsaw&#8217;s dynamically generated canvas. All magic happens within.</p>
@@ -13,23 +16,7 @@ Comp.Tutorial.Part1 = class extends React.Component {
 					<div class="code grid-8">
 						<div class="code-filename">index.html</div>
 						<div class="code-content">
-							<pre>
-`
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-	&lt;title&gt;ripsaw example&lt;/title&gt;
-	&lt;link rel="stylesheet" type="text/css" href="style.css"&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-	&lt;div id="ripsaw-app"&gt;&lt;/div&gt;
-	&lt;script src="ripsaw-light.js"&gt;&lt;/script&gt;
-	&lt;script src="ripsaw-app.js"&gt;&lt;/script&gt;	
-&lt;/body&gt;
-&lt;/html&gt;
-`
-							</pre>
+							<pre>{ htmlCode }</pre>
 						</div>
 					</div>
 
@@ -42,21 +29,7 @@ Comp.Tutorial.Part1 = class extends React.Component {
 					<div class="code grid-8">
 						<div class="code-filename">ripsaw-app.js</div>
 						<div class="code-content">
-							<pre>
-				var geometry = RIPSAW.textAssets.shapeLibrary["fork"];
-
-				// set masterpiece
-				RIPSAW.masterPiece = new RIPSAW.Bezier2D(geometry);
-
-				// scale geometry into (-0.5, -0.5) - (+0.5, +0.5) rectangle
-				RIPSAW.masterPiece.normalize(); 
-
-				// create canvas and add mouse event listeners
-				RIPSAW.init();
-
-				// run application (setInterval)
-				RIPSAW.launch();
-							</pre>
+							<pre>{ jsCode }</pre>
 						</div>
 					</div>
 
@@ -69,18 +42,7 @@ Comp.Tutorial.Part1 = class extends React.Component {
 					<div class="code grid-8">
 						<div class="code-filename">style.css</div>
 						<div class="code-content">
-							<pre>
-`
-body { margin: 0; }
-
-#ripsaw-app {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-}
-`
-							</pre>
+							<pre>{cssCode}</pre>
 						</div>
 					</div>
 
@@ -97,3 +59,5 @@ body { margin: 0; }
 	}
 
 }
+
+}());

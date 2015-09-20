@@ -333,7 +333,8 @@ body {
   position: relative; }
 
 * {
-  font-family: "Ubuntu Mono"; }
+  font-family: 'Ubuntu Mono';
+  line-height: 175%; }
 
 a {
   text-decoration: none;
@@ -361,7 +362,6 @@ p, ul {
   font-size: 1.1rem; }
 
 p {
-  line-height: 150%;
   margin-top: 10px;
   margin-bottom: auto; }
 
@@ -379,6 +379,12 @@ img {
 
 h1, h2, h3, h4, p {
   color: #222; }
+
+.hidden {
+  display: none; }
+
+.invisible {
+  visibility: hidden; }
 
 .grid-1 {
   width: 1%;
@@ -611,10 +617,7 @@ h1, h2, h3, h4, p {
   zoom: 1; }
 
 .row {
-  margin: 80px auto auto auto; }
-
-.row div {
-  height: 100%; }
+  margin: auto; }
 
 .center {
   width: 100%;
@@ -623,36 +626,8 @@ h1, h2, h3, h4, p {
   margin-right: auto;
   text-align: center; }
 
-.separator {
-  display: block;
-  width: 90%;
-  height: 6px;
-  margin-left: 5%;
-  background-color: #d9d7e2;
-  border-radius: 3px;
-  margin-top: 80px;
-  margin-bottom: 40px; }
-  .separator:first-child {
-    margin-top: 40px;
-    margin-bottom: 80px; }
-
 .wrapper {
-  width: 90%;
-  padding: 0;
-  margin: 70px auto; }
-
-#banner {
-  width: 200px; }
-
-#footer {
-  width: 80px;
-  margin-bottom: 20px; }
-
-#credit {
-  display: block;
-  font-size: 1rem;
-  color: #222;
-  margin: auto auto 65px auto; }
+  width: 100%; }
 
 i {
   color: #3D384F;
@@ -670,9 +645,6 @@ i {
 
 #tut-nav {
   width: 160px; }
-
-[id*='-nav'] {
-  margin: 45px auto auto auto; }
 
 .active {
   color: #857da3; }
@@ -713,72 +685,42 @@ p.center {
     display: inline-block;
     margin: 10px auto; }
 
-.code {
-  display: block;
-  margin: auto;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  background-color: #3D384F;
-  color: white;
-  overflow: scroll; }
-  .code .code-filename {
-    background-color: #1a1822;
-    padding: 20px; }
-  .code .code-content {
-    background-color: #3D384F;
-    padding: 20px; }
-  @media screen and (max-width: 780px) {
-    .code {
-      margin-top: 20px;
-      width: 80%;
-      margin-left: 10%; } }
+.header {
+  font-family: 'Ubuntu Mono';
+  padding: 80px 0 50px 0; }
+  .header__logo {
+    width: 200px; }
 
-.code-description {
-  background-color: #d9d7e2;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  padding: 20px;
-  word-wrap: break-word; }
-  @media screen and (max-width: 780px) {
-    .code-description {
-      width: 100%;
-      margin: 0;
-      background-color: white; } }
+.footer {
+  padding: 80px 0 80px 0; }
+  .footer__logo {
+    width: 80px;
+    margin-bottom: 20px; }
+  .footer__credit {
+    display: block;
+    font-size: 1rem;
+    color: #222; }
 
-.nav {
-  width: 584px;
-  margin: 80px auto auto auto; }
-  @media screen and (max-width: 780px) {
-    .nav {
-      width: 292px; } }
-  .nav li {
-    width: 90px;
-    display: inline-block;
-    margin: 0 auto 25px auto; }
-    .nav li i {
-      text-align: center;
-      display: block;
-      margin: auto; }
-  .nav a.active i {
-    color: #857da3; }
-
-.jumper-hover-help {
-  width: 150px;
-  position: absolute;
-  margin: -40px auto 15px 202px;
-  text-align: center;
-  padding: 5px 10px;
-  background-color: #a19bb8;
-  opacity: 0.3;
-  color: white;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px; }
-  @media screen and (max-width: 780px) {
-    .jumper-hover-help {
-      margin-left: 56px; } }
+.content {
+  max-width: 1000px;
+  margin: auto; }
+  .content__margin {
+    height: 4px;
+    border-radius: 2px;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    background-color: #a19bb8; }
+  .content__inner {
+    padding: 90px 0; }
+  .content__separator {
+    height: 2px;
+    border-radius: 1px;
+    width: 50%;
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: #d9d7e2; }
 
 .modal, .modaloverlay {
   position: fixed; }
@@ -813,3 +755,80 @@ p.center {
 .modal-s-revealed ~ .modal-overlay {
   display: block;
   opacity: 0.6; }
+
+.nav {
+  margin: 80px auto auto auto;
+  text-align: center; }
+  .nav li {
+    display: inline-block;
+    margin: 15px; }
+    .nav li i {
+      font-size: 35px;
+      text-align: center;
+      display: block;
+      margin: auto; }
+      @media screen and (min-width: 1000px) {
+        .nav li i {
+          font-size: 50px; } }
+  .nav a.active i {
+    color: #857da3; }
+
+.nav__help {
+  width: 150px;
+  position: static;
+  margin: auto auto 20px auto;
+  text-align: center;
+  padding: 5px 10px;
+  background-color: #6b628b;
+  opacity: 0.4;
+  color: white;
+  border-radius: 5px; }
+
+.code {
+  display: block;
+  margin: 40px auto;
+  max-width: 600px;
+  border-radius: 5px;
+  background-color: #3D384F;
+  color: white;
+  overflow: scroll; }
+  .code pre {
+    margin: 0;
+    padding: 0; }
+  .code .code-filename {
+    background-color: #262331;
+    padding: 20px; }
+  .code .code-content {
+    background-color: #3d384f;
+    padding: 20px; }
+  @media screen and (max-width: 780px) {
+    .code {
+      margin-top: 20px;
+      width: 80%;
+      margin-left: 10%; } }
+
+.code-description {
+  background-color: #d9d7e2;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  padding: 20px;
+  word-wrap: break-word; }
+  @media screen and (max-width: 780px) {
+    .code-description {
+      width: 100%;
+      margin: 0;
+      background-color: white; } }
+
+.static {
+  display: block; }
+  .static > * {
+    max-width: 750px;
+    margin: 25px auto;
+    display: block;
+    text-align: left; }
+  .static li {
+    padding-left: 20px; }
+  .static img {
+    width: 500px;
+    margin: 60px auto; }

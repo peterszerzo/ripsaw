@@ -1,11 +1,13 @@
 .code {
 
-	display: block;
-	margin: auto;
+	pre { margin: 0; padding: 0; }
 
-	-webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-	border-radius: 15px;
+	display: block;
+	margin: 40px auto;
+
+	max-width: 600px;
+
+	border-radius: 5px;
 	
 	background-color: $color-base;
 	
@@ -14,17 +16,14 @@
 
 	.code-filename {
 
-		background-color: darken($color-base, 15);
+		background-color: darken($color-base, 10);
 		padding: 20px;
 
 	}
 
 	.code-content {
-
-		background-color: $color-base;
+		background-color: lighten($color-base, 0);
 		padding: 20px;
-		
-
 	}
 
 	@media screen and (max-width: $breakpoint) {

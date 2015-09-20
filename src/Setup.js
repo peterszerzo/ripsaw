@@ -23,14 +23,11 @@ RIPSAW.touchHandler = function(event) {
 
 /** Assigns touch handlers defined by RIPSAW.touchHandler. */
 RIPSAW.addTouchHandlers = function() {
-
     document.addEventListener("touchstart", this.touchHandler, true);
     document.addEventListener("touchmove", this.touchHandler, true);
     document.addEventListener("touchend", this.touchHandler, true);
     document.addEventListener("touchcancel", this.touchHandler, true);
-
     return this;
-
 };
 
 
@@ -209,10 +206,8 @@ RIPSAW.launch = function() {
     RIPSAW.resize();
 
     RIPSAW.draw = RIPSAW.draw || function() {
-
         RIPSAW.prepDraw();
         RIPSAW.masterPiece.draw();
-
     };
 
     setInterval(RIPSAW.draw, RIPSAW.refreshInterval);
@@ -224,9 +219,6 @@ RIPSAW.launch = function() {
 
 /** Tears down application by removing attached canvas element. */
 RIPSAW.tearDown = function() {
-
     this.canvas.parentNode.removeChild(this.canvas);
-
     return this;
-
 };
