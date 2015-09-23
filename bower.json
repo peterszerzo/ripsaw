@@ -1,0 +1,31 @@
+{
+  "name": "ripsaw-js",
+  "version": "0.0.1",
+  "homepage": "http://pickled-plugins.github.io/ripsaw-js",
+  "authors": [
+    "Peter Szerzo <szerzo.peter@gmail.com>"
+  ],
+  "description": "js library powering guided interactive product design applications in the browser",
+  "main": "build/ripsaw.js",
+  "keywords": [
+    "product",
+    "fabrication",
+    "design",
+    "CAD",
+    "interactive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "normalize.css#~3.0.3",
+    "react": "~0.13.3",
+    "react-router": "~0.13.3",
+    "toast": "~1.2.4"
+  }
+}

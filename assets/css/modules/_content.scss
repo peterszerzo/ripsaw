@@ -1,0 +1,33 @@
+.content {
+
+	max-width: 1000px;
+	margin: auto;
+
+	&__margin {
+		$h: 4px;
+		height: $h;
+		border-radius: $h/2;
+		display: block;
+		width: 80%;
+		max-width: 800px;
+		
+		margin: auto;
+
+		background-color: lighten($color-base, 40);		
+	}
+
+	&__inner {
+		padding: 90px 0;
+	}
+
+	&__separator {
+		$h: 2px;
+		height: $h;
+		border-radius: $h/2;
+		width: 50%;
+		max-width: 500px;
+		margin: 100px auto;
+		background-color: lighten($color-base, 60);
+	}
+
+}
