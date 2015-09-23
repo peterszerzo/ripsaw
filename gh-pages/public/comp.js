@@ -411,7 +411,43 @@ Comp.Documentation = (function (_React$Component5) {
 						{ className: "row clearfix" },
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, '2d-fork') },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								"A 2d Fork"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, '3d-fork') },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								"A 3d Fork"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, 'pantograph') },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								"A Pantograph"
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, 'voronoi') },
+							React.createElement(
+								"p",
+								{ className: "center highlighted" },
+								"A Voronoi Shape"
+							)
+						),
+						React.createElement(
+							"a",
+							{ href: "/public/ripsaw-yourk/index.html", className: "grid-6" },
 							React.createElement(
 								"p",
 								{ className: "center highlighted" },
@@ -419,8 +455,8 @@ Comp.Documentation = (function (_React$Component5) {
 							)
 						),
 						React.createElement(
-							"div",
-							{ className: "grid-6" },
+							"a",
+							{ href: "http://ripsaw-demo.herokuapp.com/", className: "grid-6" },
 							React.createElement(
 								"p",
 								{ className: "center highlighted" },
@@ -457,6 +493,11 @@ Comp.Documentation = (function (_React$Component5) {
 				);
 			}
 		}, {
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				RIPSAW.containerID = 'ripsaw';
+			}
+		}, {
 			key: "componentDidUpdate",
 			value: function componentDidUpdate() {
 				if (this.state.isModalActive) {
@@ -464,10 +505,29 @@ Comp.Documentation = (function (_React$Component5) {
 				}
 			}
 		}, {
+			key: "launchRipsawModal",
+			value: function launchRipsawModal(type) {
+				switch (type) {
+					case '2d-fork':
+						RIPSAW.masterPiece = new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize();
+						break;
+					case '3d-fork':
+						RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
+						break;
+					case 'voronoi':
+						RIPSAW.masterPiece = new RIPSAW.Voronoi().createIrregularGrid(5).normalize(0.5);
+						break;
+					case 'pantograph':
+						RIPSAW.masterPiece = new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize();
+						break;
+					default:
+						console.log('bad');
+				}
+				this.activateModal();
+			}
+		}, {
 			key: "launchApp",
 			value: function launchApp() {
-				RIPSAW.containerID = 'ripsaw';
-				RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
 				RIPSAW.init();
 				RIPSAW.launch();
 			}

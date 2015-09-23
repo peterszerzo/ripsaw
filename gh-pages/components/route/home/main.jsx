@@ -66,13 +66,29 @@ Comp.Home = class extends React.Component {
 
 				<div className="row clearfix">
 					
-					<div className="grid-6">
-						<p className='center highlighted'>{ tutorialTexts[0] }</p>
+					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, '2d-fork')}>
+						<p className='center highlighted'>A 2d Fork</p>
 					</div>
 
-					<div className='grid-6'>
-						<p className='center highlighted'>{ tutorialTexts[1] }</p>
+					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, '3d-fork')}>
+						<p className='center highlighted'>A 3d Fork</p>
 					</div>
+
+					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, 'pantograph')}>
+						<p className='center highlighted'>A Pantograph</p>
+					</div>
+
+					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, 'voronoi')}>
+						<p className='center highlighted'>A Voronoi Shape</p>
+					</div>
+
+					<a href="/public/ripsaw-yourk/index.html" className="grid-6">
+						<p className='center highlighted'>{ tutorialTexts[0] }</p>
+					</a>
+
+					<a href="http://ripsaw-demo.herokuapp.com/" className='grid-6'>
+						<p className='center highlighted'>{ tutorialTexts[1] }</p>
+					</a>
 					
 				</div>
 
@@ -100,15 +116,37 @@ Comp.Home = class extends React.Component {
 		);
 	}
 
+	componentDidMount() {
+		RIPSAW.containerID = 'ripsaw';
+	}
+
 	componentDidUpdate() {
 		if (this.state.isModalActive) {
 			this.launchApp();
 		}
 	}
 
+	launchRipsawModal(type) {
+		switch (type) {
+			case '2d-fork':
+				RIPSAW.masterPiece = new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize();
+				break;
+			case '3d-fork':
+				RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
+				break;
+			case 'voronoi':
+				RIPSAW.masterPiece = new RIPSAW.Voronoi().createIrregularGrid(5).normalize(0.5);
+				break;
+			case 'pantograph':
+				RIPSAW.masterPiece = new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize();
+				break;
+			default:
+				console.log('bad');
+		}
+		this.activateModal();
+	}
+
 	launchApp() {
-		RIPSAW.containerID = 'ripsaw';
-		RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
 		RIPSAW.init();
 		RIPSAW.launch();
 	}
