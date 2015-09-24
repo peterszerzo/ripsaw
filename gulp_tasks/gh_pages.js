@@ -9,14 +9,14 @@ import ghPages from 'gulp-gh-pages';
 
 gulp.task('pg-js-comp', () => {
 	return gulp.src([ 
-			'./dist/components/init.jsx', 
-			'./dist/components/shared/**/*.jsx',
-			'./dist/components/route/**/*.jsx',
-			'./dist/routes/index.jsx'
+			'./gh-pages/components/init.jsx', 
+			'./gh-pages/components/shared/**/*.jsx',
+			'./gh-pages/components/route/**/*.jsx',
+			'./gh-pages/routes/index.jsx'
 		])
 		.pipe(concat('_comp.js', { newLine: ';\n\n' }))
 		.pipe(babel())
-		.pipe(gulp.dest('./dist/public/scripts'));
+		.pipe(gulp.dest('./gh-pages/public/scripts'));
 });
 
 gulp.task('pg-js-vendor', () => {
@@ -26,31 +26,31 @@ gulp.task('pg-js-vendor', () => {
 			'./build/ripsaw.js'
 		])
 		.pipe(concat('_vendor.js'))
-		.pipe(gulp.dest('./dist/public/scripts'));
+		.pipe(gulp.dest('./gh-pages/public/scripts'));
 });
 
 gulp.task('pg-js', [ 'pg-js-vendor', 'pg-js-comp' ], () => {
 	return gulp.src([
-		'./dist/public/scripts/_vendor.js',
-		'./dist/public/scripts/_comp.js'
+		'./gh-pages/public/scripts/_vendor.js',
+		'./gh-pages/public/scripts/_comp.js'
 	]).pipe(concat('site.js'))
 		.pipe(util.env.production ? uglify() : util.noop())
-		.pipe(gulp.dest('./dist/public/scripts'));
+		.pipe(gulp.dest('./gh-pages/public/scripts'));
 });
 
 gulp.task('pg-css', () => {
-	return gulp.src('./dist/assets/styles/site.scss')
+	return gulp.src('./gh-pages/assets/styles/site.scss')
 		.pipe(sass('site.css'))
-		.pipe(gulp.dest('./dist/public/styles'));
+		.pipe(gulp.dest('./gh-pages/public/styles'));
 });
 
 gulp.task('pg', [ 'pg-css', 'pg-js' ]);
 
 gulp.task('pg-dev', () => {
-	return gulp.watch('./dist/**/*', [ 'pg' ]);
+	return gulp.watch('./gh-pages/**/*', [ 'pg' ]);
 });
 
 gulp.task('pg-deploy', () => {
-	return gulp.src(['./dist/index.html', './dist/public/**/*'])
+	return gulp.src(['./gh-pages/index.html', './gh-pages/public/**/*'])
 		.pipe(ghPages());
 });
