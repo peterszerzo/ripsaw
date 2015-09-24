@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -329,6 +330,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box; }
+
 body {
   position: relative; }
 
@@ -338,10 +343,15 @@ body {
 
 a {
   text-decoration: none;
-  color: #3D384F;
-  font-weight: bold; }
+  color: #6b628b;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #6b628b; }
   a:hover {
-    color: #857da3; }
+    color: #a19bb8;
+    border-bottom: 1px solid #a19bb8; }
+
+h1, h2, h3, h4, h5, p, a {
+  font-weight: normal; }
 
 h1 {
   font-size: 2.4rem;
@@ -394,251 +404,249 @@ h1, h2, h3, h4, p {
   color: white;
   opacity: 0.8;
   cursor: pointer;
-  padding: 20px;
   border-radius: 6px;
   margin-top: 30px; }
   .highlighted:hover {
     opacity: 1; }
 
-.grid-1 {
-  width: 1%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-1 {
-      width: 100%;
-      margin-left: auto; } }
+/*-----------------------------------*
+  $TOAST-GRID
 
-.grid-2 {
-  width: 8.76923%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-2 {
-      width: 100%;
-      margin-left: auto; } }
+  An insane grid.
+  You'd be mad to use it.
 
-.grid-3 {
-  width: 16.53846%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-3 {
-      width: 100%;
-      margin-left: auto; } }
+  Usage
+  =====
 
-.grid-4 {
-  width: 24.30769%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-4 {
-      width: 100%;
-      margin-left: auto; } }
+  Assuming default values:
 
-.grid-5 {
-  width: 32.07692%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-5 {
-      width: 100%;
-      margin-left: auto; } }
+  <div class="grid">
+    <div class="grid__col grid__col--1-of-2">
+      A half-width column.
+    </div>
+    <div class="grid__col grid__col--1-of-4 grid__col--pull-1-of-4">
+      A quarter, pulled left by its own width. You get this, right?
+    </div>
+  </div>
 
-.grid-6 {
-  width: 39.84615%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-6 {
-      width: 100%;
-      margin-left: auto; } }
 
-.grid-7 {
-  width: 47.61538%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-7 {
-      width: 100%;
-      margin-left: auto; } }
+  Customisation
+  =============
 
-.grid-8 {
-  width: 55.38462%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-8 {
-      width: 100%;
-      margin-left: auto; } }
+  $grid-namespace and $grid-column-namespace
+  adjusts the class names for the grid. With
+  default values, grid wrappers have a class
+  of '.grid' and columns '.grid__col'.
 
-.grid-9 {
-  width: 63.15385%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-9 {
-      width: 100%;
-      margin-left: auto; } }
+  $col-groups(n) adjusts column divisions.
+  For example, $col-groups(12) will produce
+  a 12-column grid. $col-groups(3,6,8)
+  will produce a 3-, 6-, and 8-column grid.
 
-.grid-10 {
-  width: 70.92308%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-10 {
-      width: 100%;
-      margin-left: auto; } }
+  $gutter-width is—you guessed it—the gutter
+  width. Accepts any unit.
 
-.grid-11 {
-  width: 78.69231%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-11 {
-      width: 100%;
-      margin-left: auto; } }
+  That's it. Have fun.
 
-.grid-12 {
-  width: 86.46154%;
-  margin-left: 6.76923%;
-  float: left;
-  display: block; }
-  @media screen and (max-width: 780px) {
-    .grid-12 {
-      width: 100%;
-      margin-left: auto; } }
-
-.grid-offset-1 {
-  margin-left: 14.53846%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-1 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-2 {
-  margin-left: 22.30769%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-2 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-3 {
-  margin-left: 30.07692%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-3 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-4 {
-  margin-left: 37.84615%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-4 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-5 {
-  margin-left: 45.61538%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-5 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-6 {
-  margin-left: 53.38462%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-6 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-7 {
-  margin-left: 61.15385%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-7 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-8 {
-  margin-left: 68.92308%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-8 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-9 {
-  margin-left: 76.69231%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-9 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-10 {
-  margin-left: 84.46154%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-10 {
-      width: 100%;
-      margin-left: 0; } }
-
-.grid-offset-11 {
-  margin-left: 92.23077%; }
-  @media screen and (max-width: 780px) {
-    .grid-offset-11 {
-      width: 100%;
-      margin-left: 0; } }
-
-.alpha {
-  margin-left: 0;
-  float: left; }
-
-.omega {
-  margin-right: 0;
-  float: right; }
-
-.clear {
-  clear: both;
-  display: block;
-  overflow: hidden;
-  visibility: hidden;
-  width: 0;
-  height: 0; }
-
-.clearfix:after {
-  clear: both;
-  content: ' ';
-  display: block;
-  font-size: 0;
-  line-height: 0;
-  visibility: hidden;
-  width: 0;
-  height: 0; }
-
-@media screen and (max-width: 780px) {
-  .hide-small {
-    display: none; } }
-
-* html .clearfix, *:first-child + html .clearfix {
-  zoom: 1; }
-
-.row {
-  margin: auto; }
-
-.center {
-  width: 100%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center; }
+\*-----------------------------------*/
+.grid {
+  list-style: none;
+  margin-left: -20px; }
+  .grid > .grid__col--2-of-2, .grid > .grid__col--3-of-3, .grid > .grid__col--4-of-4, .grid > .grid__col--5-of-5, .grid > .grid__col--6-of-6, .grid > .grid__col--8-of-8, .grid > .grid__col--12-of-12 {
+    width: 100%; }
+  .grid > .grid__col--1-of-2, .grid > .grid__col--2-of-4, .grid > .grid__col--3-of-6, .grid > .grid__col--4-of-8, .grid > .grid__col--6-of-12 {
+    width: 50%; }
+  .grid > .grid__col--1-of-3, .grid > .grid__col--2-of-6, .grid > .grid__col--4-of-12 {
+    width: 33.33333%; }
+  .grid > .grid__col--2-of-3, .grid > .grid__col--4-of-6, .grid > .grid__col--8-of-12 {
+    width: 66.66667%; }
+  .grid > .grid__col--1-of-4, .grid > .grid__col--2-of-8, .grid > .grid__col--3-of-12 {
+    width: 25%; }
+  .grid > .grid__col--3-of-4, .grid > .grid__col--6-of-8, .grid > .grid__col--9-of-12 {
+    width: 75%; }
+  .grid > .grid__col--push-2-of-2, .grid > .grid__col--push-3-of-3, .grid > .grid__col--push-4-of-4, .grid > .grid__col--push-5-of-5, .grid > .grid__col--push-6-of-6, .grid > .grid__col--push-8-of-8, .grid > .grid__col--push-12-of-12 {
+    margin-left: 100%; }
+  .grid > .grid__col--push-1-of-2, .grid > .grid__col--push-2-of-4, .grid > .grid__col--push-3-of-6, .grid > .grid__col--push-4-of-8, .grid > .grid__col--push-6-of-12 {
+    margin-left: 50%; }
+  .grid > .grid__col--push-1-of-3, .grid > .grid__col--push-2-of-6, .grid > .grid__col--push-4-of-12 {
+    margin-left: 33.33333%; }
+  .grid > .grid__col--push-2-of-3, .grid > .grid__col--push-4-of-6, .grid > .grid__col--push-8-of-12 {
+    margin-left: 66.66667%; }
+  .grid > .grid__col--push-1-of-4, .grid > .grid__col--push-2-of-8, .grid > .grid__col--push-3-of-12 {
+    margin-left: 25%; }
+  .grid > .grid__col--push-3-of-4, .grid > .grid__col--push-6-of-8, .grid > .grid__col--push-9-of-12 {
+    margin-left: 75%; }
+  .grid > .grid__col--pull-2-of-2, .grid > .grid__col--pull-3-of-3, .grid > .grid__col--pull-4-of-4, .grid > .grid__col--pull-5-of-5, .grid > .grid__col--pull-6-of-6, .grid > .grid__col--pull-8-of-8, .grid > .grid__col--pull-12-of-12 {
+    margin-left: -100%; }
+  .grid > .grid__col--pull-1-of-2, .grid > .grid__col--pull-2-of-4, .grid > .grid__col--pull-3-of-6, .grid > .grid__col--pull-4-of-8, .grid > .grid__col--pull-6-of-12 {
+    margin-left: -50%; }
+  .grid > .grid__col--pull-1-of-3, .grid > .grid__col--pull-2-of-6, .grid > .grid__col--pull-4-of-12 {
+    margin-left: -33.33333%; }
+  .grid > .grid__col--pull-2-of-3, .grid > .grid__col--pull-4-of-6, .grid > .grid__col--pull-8-of-12 {
+    margin-left: -66.66667%; }
+  .grid > .grid__col--pull-1-of-4, .grid > .grid__col--pull-2-of-8, .grid > .grid__col--pull-3-of-12 {
+    margin-left: -25%; }
+  .grid > .grid__col--pull-3-of-4, .grid > .grid__col--pull-6-of-8, .grid > .grid__col--pull-9-of-12 {
+    margin-left: -75%; }
+  .grid > .grid__col--1-of-5 {
+    width: 20%; }
+  .grid > .grid__col--push-1-of-5 {
+    margin-left: 20%; }
+  .grid > .grid__col--pull-1-of-5 {
+    margin-left: -20%; }
+  .grid > .grid__col--2-of-5 {
+    width: 40%; }
+  .grid > .grid__col--push-2-of-5 {
+    margin-left: 40%; }
+  .grid > .grid__col--pull-2-of-5 {
+    margin-left: -40%; }
+  .grid > .grid__col--3-of-5 {
+    width: 60%; }
+  .grid > .grid__col--push-3-of-5 {
+    margin-left: 60%; }
+  .grid > .grid__col--pull-3-of-5 {
+    margin-left: -60%; }
+  .grid > .grid__col--4-of-5 {
+    width: 80%; }
+  .grid > .grid__col--push-4-of-5 {
+    margin-left: 80%; }
+  .grid > .grid__col--pull-4-of-5 {
+    margin-left: -80%; }
+  .grid > .grid__col--1-of-6 {
+    width: 16.66667%; }
+  .grid > .grid__col--push-1-of-6 {
+    margin-left: 16.66667%; }
+  .grid > .grid__col--pull-1-of-6 {
+    margin-left: -16.66667%; }
+  .grid > .grid__col--5-of-6 {
+    width: 83.33333%; }
+  .grid > .grid__col--push-5-of-6 {
+    margin-left: 83.33333%; }
+  .grid > .grid__col--pull-5-of-6 {
+    margin-left: -83.33333%; }
+  .grid > .grid__col--1-of-8 {
+    width: 12.5%; }
+  .grid > .grid__col--push-1-of-8 {
+    margin-left: 12.5%; }
+  .grid > .grid__col--pull-1-of-8 {
+    margin-left: -12.5%; }
+  .grid > .grid__col--3-of-8 {
+    width: 37.5%; }
+  .grid > .grid__col--push-3-of-8 {
+    margin-left: 37.5%; }
+  .grid > .grid__col--pull-3-of-8 {
+    margin-left: -37.5%; }
+  .grid > .grid__col--5-of-8 {
+    width: 62.5%; }
+  .grid > .grid__col--push-5-of-8 {
+    margin-left: 62.5%; }
+  .grid > .grid__col--pull-5-of-8 {
+    margin-left: -62.5%; }
+  .grid > .grid__col--7-of-8 {
+    width: 87.5%; }
+  .grid > .grid__col--push-7-of-8 {
+    margin-left: 87.5%; }
+  .grid > .grid__col--pull-7-of-8 {
+    margin-left: -87.5%; }
+  .grid > .grid__col--1-of-12 {
+    width: 8.33333%; }
+  .grid > .grid__col--push-1-of-12 {
+    margin-left: 8.33333%; }
+  .grid > .grid__col--pull-1-of-12 {
+    margin-left: -8.33333%; }
+  .grid > .grid__col--2-of-12 {
+    width: 16.66667%; }
+  .grid > .grid__col--push-2-of-12 {
+    margin-left: 16.66667%; }
+  .grid > .grid__col--pull-2-of-12 {
+    margin-left: -16.66667%; }
+  .grid > .grid__col--5-of-12 {
+    width: 41.66667%; }
+  .grid > .grid__col--push-5-of-12 {
+    margin-left: 41.66667%; }
+  .grid > .grid__col--pull-5-of-12 {
+    margin-left: -41.66667%; }
+  .grid > .grid__col--7-of-12 {
+    width: 58.33333%; }
+  .grid > .grid__col--push-7-of-12 {
+    margin-left: 58.33333%; }
+  .grid > .grid__col--pull-7-of-12 {
+    margin-left: -58.33333%; }
+  .grid > .grid__col--10-of-12 {
+    width: 83.33333%; }
+  .grid > .grid__col--push-10-of-12 {
+    margin-left: 83.33333%; }
+  .grid > .grid__col--pull-10-of-12 {
+    margin-left: -83.33333%; }
+  .grid > .grid__col--11-of-12 {
+    width: 91.66667%; }
+  .grid > .grid__col--push-11-of-12 {
+    margin-left: 91.66667%; }
+  .grid > .grid__col--pull-11-of-12 {
+    margin-left: -91.66667%; }
+  .grid .grid__col {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-right: -.25em;
+    min-height: 1px;
+    padding-left: 20px;
+    vertical-align: top; }
+    @media (max-width: 700px) {
+      .grid .grid__col {
+        display: block;
+        margin-left: 0;
+        margin-right: 0;
+        width: auto; } }
+    @media (max-width: 700px) and (min-width: 480px) {
+      .grid .grid__col[class*="grid__col--m-"] {
+        display: inline-block;
+        margin-right: -.24em; }
+      .grid .grid__col.grid__col--m-1-of-2, .grid .grid__col.grid__col--m-2-of-4 {
+        width: 50%; }
+      .grid .grid__col.grid__col--m-1-of-3 {
+        width: 33.33333%; }
+      .grid .grid__col.grid__col--m-2-of-3 {
+        width: 66.66667%; }
+      .grid .grid__col.grid__col--m-1-of-4 {
+        width: 25%; }
+      .grid .grid__col.grid__col--m-3-of-4 {
+        width: 75%; } }
+    @media (max-width: 480px) {
+      .grid .grid__col[class*="grid__col--s-"] {
+        display: inline-block;
+        margin-right: -.24em; }
+      .grid .grid__col.grid__col--s-1-of-2, .grid .grid__col.grid__col--s-2-of-4 {
+        width: 50%; }
+      .grid .grid__col.grid__col--s-1-of-3 {
+        width: 33.33333%; }
+      .grid .grid__col.grid__col--s-2-of-3 {
+        width: 66.66667%; }
+      .grid .grid__col.grid__col--s-1-of-4 {
+        width: 25%; }
+      .grid .grid__col.grid__col--s-3-of-4 {
+        width: 75%; } }
+  .grid .grid__col--centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; }
+  .grid .grid__col--d-first {
+    float: left; }
+  .grid .grid__col--d-last {
+    float: right; }
+  .grid.grid--no-gutter {
+    margin-left: 0;
+    width: 100%; }
+    .grid.grid--no-gutter > * {
+      padding-left: 0; }
+    .grid.grid--no-gutter .grid__col--span-all {
+      margin-left: 0;
+      width: 100%; }
+  .grid .grid__col--ab {
+    vertical-align: bottom; }
+  .grid .grid__col--am {
+    vertical-align: middle; }
 
 .wrapper {
   width: 100%; }
@@ -650,25 +658,9 @@ i {
   border: 0; }
   i:hover {
     color: #857da3; }
-  .icon-group i {
-    color: inherit; }
-
-@media screen and (max-width: 780px) {
-  .demo:nth-child(2) {
-    margin-top: 40px; } }
-
-#tut-nav {
-  width: 160px; }
 
 .active {
   color: #857da3; }
-
-p.center {
-  width: 100%; }
-  @media screen and (max-width: 780px) {
-    p.center {
-      width: 90%;
-      margin-left: 5%; } }
 
 .section {
   margin: 20px auto; }
@@ -693,17 +685,14 @@ p.center {
   .icon-group:hover {
     color: #857da3; }
 
-.img {
-  margin: 30px auto; }
-  .img img {
-    display: inline-block;
-    margin: 10px auto; }
-
 .header {
   font-family: 'Ubuntu Mono';
   padding: 100px 0 50px 0; }
   .header__logo {
-    width: 200px; }
+    height: 200px;
+    text-align: center; }
+    .header__logo img {
+      height: 100%; }
   .header__title {
     font-size: 3rem;
     margin: 20px 0 10px 0; }
@@ -713,27 +702,33 @@ p.center {
 
 .footer {
   padding: 80px 0 80px 0; }
+  .footer__logo, .footer__credit {
+    text-align: center; }
   .footer__logo {
-    width: 80px;
+    height: 80px;
     margin-bottom: 20px; }
+    .footer__logo img {
+      height: 100%;
+      display: inline-block; }
   .footer__credit {
     display: block;
     font-size: 1rem;
     color: #222; }
 
 .content {
-  max-width: 1000px;
+  max-width: 800px;
   margin: auto; }
   .content__margin {
     height: 4px;
     border-radius: 2px;
     display: block;
-    width: 80%;
-    max-width: 800px;
-    margin: auto;
+    margin: 0 25px;
     background-color: #a19bb8; }
   .content__inner {
-    padding: 90px 0; }
+    padding: 90px 25px; }
+    .content__inner .grid__col > img {
+      display: block;
+      margin: auto; }
   .content__separator {
     height: 2px;
     border-radius: 1px;
@@ -835,3 +830,17 @@ p.center {
   .static img {
     width: 500px;
     margin: 60px auto; }
+
+.demo-link {
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #544d6d;
+  opacity: 0.8;
+  cursor: pointer;
+  border-radius: 6px; }
+  .demo-link:hover {
+    opacity: 1; }
+  .demo-link p, .demo-link a {
+    color: white;
+    text-align: center; }
