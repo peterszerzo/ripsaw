@@ -3,17 +3,20 @@ import concat from 'gulp-concat';
 import babel from 'gulp-babel';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
+import uglify from 'gulp-uglify';
+import util from 'gulp-util';
+import ghPages from 'gulp-gh-pages';
 
 gulp.task('pg-js-comp', () => {
 	return gulp.src([ 
-			'./gh-pages/components/init.jsx', 
-			'./gh-pages/components/shared/**/*.jsx',
-			'./gh-pages/components/route/**/*.jsx',
-			'./gh-pages/routes/index.jsx'
+			'./dist/components/init.jsx', 
+			'./dist/components/shared/**/*.jsx',
+			'./dist/components/route/**/*.jsx',
+			'./dist/routes/index.jsx'
 		])
-		.pipe(concat('comp.js', { newLine: ';\n\n' }))
+		.pipe(concat('_comp.js', { newLine: ';\n\n' }))
 		.pipe(babel())
-		.pipe(gulp.dest('./gh-pages/public/'));
+		.pipe(gulp.dest('./dist/public/scripts'));
 });
 
 gulp.task('pg-js-vendor', () => {
@@ -22,18 +25,32 @@ gulp.task('pg-js-vendor', () => {
 			'./bower_components/react-router/build/umd/ReactRouter.js',
 			'./build/ripsaw.js'
 		])
-		.pipe(concat('vendor.js'))
-		.pipe(gulp.dest('./gh-pages/public/'));
+		.pipe(concat('_vendor.js'))
+		.pipe(gulp.dest('./dist/public/scripts'));
+});
+
+gulp.task('pg-js', [ 'pg-js-vendor', 'pg-js-comp' ], () => {
+	return gulp.src([
+		'./dist/public/scripts/_vendor.js',
+		'./dist/public/scripts/_comp.js'
+	]).pipe(concat('site.js'))
+		.pipe(util.env.production ? uglify() : util.noop())
+		.pipe(gulp.dest('./dist/public/scripts'));
 });
 
 gulp.task('pg-css', () => {
-	return gulp.src('./gh-pages/assets/css/style.scss')
-		.pipe(sass('style.css'))
-		.pipe(gulp.dest('./gh-pages/public/'));
+	return gulp.src('./dist/assets/styles/site.scss')
+		.pipe(sass('site.css'))
+		.pipe(gulp.dest('./dist/public/styles'));
 });
 
-gulp.task('pg', [ 'pg-css', 'pg-js-comp', 'pg-js-vendor' ]);
+gulp.task('pg', [ 'pg-css', 'pg-js' ]);
 
 gulp.task('pg-dev', () => {
-	return gulp.watch('./gh-pages/**/*', [ 'pg' ]);
+	return gulp.watch('./dist/**/*', [ 'pg' ]);
+});
+
+gulp.task('pg-deploy', () => {
+	return gulp.src(['./dist/index.html', './dist/public/**/*'])
+		.pipe(ghPages());
 });

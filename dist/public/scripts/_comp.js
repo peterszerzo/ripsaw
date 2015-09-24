@@ -192,7 +192,7 @@ Comp.Footer = (function (_React$Component) {
 
 ;
 
-Comp.Documentation = (function (_React$Component4) {
+Comp.Concept = (function (_React$Component4) {
 	_inherits(_class3, _React$Component4);
 
 	function _class3() {
@@ -202,53 +202,6 @@ Comp.Documentation = (function (_React$Component4) {
 	}
 
 	_createClass(_class3, [{
-		key: "render",
-		value: function render() {
-			return React.createElement(
-				"div",
-				{ className: "content__inner" },
-				React.createElement(
-					"div",
-					{ className: "static" },
-					React.createElement(
-						"p",
-						null,
-						"Browse the ",
-						React.createElement(
-							"a",
-							{ href: "doc/RIPSAW.html", target: "_blank" },
-							"API documentation"
-						),
-						" to explore other ways of customizing maker apps powered by ripsaw.js."
-					),
-					React.createElement(
-						"p",
-						null,
-						"ripsaw's consistent API allows developers to create extensions with new interactive geometries. All you need to do is create a constructor that inherits from RIPSAW.MasterPiece and provides the same core methods as RIPSAW.Bezier2D - the sample constructor featured in this demo."
-					),
-					React.createElement(
-						"p",
-						null,
-						"This website will soon feature a developers' tutorial demonstrating how to create a ripsaw extension that allows users to design a rectangle interactively."
-					)
-				)
-			);
-		}
-	}]);
-
-	return _class3;
-})(React.Component);
-
-Comp.Concept = (function (_React$Component5) {
-	_inherits(_class4, _React$Component5);
-
-	function _class4() {
-		_classCallCheck(this, _class4);
-
-		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).apply(this, arguments);
-	}
-
-	_createClass(_class4, [{
 		key: "render",
 		value: function render() {
 			return React.createElement(
@@ -299,6 +252,53 @@ Comp.Concept = (function (_React$Component5) {
 						"p",
 						null,
 						"The mathematical concept (in this case, a city Voronoi diagram) does the hard work of generating the shape, keeping the user's focus on usability and aesthetics."
+					)
+				)
+			);
+		}
+	}]);
+
+	return _class3;
+})(React.Component);
+
+Comp.Documentation = (function (_React$Component5) {
+	_inherits(_class4, _React$Component5);
+
+	function _class4() {
+		_classCallCheck(this, _class4);
+
+		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).apply(this, arguments);
+	}
+
+	_createClass(_class4, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"div",
+				{ className: "content__inner" },
+				React.createElement(
+					"div",
+					{ className: "static" },
+					React.createElement(
+						"p",
+						null,
+						"Browse the ",
+						React.createElement(
+							"a",
+							{ href: "doc/RIPSAW.html", target: "_blank" },
+							"API documentation"
+						),
+						" to explore other ways of customizing maker apps powered by ripsaw.js."
+					),
+					React.createElement(
+						"p",
+						null,
+						"ripsaw's consistent API allows developers to create extensions with new interactive geometries. All you need to do is create a constructor that inherits from RIPSAW.MasterPiece and provides the same core methods as RIPSAW.Bezier2D - the sample constructor featured in this demo."
+					),
+					React.createElement(
+						"p",
+						null,
+						"This website will soon feature a developers' tutorial demonstrating how to create a ripsaw extension that allows users to design a rectangle interactively."
 					)
 				)
 			);
