@@ -20,6 +20,33 @@ var tutorialTexts = [
 	"Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's."
 ];
 
+var demos = [
+	{
+		title: '2d Fork',
+		type: '2d-fork'
+	},
+	{
+		title: '3d Fork',
+		type: '3d-fork'
+	},
+	{
+		title: 'Pantograph',
+		type: 'pantograph'
+	},
+	{
+		title: 'Voronoi',
+		type: 'voronoi'
+	},
+	{
+		title: 'A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.',
+		type: '/public/ripsaw-yourk/index.html'
+	},
+	{
+		title: "Proof of concept and UX testing environment for a social platform for product design. Create, share and save creations, and view everybody else's.",
+		type: 'http://ripsaw-demo.herokuapp.com/'
+	}
+];
+
 
 Comp.Home = class extends React.Component {
 
@@ -34,18 +61,22 @@ Comp.Home = class extends React.Component {
 		return (
 			<div className='content__inner'>
 
-				<div className="row clearfix">
-					<div className="grid-6">
+				<div className="grid">
+					<div className="grid__col grid__col--1-of-2">
 						<p>{text[0][0]}</p>
 					</div>
-					<div className="grid-6"><img className="center" src="assets/images/design-1.svg" /></div>
+					<div className="grid__col grid__col--1-of-2">
+						<img className="center" src="assets/images/design-1.svg" />
+					</div>
 				</div>
 
 				<div className='content__separator' />
 
-				<div className="row clearfix row-close">
-					<div className="grid-6"><img className="center" src="assets/images/design-2.svg" /></div>
-					<div className="grid-6">
+				<div className="grid">
+					<div className="grid__col grid__col--1-of-2">
+						<img className="center" src="assets/images/design-2.svg" />
+					</div>
+					<div className="grid__col grid__col--1-of-2">
 						<p>{text[1][0]}</p>
 						<p>{text[1][1]}</p>
 					</div>
@@ -53,49 +84,29 @@ Comp.Home = class extends React.Component {
 
 				<div className='content__separator' />
 
-				<div className="row clearfix row-close">
-					<div className="grid-6">
+				<div className="grid">
+					<div className="grid__col grid__col--1-of-2">
 						<p>{text[2][0]}</p>
 					</div>
-					<div className="grid-6"><img className="center" src="assets/images/fork3d.svg" /></div>
+					<div className="grid__col grid__col--1-of-2">
+						<img className="center" src="assets/images/fork3d.svg" />
+					</div>
 				</div>
 
 				<div className='content__separator' />
 
 				<p className='center' onClick={this.activateModal.bind(this)}>{ tutorialIntro }</p>
 
-				<div className="row clearfix">
+				<div className="grid">
 					
-					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, '2d-fork')}>
-						<p className='center highlighted'>A 2d Fork</p>
-					</div>
-
-					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, '3d-fork')}>
-						<p className='center highlighted'>A 3d Fork</p>
-					</div>
-
-					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, 'pantograph')}>
-						<p className='center highlighted'>A Pantograph</p>
-					</div>
-
-					<div className="grid-6" onClick={this.launchRipsawModal.bind(this, 'voronoi')}>
-						<p className='center highlighted'>A Voronoi Shape</p>
-					</div>
-
-					<a href="/public/ripsaw-yourk/index.html" className="grid-6">
-						<p className='center highlighted'>{ tutorialTexts[0] }</p>
-					</a>
-
-					<a href="http://ripsaw-demo.herokuapp.com/" className='grid-6'>
-						<p className='center highlighted'>{ tutorialTexts[1] }</p>
-					</a>
+					{ this.renderDemos() }
 					
 				</div>
 
 				<div className='content__separator' />
 
-				<div className="row clearfix">
-					<p className="grid-12 center">Enjoy, browse around and check out the source on <a href="https://github.com/pickled-plugins/ripsaw-demo" target="_blank">GitHub</a>.</p>
+				<div className="grid">
+					<p className="grid__col grid__col--centered grid__col--1-of-2">Enjoy, browse around and check out the source on <a href="https://github.com/pickled-plugins/ripsaw-demo" target="_blank">GitHub</a>.</p>
 				</div>
 
 				{ this.state.isModalActive ? this.renderModal() : null }
@@ -104,6 +115,18 @@ Comp.Home = class extends React.Component {
 
 		);
 
+	}
+
+	renderDemos() {
+		return demos.map((demo) => {
+			return (
+				<div className="grid__col grid__col--1-of-2">
+					<div className='demo-link' onClick={this.launchRipsawModal.bind(this, demo.type)}>
+						<p>{ demo.title }</p>
+					</div>
+				</div>
+			);
+		});
 	}
 
 	renderModal() {
@@ -127,6 +150,7 @@ Comp.Home = class extends React.Component {
 	}
 
 	launchRipsawModal(type) {
+		var shouldOpenModal = true;
 		switch (type) {
 			case '2d-fork':
 				RIPSAW.masterPiece = new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize();
@@ -141,9 +165,10 @@ Comp.Home = class extends React.Component {
 				RIPSAW.masterPiece = new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize();
 				break;
 			default:
-				console.log('bad');
+			shouldOpenModal = false;
+				window.open(type);
 		}
-		this.activateModal();
+		if (shouldOpenModal) { this.activateModal(); }
 	}
 
 	launchApp() {

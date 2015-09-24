@@ -18,14 +18,12 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
     "normalize-css": "normalize.css#~3.0.3",
     "react": "~0.13.3",
     "react-router": "~0.13.3",
-    "toast": "~1.2.4"
+    "toast": "git@github.com:daneden/Toast.git"
   }
 }

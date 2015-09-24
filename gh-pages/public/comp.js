@@ -192,7 +192,7 @@ Comp.Footer = (function (_React$Component) {
 
 ;
 
-Comp.Concept = (function (_React$Component4) {
+Comp.Documentation = (function (_React$Component4) {
 	_inherits(_class3, _React$Component4);
 
 	function _class3() {
@@ -202,6 +202,53 @@ Comp.Concept = (function (_React$Component4) {
 	}
 
 	_createClass(_class3, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"div",
+				{ className: "content__inner" },
+				React.createElement(
+					"div",
+					{ className: "static" },
+					React.createElement(
+						"p",
+						null,
+						"Browse the ",
+						React.createElement(
+							"a",
+							{ href: "doc/RIPSAW.html", target: "_blank" },
+							"API documentation"
+						),
+						" to explore other ways of customizing maker apps powered by ripsaw.js."
+					),
+					React.createElement(
+						"p",
+						null,
+						"ripsaw's consistent API allows developers to create extensions with new interactive geometries. All you need to do is create a constructor that inherits from RIPSAW.MasterPiece and provides the same core methods as RIPSAW.Bezier2D - the sample constructor featured in this demo."
+					),
+					React.createElement(
+						"p",
+						null,
+						"This website will soon feature a developers' tutorial demonstrating how to create a ripsaw extension that allows users to design a rectangle interactively."
+					)
+				)
+			);
+		}
+	}]);
+
+	return _class3;
+})(React.Component);
+
+Comp.Concept = (function (_React$Component5) {
+	_inherits(_class4, _React$Component5);
+
+	function _class4() {
+		_classCallCheck(this, _class4);
+
+		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).apply(this, arguments);
+	}
+
+	_createClass(_class4, [{
 		key: "render",
 		value: function render() {
 			return React.createElement(
@@ -258,58 +305,6 @@ Comp.Concept = (function (_React$Component4) {
 		}
 	}]);
 
-	return _class3;
-})(React.Component);
-
-Comp.Documentation = (function (_React$Component5) {
-	_inherits(_class4, _React$Component5);
-
-	function _class4() {
-		_classCallCheck(this, _class4);
-
-		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).apply(this, arguments);
-	}
-
-	_createClass(_class4, [{
-		key: "render",
-		value: function render() {
-			return React.createElement(
-				"div",
-				{ className: "content__inner" },
-				React.createElement(
-					"div",
-					{ className: "static" },
-					React.createElement(
-						"p",
-						null,
-						"Browse the ",
-						React.createElement(
-							"a",
-							{ href: "doc/RIPSAW.html", target: "_blank" },
-							"API documentation"
-						),
-						" to explore other ways of customizing maker apps powered by ripsaw.js."
-					),
-					React.createElement(
-						"p",
-						null,
-						"ripsaw's consistent API allows developers to create extensions with new interactive geometries. All you need to do is create a constructor that inherits from RIPSAW.MasterPiece and provides the same core methods as RIPSAW.Bezier2D - the sample constructor featured in this demo."
-					),
-					React.createElement(
-						"p",
-						null,
-						"This website will soon feature a developers' tutorial demonstrating how to create a ripsaw extension that allows users to design a rectangle interactively."
-					),
-					React.createElement(
-						"a",
-						{ className: "center", href: "doc/RIPSAW.html", target: "_blank" },
-						React.createElement("i", { className: "fa fa-play-circle-o fa-5x", "data-ch": "1" })
-					)
-				)
-			);
-		}
-	}]);
-
 	return _class4;
 })(React.Component);
 
@@ -320,6 +315,26 @@ Comp.Documentation = (function (_React$Component5) {
 	var tutorialIntro = "See for yourself - check out ripsaw's two live demos below:";
 
 	var tutorialTexts = ["A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.", "Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's."];
+
+	var demos = [{
+		title: '2d Fork',
+		type: '2d-fork'
+	}, {
+		title: '3d Fork',
+		type: '3d-fork'
+	}, {
+		title: 'Pantograph',
+		type: 'pantograph'
+	}, {
+		title: 'Voronoi',
+		type: 'voronoi'
+	}, {
+		title: 'A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.',
+		type: '/public/ripsaw-yourk/index.html'
+	}, {
+		title: "Proof of concept and UX testing environment for a social platform for product design. Create, share and save creations, and view everybody else's.",
+		type: 'http://ripsaw-demo.herokuapp.com/'
+	}];
 
 	Comp.Home = (function (_React$Component6) {
 		_inherits(_class5, _React$Component6);
@@ -341,10 +356,10 @@ Comp.Documentation = (function (_React$Component5) {
 					{ className: "content__inner" },
 					React.createElement(
 						"div",
-						{ className: "row clearfix" },
+						{ className: "grid" },
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement(
 								"p",
 								null,
@@ -353,22 +368,22 @@ Comp.Documentation = (function (_React$Component5) {
 						),
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement("img", { className: "center", src: "assets/images/design-1.svg" })
 						)
 					),
 					React.createElement("div", { className: "content__separator" }),
 					React.createElement(
 						"div",
-						{ className: "row clearfix row-close" },
+						{ className: "grid" },
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement("img", { className: "center", src: "assets/images/design-2.svg" })
 						),
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement(
 								"p",
 								null,
@@ -384,10 +399,10 @@ Comp.Documentation = (function (_React$Component5) {
 					React.createElement("div", { className: "content__separator" }),
 					React.createElement(
 						"div",
-						{ className: "row clearfix row-close" },
+						{ className: "grid" },
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement(
 								"p",
 								null,
@@ -396,7 +411,7 @@ Comp.Documentation = (function (_React$Component5) {
 						),
 						React.createElement(
 							"div",
-							{ className: "grid-6" },
+							{ className: "grid__col grid__col--1-of-2" },
 							React.createElement("img", { className: "center", src: "assets/images/fork3d.svg" })
 						)
 					),
@@ -408,69 +423,16 @@ Comp.Documentation = (function (_React$Component5) {
 					),
 					React.createElement(
 						"div",
-						{ className: "row clearfix" },
-						React.createElement(
-							"div",
-							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, '2d-fork') },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								"A 2d Fork"
-							)
-						),
-						React.createElement(
-							"div",
-							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, '3d-fork') },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								"A 3d Fork"
-							)
-						),
-						React.createElement(
-							"div",
-							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, 'pantograph') },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								"A Pantograph"
-							)
-						),
-						React.createElement(
-							"div",
-							{ className: "grid-6", onClick: this.launchRipsawModal.bind(this, 'voronoi') },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								"A Voronoi Shape"
-							)
-						),
-						React.createElement(
-							"a",
-							{ href: "/public/ripsaw-yourk/index.html", className: "grid-6" },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								tutorialTexts[0]
-							)
-						),
-						React.createElement(
-							"a",
-							{ href: "http://ripsaw-demo.herokuapp.com/", className: "grid-6" },
-							React.createElement(
-								"p",
-								{ className: "center highlighted" },
-								tutorialTexts[1]
-							)
-						)
+						{ className: "grid" },
+						this.renderDemos()
 					),
 					React.createElement("div", { className: "content__separator" }),
 					React.createElement(
 						"div",
-						{ className: "row clearfix" },
+						{ className: "grid" },
 						React.createElement(
 							"p",
-							{ className: "grid-12 center" },
+							{ className: "grid__col grid__col--centered grid__col--1-of-2" },
 							"Enjoy, browse around and check out the source on ",
 							React.createElement(
 								"a",
@@ -482,6 +444,27 @@ Comp.Documentation = (function (_React$Component5) {
 					),
 					this.state.isModalActive ? this.renderModal() : null
 				);
+			}
+		}, {
+			key: "renderDemos",
+			value: function renderDemos() {
+				var _this2 = this;
+
+				return demos.map(function (demo) {
+					return React.createElement(
+						"div",
+						{ className: "grid__col grid__col--1-of-2" },
+						React.createElement(
+							"div",
+							{ className: "demo-link", onClick: _this2.launchRipsawModal.bind(_this2, demo.type) },
+							React.createElement(
+								"p",
+								null,
+								demo.title
+							)
+						)
+					);
+				});
 			}
 		}, {
 			key: "renderModal",
@@ -507,6 +490,7 @@ Comp.Documentation = (function (_React$Component5) {
 		}, {
 			key: "launchRipsawModal",
 			value: function launchRipsawModal(type) {
+				var shouldOpenModal = true;
 				switch (type) {
 					case '2d-fork':
 						RIPSAW.masterPiece = new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize();
@@ -521,9 +505,12 @@ Comp.Documentation = (function (_React$Component5) {
 						RIPSAW.masterPiece = new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize();
 						break;
 					default:
-						console.log('bad');
+						shouldOpenModal = false;
+						window.open(type);
 				}
-				this.activateModal();
+				if (shouldOpenModal) {
+					this.activateModal();
+				}
 			}
 		}, {
 			key: "launchApp",

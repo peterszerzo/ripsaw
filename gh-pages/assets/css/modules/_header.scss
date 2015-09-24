@@ -2,7 +2,12 @@
 
 	font-family: 'Ubuntu Mono';
 	padding: 100px 0 50px 0;
-	&__logo { width: 200px; }
+
+	&__logo { 
+		height: 200px; 
+		text-align: center;
+		img { height: 100%; }
+	}
 
 	&__title {
 		font-size: 3rem;

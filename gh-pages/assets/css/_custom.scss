@@ -8,38 +8,10 @@ i {
 	padding: 0;
 	border: 0;
 	&:hover { color: $color-hover; }
-	.icon-group & {
-		color: inherit;
-	}
-}
-
-.demo:nth-child(2) {
-	@media screen and (max-width: $breakpoint) {
-		margin-top: 40px;
-	}
-}
-
-#tut-nav {
-
-	width: 160px;
-
 }
 
 .active {
 	color: lighten($color-base, 30);
-}
-
-p.center {
-
-	width: 100%;
-
-	@media screen and (max-width: $breakpoint) {
-
-		width: 90%;
-		margin-left: 5%;
-
-	}
-
 }
 
 .section {
@@ -73,20 +45,9 @@ p.center {
 
 }
 
-
-
 .icon-group {
 	display: inline;
 	&:hover {
 		color: $color-hover;
-	}
-}
-
-
-.img {
-	margin: 30px auto;
-	img {
-		display: inline-block;
-		margin: 10px auto;
 	}
 }

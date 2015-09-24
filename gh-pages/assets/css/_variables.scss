@@ -1,4 +1,9 @@
 $color-base: #3D384F;
+
+$color-light: lighten($color-base, 20);
+
+$color-extra-light: lighten($color-base, 40);
+
 $color-hover: lighten($color-base, 30);
 
 $breakpoint: 780px;

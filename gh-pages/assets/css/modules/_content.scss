@@ -1,6 +1,6 @@
 .content {
 
-	max-width: 1000px;
+	max-width: 800px;
 	margin: auto;
 
 	&__margin {
@@ -8,16 +8,17 @@
 		height: $h;
 		border-radius: $h/2;
 		display: block;
-		width: 80%;
-		max-width: 800px;
 		
-		margin: auto;
+		margin: 0 25px;
 
 		background-color: lighten($color-base, 40);		
 	}
 
 	&__inner {
-		padding: 90px 0;
+		padding: 90px 25px;
+
+		.grid__col > img { display: block; margin: auto; }
+
 	}
 
 	&__separator {

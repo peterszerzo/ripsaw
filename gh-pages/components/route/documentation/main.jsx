@@ -12,10 +12,6 @@ Comp.Documentation = class extends React.Component {
 
 					<p>This website will soon feature a developers' tutorial demonstrating how to create a ripsaw extension that allows users to design a rectangle interactively.</p>
 
-					<a className='center' href="doc/RIPSAW.html" target="_blank">
-						<i className="fa fa-play-circle-o fa-5x" data-ch="1"></i>
-					</a>
-
 				</div>
 
 			</div>

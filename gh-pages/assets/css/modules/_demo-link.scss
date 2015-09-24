@@ -1,17 +1,16 @@
-.hidden {
-	display: none;
-}
+.demo-link {
 
-.invisible {
-	visibility: hidden;
-}
+	padding: 20px;
 
-.highlighted {
+	margin-top: 10px;
+	margin-bottom: 10px;
+
 	background-color: lighten($color-base, 10);
-	color: white;
 	opacity: 0.8;
 	&:hover { opacity: 1; }
 	cursor: pointer;
 	border-radius: 6px;
-	margin-top: 30px;
+
+	p, a { color: white; text-align: center; }
+
 }

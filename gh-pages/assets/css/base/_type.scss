@@ -5,10 +5,16 @@
 
 a {
 	text-decoration: none;
-	color: $color-base;
-	font-weight: bold;
-	&:hover { color: $color-hover; }
+	color: $color-light;
+	padding-bottom: 4px;
+	border-bottom: 1px solid $color-light;
+	&:hover { 
+		color: $color-extra-light;
+		border-bottom: 1px solid $color-extra-light;
+	}
 }
+
+h1, h2, h3, h4, h5, p, a { font-weight: normal; }
 
 h1 {
 	font-size: 2.4rem;
