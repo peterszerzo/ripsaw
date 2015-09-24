@@ -239,15 +239,15 @@ Comp.Concept = (function (_React$Component4) {
 						null,
 						"These shelf prototypes would take a fair amount of time to design, redesign and evaluate in classical CAD programs."
 					),
-					React.createElement("img", { src: "assets/images/concept/img-01.svg" }),
-					React.createElement("img", { src: "assets/images/concept/img-02.svg" }),
+					React.createElement("img", { src: "public/images/concept/img-01.svg" }),
+					React.createElement("img", { src: "public/images/concept/img-02.svg" }),
 					React.createElement(
 						"p",
 						null,
 						"ripsaw builds these complex shapes based on mere 5 control points. A slight change in the arrangement of these points produces significant changes in the geometry, which is understood and customized easily by anyone."
 					),
-					React.createElement("img", { src: "assets/images/concept/img-03.svg" }),
-					React.createElement("img", { src: "assets/images/concept/img-04.svg" }),
+					React.createElement("img", { src: "public/images/concept/img-03.svg" }),
+					React.createElement("img", { src: "public/images/concept/img-04.svg" }),
 					React.createElement(
 						"p",
 						null,
@@ -369,7 +369,7 @@ Comp.Documentation = (function (_React$Component5) {
 						React.createElement(
 							"div",
 							{ className: "grid__col grid__col--1-of-2" },
-							React.createElement("img", { className: "center", src: "assets/images/design-1.svg" })
+							React.createElement("img", { className: "center", src: "public/images/design-1.svg" })
 						)
 					),
 					React.createElement("div", { className: "content__separator" }),
@@ -379,7 +379,7 @@ Comp.Documentation = (function (_React$Component5) {
 						React.createElement(
 							"div",
 							{ className: "grid__col grid__col--1-of-2" },
-							React.createElement("img", { className: "center", src: "assets/images/design-2.svg" })
+							React.createElement("img", { className: "center", src: "public/images/design-2.svg" })
 						),
 						React.createElement(
 							"div",
@@ -412,7 +412,7 @@ Comp.Documentation = (function (_React$Component5) {
 						React.createElement(
 							"div",
 							{ className: "grid__col grid__col--1-of-2" },
-							React.createElement("img", { className: "center", src: "assets/images/fork3d.svg" })
+							React.createElement("img", { className: "center", src: "public/images/fork3d.svg" })
 						)
 					),
 					React.createElement("div", { className: "content__separator" }),

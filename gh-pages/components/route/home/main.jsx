@@ -66,7 +66,7 @@ Comp.Home = class extends React.Component {
 						<p>{text[0][0]}</p>
 					</div>
 					<div className="grid__col grid__col--1-of-2">
-						<img className="center" src="assets/images/design-1.svg" />
+						<img className="center" src="public/images/design-1.svg" />
 					</div>
 				</div>
 
@@ -74,7 +74,7 @@ Comp.Home = class extends React.Component {
 
 				<div className="grid">
 					<div className="grid__col grid__col--1-of-2">
-						<img className="center" src="assets/images/design-2.svg" />
+						<img className="center" src="public/images/design-2.svg" />
 					</div>
 					<div className="grid__col grid__col--1-of-2">
 						<p>{text[1][0]}</p>
@@ -89,7 +89,7 @@ Comp.Home = class extends React.Component {
 						<p>{text[2][0]}</p>
 					</div>
 					<div className="grid__col grid__col--1-of-2">
-						<img className="center" src="assets/images/fork3d.svg" />
+						<img className="center" src="public/images/fork3d.svg" />
 					</div>
 				</div>
 
