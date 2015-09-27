@@ -51,6 +51,6 @@ gulp.task('pg-dev', () => {
 });
 
 gulp.task('pg-deploy', () => {
-	return gulp.src(['./gh-pages/index.html', './gh-pages/public/**/*'])
+	return gulp.src(['./gh-pages/index.html', './gh-pages/public'])
 		.pipe(ghPages());
 });

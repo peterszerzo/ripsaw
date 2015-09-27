@@ -30,7 +30,7 @@ Comp.Footer = (function (_React$Component) {
 				React.createElement(
 					"div",
 					{ className: "center footer__logo" },
-					React.createElement("img", { className: "center", src: "assets/images/logo.svg" })
+					React.createElement("img", { className: "center", src: "public/images/logo.svg" })
 				),
 				React.createElement(
 					"p",
@@ -69,7 +69,7 @@ Comp.Footer = (function (_React$Component) {
 					React.createElement(
 						"div",
 						{ className: "header__logo center" },
-						React.createElement("img", { className: "center", src: "assets/images/logo.svg" })
+						React.createElement("img", { className: "center", src: "public/images/logo.svg" })
 					),
 					React.createElement(
 						"h1",
