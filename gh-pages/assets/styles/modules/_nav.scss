@@ -36,10 +36,11 @@
 	margin: auto auto 20px auto;
 	text-align: center;
 
+	@include font-size(18px);
+
 	padding: 5px 10px;
-	background-color: lighten($color-base, 20);
-	opacity: 0.4;
-	color: white;
+	color: $color-base;
+	opacity: 0.8;
 
 	border-radius: 5px;
 

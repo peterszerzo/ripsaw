@@ -1,16 +1,27 @@
 .demo-link {
 
-	padding: 20px;
+	margin: 5px 0;
 
-	margin-top: 10px;
-	margin-bottom: 10px;
+	padding: 5px 0;
 
-	background-color: lighten($color-base, 10);
-	opacity: 0.8;
+	@include transition(all, 0.2s);
+
+	&__content {
+
+		width: 100%;
+		padding: 15px;
+		height: 100%;
+
+		background-color: $color-base;
+
+		border-radius: 6px;
+		cursor: pointer;
+
+		p, a { color: white; text-align: center; @include font-size(18px); font-family: 'Ubuntu'; }
+
+	}
+
+	opacity: 0.6;
 	&:hover { opacity: 1; }
-	cursor: pointer;
-	border-radius: 6px;
-
-	p, a { color: white; text-align: center; }
-
+	
 }

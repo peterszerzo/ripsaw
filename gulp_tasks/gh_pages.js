@@ -10,8 +10,8 @@ import ghPages from 'gulp-gh-pages';
 gulp.task('pg-js-comp', () => {
 	return gulp.src([ 
 			'./gh-pages/components/init.jsx', 
-			'./gh-pages/components/shared/**/*.jsx',
-			'./gh-pages/components/route/**/*.jsx',
+			'./gh-pages/components/general/**/*.jsx',
+			'./gh-pages/components/route_handlers/**/*.jsx',
 			'./gh-pages/routes/index.jsx'
 		])
 		.pipe(concat('_comp.js', { newLine: ';\n\n' }))

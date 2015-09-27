@@ -1,6 +1,6 @@
 .header {
 
-	font-family: 'Ubuntu Mono';
+	
 	padding: 100px 0 50px 0;
 
 	&__logo { 
@@ -10,6 +10,7 @@
 	}
 
 	&__title {
+		font-family: 'Ubuntu';
 		font-size: 3rem;
 		margin: 20px 0 10px 0;
 	}

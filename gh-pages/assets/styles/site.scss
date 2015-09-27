@@ -1,8 +1,9 @@
 @import "variables";
 
-@import "base/manifest";
-
 @import "./../../../bower_components/toast/scss/_grid.scss";
 
-@import "custom";
+@import "base/manifest";
+@import "mixins/manifest";
 @import "modules/manifest";
+
+@import "misc";

@@ -192,7 +192,9 @@ Comp.Footer = (function (_React$Component) {
 
 ;
 
-Comp.Concept = (function (_React$Component4) {
+Comp.Icons = {};
+
+Comp.Icons.No = (function (_React$Component4) {
 	_inherits(_class3, _React$Component4);
 
 	function _class3() {
@@ -202,6 +204,87 @@ Comp.Concept = (function (_React$Component4) {
 	}
 
 	_createClass(_class3, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"svg",
+				{ viewBox: "0 0 100 100" },
+				React.createElement("path", { d: "M80.8,86.8c-1.6,0-3.1-0.6-4.2-1.8L50,58.5L23.4,85c-1.1,1.1-2.6,1.8-4.2,1.8c-1.6,0-3.1-0.6-4.2-1.8 c-1.1-1.1-1.8-2.6-1.8-4.2c0-1.6,0.6-3.1,1.8-4.2L41.5,50L15,23.4c-1.1-1.1-1.8-2.6-1.8-4.2c0-1.6,0.6-3.1,1.8-4.2 c1.1-1.1,2.6-1.8,4.2-1.8c1.6,0,3.1,0.6,4.2,1.8L50,41.5L76.6,15c1.1-1.1,2.6-1.8,4.2-1.8l0,0c1.6,0,3.1,0.6,4.2,1.8 c2.3,2.3,2.3,6.1,0,8.5L58.5,50L85,76.6c2.3,2.3,2.3,6.1,0,8.5C83.9,86.2,82.4,86.8,80.8,86.8z" })
+			);
+		}
+	}]);
+
+	return _class3;
+})(React.Component);
+
+// This modal component does not handle its own active state. This is stored on the parent, which either renders the modal or doesn't.
+
+Comp.Modal = (function (_React$Component5) {
+	_inherits(_class4, _React$Component5);
+
+	function _class4(props) {
+		_classCallCheck(this, _class4);
+
+		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).call(this, props);
+	}
+
+	_createClass(_class4, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"div",
+				{ className: "modal", onClick: this.handleOverlayClick.bind(this) },
+				React.createElement(
+					"div",
+					{ className: "modal__close", onClick: this.handleCloseClick.bind(this) },
+					React.createElement(Comp.Icons.No, null)
+				),
+				React.createElement(
+					"div",
+					{ className: "modal__wrapper", onClick: this.stopPropagation.bind(this) },
+					React.createElement(
+						"div",
+						{ className: "modal__header" },
+						this.props.hint
+					),
+					React.createElement("div", { className: "modal__content", id: this.props.contentId })
+				)
+			);
+		}
+	}, {
+		key: "handleCloseClick",
+		value: function handleCloseClick() {
+			if (this.props.closeModal) {
+				this.props.closeModal();
+			}
+		}
+	}, {
+		key: "handleOverlayClick",
+		value: function handleOverlayClick() {
+			if (this.props.closeModal) {
+				this.props.closeModal();
+			}
+		}
+	}, {
+		key: "stopPropagation",
+		value: function stopPropagation(e) {
+			e.stopPropagation();
+		}
+	}]);
+
+	return _class4;
+})(React.Component);
+
+Comp.Concept = (function (_React$Component6) {
+	_inherits(_class5, _React$Component6);
+
+	function _class5() {
+		_classCallCheck(this, _class5);
+
+		_get(Object.getPrototypeOf(_class5.prototype), "constructor", this).apply(this, arguments);
+	}
+
+	_createClass(_class5, [{
 		key: "render",
 		value: function render() {
 			return React.createElement(
@@ -244,33 +327,33 @@ Comp.Concept = (function (_React$Component4) {
 					React.createElement(
 						"p",
 						null,
-						"ripsaw builds these complex shapes based on mere 5 control points. A slight change in the arrangement of these points produces significant changes in the geometry, which is understood and customized easily by anyone."
+						"ripsaw builds these complex shapes based on mere 5 control points. A slight change in the arrangement of these points - as shown on the images below - produces significant changes in the geometry, which is understood and customized easily by anyone."
 					),
 					React.createElement("img", { src: "public/images/concept/img-03.svg" }),
 					React.createElement("img", { src: "public/images/concept/img-04.svg" }),
 					React.createElement(
 						"p",
 						null,
-						"The mathematical concept (in this case, a city Voronoi diagram) does the hard work of generating the shape, keeping the user's focus on usability and aesthetics."
+						"The mathematical concept (in this case, a city Voronoi diagram) does the hard work of generating the shape, keeping the designer's focus on usability and aesthetics."
 					)
 				)
 			);
 		}
 	}]);
 
-	return _class3;
+	return _class5;
 })(React.Component);
 
-Comp.Documentation = (function (_React$Component5) {
-	_inherits(_class4, _React$Component5);
+Comp.Documentation = (function (_React$Component7) {
+	_inherits(_class6, _React$Component7);
 
-	function _class4() {
-		_classCallCheck(this, _class4);
+	function _class6() {
+		_classCallCheck(this, _class6);
 
-		_get(Object.getPrototypeOf(_class4.prototype), "constructor", this).apply(this, arguments);
+		_get(Object.getPrototypeOf(_class6.prototype), "constructor", this).apply(this, arguments);
 	}
 
-	_createClass(_class4, [{
+	_createClass(_class6, [{
 		key: "render",
 		value: function render() {
 			return React.createElement(
@@ -305,50 +388,88 @@ Comp.Documentation = (function (_React$Component5) {
 		}
 	}]);
 
-	return _class4;
+	return _class6;
 })(React.Component);
 
 (function () {
 
 	var text = [['Everyone can design. Even if there appears to be an entry barrier sometimes.'], ["There shouldn't be!", "ripsaw.js is a lightweight JavaScript library that powers maker apps navigated easily by people without a design background. Design becomes a simple, intuitive and clean process, posing little compromise freedom of expression."], ["Could you imagine designing a freeform fork such as this one with only 15 minutes of 3d modeling experience?"]];
 
-	var tutorialIntro = "See for yourself - check out ripsaw's two live demos below:";
+	var tutorialIntro = "See for yourself - check out ripsaw's live demos below:";
 
 	var tutorialTexts = ["A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.", "Proof of concept and UX testing environment for a social platform for product design. Create, share and save 'masterpieces', and view everybody else's."];
 
-	var demos = [{
-		title: '2d Fork',
-		type: '2d-fork'
-	}, {
-		title: '3d Fork',
-		type: '3d-fork'
-	}, {
-		title: 'Pantograph',
-		type: 'pantograph'
-	}, {
-		title: 'Voronoi',
-		type: 'voronoi'
-	}, {
-		title: 'A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.',
-		type: '/public/ripsaw-yourk/index.html'
-	}, {
-		title: "Proof of concept and UX testing environment for a social platform for product design. Create, share and save creations, and view everybody else's.",
-		type: 'http://ripsaw-demo.herokuapp.com/'
-	}];
+	var demos = {
+		'2d-fork': {
+			title: '2d Fork',
+			masterPiece: new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize(),
+			hint: 'The basics, Adobe Illustrator style.'
+		},
+		'3d-fork': {
+			title: '3d Fork',
+			masterPiece: new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView(),
+			hint: 'The basics, this time with a customizable depth profile.'
+		},
+		'pantograph': {
+			title: 'Pantograph',
+			masterPiece: new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize(),
+			hint: 'Animating a kinetic structure.'
+		},
+		'voronoi': {
+			title: 'Voronoi',
+			masterPiece: new RIPSAW.Voronoi().createIrregularGrid(5).normalize(0.5),
+			hint: 'Move the points around and right-click to generate a Voronoi wavefront generator.'
+		},
+		oldDemo: {
+			title: 'A first 3d experiment published in December 2013. Walk through creating your very own 3d utensil piece with the help of an interactive tutorial.',
+			url: '/public/ripsaw-yourk/index.html'
+		},
+		railsDemo: {
+			title: "Proof of concept and UX testing environment for a social platform for product design. Create, share and save creations, and view everybody else's.",
+			url: 'http://ripsaw-demo.herokuapp.com/'
+		}
+	};
 
-	Comp.Home = (function (_React$Component6) {
-		_inherits(_class5, _React$Component6);
+	RIPSAW.containerID = 'ripsaw';
 
-		function _class5(props) {
-			_classCallCheck(this, _class5);
+	var Modal = (function (_Comp$Modal) {
+		_inherits(Modal, _Comp$Modal);
 
-			_get(Object.getPrototypeOf(_class5.prototype), "constructor", this).call(this, props);
+		function Modal() {
+			_classCallCheck(this, Modal);
+
+			_get(Object.getPrototypeOf(Modal.prototype), "constructor", this).apply(this, arguments);
+		}
+
+		_createClass(Modal, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				RIPSAW.init();
+				RIPSAW.launch();
+			}
+		}, {
+			key: "componentWillUnmount",
+			value: function componentWillUnmount() {
+				// RIPSAW cleanup
+			}
+		}]);
+
+		return Modal;
+	})(Comp.Modal);
+
+	Comp.Home = (function (_React$Component8) {
+		_inherits(_class7, _React$Component8);
+
+		function _class7(props) {
+			_classCallCheck(this, _class7);
+
+			_get(Object.getPrototypeOf(_class7.prototype), "constructor", this).call(this, props);
 			this.state = {
-				isModalActive: false
+				currentDemo: null
 			};
 		}
 
-		_createClass(_class5, [{
+		_createClass(_class7, [{
 			key: "render",
 			value: function render() {
 				return React.createElement(
@@ -418,7 +539,7 @@ Comp.Documentation = (function (_React$Component5) {
 					React.createElement("div", { className: "content__separator" }),
 					React.createElement(
 						"p",
-						{ className: "center", onClick: this.activateModal.bind(this) },
+						{ className: "center" },
 						tutorialIntro
 					),
 					React.createElement(
@@ -433,7 +554,7 @@ Comp.Documentation = (function (_React$Component5) {
 						React.createElement(
 							"p",
 							{ className: "grid__col grid__col--centered grid__col--1-of-2" },
-							"Enjoy, browse around and check out the source on ",
+							"The library transforms any HTML container into a design playground, and lives happily on ",
 							React.createElement(
 								"a",
 								{ href: "https://github.com/pickled-plugins/ripsaw-demo", target: "_blank" },
@@ -442,7 +563,7 @@ Comp.Documentation = (function (_React$Component5) {
 							"."
 						)
 					),
-					this.state.isModalActive ? this.renderModal() : null
+					this.renderModal()
 				);
 			}
 		}, {
@@ -450,17 +571,22 @@ Comp.Documentation = (function (_React$Component5) {
 			value: function renderDemos() {
 				var _this2 = this;
 
-				return demos.map(function (demo) {
+				return Object.keys(demos).map(function (key) {
+					var demo = demos[key];
 					return React.createElement(
 						"div",
 						{ className: "grid__col grid__col--1-of-2" },
 						React.createElement(
 							"div",
-							{ className: "demo-link", onClick: _this2.launchRipsawModal.bind(_this2, demo.type) },
+							{ className: "demo-link", onClick: _this2.launchRipsawModal.bind(_this2, key) },
 							React.createElement(
-								"p",
-								null,
-								demo.title
+								"div",
+								{ className: "demo-link__content" },
+								React.createElement(
+									"p",
+									null,
+									demo.title
+								)
 							)
 						)
 					);
@@ -469,73 +595,35 @@ Comp.Documentation = (function (_React$Component5) {
 		}, {
 			key: "renderModal",
 			value: function renderModal() {
-				return React.createElement(
-					"div",
-					{ className: "modal", onClick: this.deactivateModal.bind(this) },
-					React.createElement("div", { className: "modal__content", id: "ripsaw", onClick: this.stopPropagation.bind(this) })
-				);
-			}
-		}, {
-			key: "componentDidMount",
-			value: function componentDidMount() {
-				RIPSAW.containerID = 'ripsaw';
-			}
-		}, {
-			key: "componentDidUpdate",
-			value: function componentDidUpdate() {
-				if (this.state.isModalActive) {
-					this.launchApp();
+				console.log(this.state);
+				if (!this.state.currentDemo) {
+					return;
 				}
+				console.log('there is a current demo');
+				return React.createElement(Modal, {
+					contentId: "ripsaw",
+					closeModal: this.deactivateModal.bind(this),
+					hint: this.state.currentDemo.hint
+				});
 			}
 		}, {
 			key: "launchRipsawModal",
-			value: function launchRipsawModal(type) {
-				var shouldOpenModal = true;
-				switch (type) {
-					case '2d-fork':
-						RIPSAW.masterPiece = new RIPSAW.Bezier2D(RIPSAW.textAssets.shapeLibrary["fork"]).normalize();
-						break;
-					case '3d-fork':
-						RIPSAW.masterPiece = new RIPSAW.Bezier3D(RIPSAW.textAssets.shapeLibrary["fork"]).setAllView();
-						break;
-					case 'voronoi':
-						RIPSAW.masterPiece = new RIPSAW.Voronoi().createIrregularGrid(5).normalize(0.5);
-						break;
-					case 'pantograph':
-						RIPSAW.masterPiece = new RIPSAW.CurvingPantograph(6, 0.5, 0.57, 0.52, 0.5, 0.8, 0.4).normalize();
-						break;
-					default:
-						shouldOpenModal = false;
-						window.open(type);
+			value: function launchRipsawModal(key) {
+				var demo = demos[key];
+				if (demo.url) {
+					return window.open(demo.url);
 				}
-				if (shouldOpenModal) {
-					this.activateModal();
-				}
-			}
-		}, {
-			key: "launchApp",
-			value: function launchApp() {
-				RIPSAW.init();
-				RIPSAW.launch();
-			}
-		}, {
-			key: "stopPropagation",
-			value: function stopPropagation(e) {
-				e.stopPropagation();
-			}
-		}, {
-			key: "activateModal",
-			value: function activateModal() {
-				this.setState({ isModalActive: true });
+				RIPSAW.masterPiece = demo.masterPiece;
+				this.setState({ currentDemo: demo });
 			}
 		}, {
 			key: "deactivateModal",
 			value: function deactivateModal() {
-				this.setState({ isModalActive: false });
+				this.setState({ currentDemo: null });
 			}
 		}]);
 
-		return _class5;
+		return _class7;
 	})(React.Component);
 })();;
 
@@ -551,16 +639,16 @@ Comp.Documentation = (function (_React$Component5) {
 
 	var jsCode2 = "var geometry = RIPSAW.textAssets.shapeLibrary[\"moustache\"];\n\nRIPSAW.masterPiece = new RIPSAW.Bezier2D(geometry).normalize();\n\n// set new color scheme\nRIPSAW.colors.schemes.fresh: [\n    [178, 88, 79],   // 0: background\n    [230, 255, 95],  // 1: title\n    [255, 22, 0],    // 2: subtitle\n    [20, 105, 204],  // 3: misc text\n    [92, 132, 178],  // 4: control handle endpoints\n    [61, 103, 196],  // 5: control handle midpoint\n    [95, 90, 113],   // 6: nav bounding boxes\n    [255, 255, 255]  // 7: curve strokes\t\n];\n\n// set new color scheme as active\nRIPSAW.colors.activeScheme = \"fresh\";\n\n// change container ID\nRIPSAW.containerID = 'new-wrapper';\n\nRIPSAW.init().launch();\n";
 
-	Comp.Tutorial = (function (_React$Component7) {
-		_inherits(_class6, _React$Component7);
+	Comp.Tutorial = (function (_React$Component9) {
+		_inherits(_class8, _React$Component9);
 
-		function _class6() {
-			_classCallCheck(this, _class6);
+		function _class8() {
+			_classCallCheck(this, _class8);
 
-			_get(Object.getPrototypeOf(_class6.prototype), "constructor", this).apply(this, arguments);
+			_get(Object.getPrototypeOf(_class8.prototype), "constructor", this).apply(this, arguments);
 		}
 
-		_createClass(_class6, [{
+		_createClass(_class8, [{
 			key: "render",
 			value: function render() {
 				return React.createElement(
@@ -693,7 +781,7 @@ Comp.Documentation = (function (_React$Component5) {
 			value: function componentWillUnmount() {}
 		}]);
 
-		return _class6;
+		return _class8;
 	})(React.Component);
 })();
 
@@ -701,16 +789,16 @@ Comp.Documentation = (function (_React$Component5) {
 
 (function () {
 
-	Comp.Tutorial.Part1 = (function (_React$Component8) {
-		_inherits(_class7, _React$Component8);
+	Comp.Tutorial.Part1 = (function (_React$Component10) {
+		_inherits(_class9, _React$Component10);
 
-		function _class7() {
-			_classCallCheck(this, _class7);
+		function _class9() {
+			_classCallCheck(this, _class9);
 
-			_get(Object.getPrototypeOf(_class7.prototype), "constructor", this).apply(this, arguments);
+			_get(Object.getPrototypeOf(_class9.prototype), "constructor", this).apply(this, arguments);
 		}
 
-		_createClass(_class7, [{
+		_createClass(_class9, [{
 			key: "render",
 			value: function render() {
 				var TutorialNav = Comp.TutorialNav;
@@ -816,20 +904,20 @@ Comp.Documentation = (function (_React$Component5) {
 			}
 		}]);
 
-		return _class7;
+		return _class9;
 	})(React.Component);
 })();;
 
-Comp.Tutorial.Part2 = (function (_React$Component9) {
-	_inherits(_class8, _React$Component9);
+Comp.Tutorial.Part2 = (function (_React$Component11) {
+	_inherits(_class10, _React$Component11);
 
-	function _class8() {
-		_classCallCheck(this, _class8);
+	function _class10() {
+		_classCallCheck(this, _class10);
 
-		_get(Object.getPrototypeOf(_class8.prototype), "constructor", this).apply(this, arguments);
+		_get(Object.getPrototypeOf(_class10.prototype), "constructor", this).apply(this, arguments);
 	}
 
-	_createClass(_class8, [{
+	_createClass(_class10, [{
 		key: "render",
 		value: function render() {
 			var TutorialNav = Comp.TutorialNav;
@@ -868,7 +956,7 @@ Comp.Tutorial.Part2 = (function (_React$Component9) {
 		}
 	}]);
 
-	return _class8;
+	return _class10;
 })(React.Component);
 
 (function () {
@@ -877,16 +965,16 @@ Comp.Tutorial.Part2 = (function (_React$Component9) {
 
 	var text = 'Best of all, you can use your own creation as a template. Just initialize masterPiece with the path attribute of an SVG Bezier path (as drawn with the pen tool in Adobe Illustrator).';
 
-	Comp.Tutorial.Part3 = (function (_React$Component10) {
-		_inherits(_class9, _React$Component10);
+	Comp.Tutorial.Part3 = (function (_React$Component12) {
+		_inherits(_class11, _React$Component12);
 
-		function _class9() {
-			_classCallCheck(this, _class9);
+		function _class11() {
+			_classCallCheck(this, _class11);
 
-			_get(Object.getPrototypeOf(_class9.prototype), "constructor", this).apply(this, arguments);
+			_get(Object.getPrototypeOf(_class11.prototype), "constructor", this).apply(this, arguments);
 		}
 
-		_createClass(_class9, [{
+		_createClass(_class11, [{
 			key: "render",
 			value: function render() {
 				var TutorialNav = Comp.TutorialNav;
@@ -925,20 +1013,20 @@ Comp.Tutorial.Part2 = (function (_React$Component9) {
 			}
 		}]);
 
-		return _class9;
+		return _class11;
 	})(React.Component);
 })();;
 
-Comp.Tutorial.Part4 = (function (_React$Component11) {
-	_inherits(_class10, _React$Component11);
+Comp.Tutorial.Part4 = (function (_React$Component13) {
+	_inherits(_class12, _React$Component13);
 
-	function _class10() {
-		_classCallCheck(this, _class10);
+	function _class12() {
+		_classCallCheck(this, _class12);
 
-		_get(Object.getPrototypeOf(_class10.prototype), "constructor", this).apply(this, arguments);
+		_get(Object.getPrototypeOf(_class12.prototype), "constructor", this).apply(this, arguments);
 	}
 
-	_createClass(_class10, [{
+	_createClass(_class12, [{
 		key: "render",
 		value: function render() {
 			var TutorialNav = Comp.TutorialNav;
@@ -993,7 +1081,7 @@ Comp.Tutorial.Part4 = (function (_React$Component11) {
 		}
 	}]);
 
-	return _class10;
+	return _class12;
 })(React.Component);
 
 (function () {
@@ -1014,8 +1102,8 @@ Comp.Tutorial.Part4 = (function (_React$Component11) {
 	var Code = Comp.Code;
 	var Documentation = Comp.Documentation;
 
-	var Layout = (function (_React$Component12) {
-		_inherits(Layout, _React$Component12);
+	var Layout = (function (_React$Component14) {
+		_inherits(Layout, _React$Component14);
 
 		function Layout() {
 			_classCallCheck(this, Layout);
