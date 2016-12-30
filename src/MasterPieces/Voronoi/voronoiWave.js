@@ -1,128 +1,98 @@
-RIPSAW.voronoiWave = function() {
+RIPSAW.voronoiWave = function () {
+  var w
+  var min
+  var max
+  var period
+  var sign
+  var reachedEnd
+  var that = {}
 
-    var w, min, max, period, sign, reachedEnd,
-        that = {};
+  min = 0.001
+  max = 0.8
+  w = min
+  sign = 0
+  period = 1.5
 
-    min = 0.001;
-    max = 0.8;
-    w = min;
-    sign = 0;
-    period = 1.5;
-
-    reachedEnd = false;
-
-    /** Returns wavefron value. */
-    that.get = function() {
-
-        return w;
-
-    };
-
+  reachedEnd = false
 
     /** Returns wavefron value. */
-    that.set = function(wArg) {
+  that.get = function () {
+    return w
+  }
 
-        w = wArg;
+    /** Returns wavefron value. */
+  that.set = function (wArg) {
+    w = wArg
 
-        return this;
+    return this
+  }
 
-    };
-
-
-    /** Performs timestep change on wavefront. 
+    /** Performs timestep change on wavefront.
      * @param {boolean} [restart=false] - Should the step restart immediately.
      */
-    that.step = function(restartArg) {
+  that.step = function (restartArg) {
+    var restart = (typeof restartArg === 'undefined') ? false : restartArg
 
-        var restart = (typeof restartArg === "undefined") ? false : restartArg;
+    w += (max - min) * sign * RIPSAW.refreshInterval / (period * 1000)
 
-        w += (max - min) * sign * RIPSAW.refreshInterval / (period * 1000);
+    if (w < min) {
+      sign = -1
+    }
 
-        if (w < min) {
+    if (w > max) {
+      sign = restart ? 1 : 0
 
-            sign = -1;
+      w = min
+      reachedEnd = true
+    }
 
-        }
-
-        if (w > max) {
-
-            sign = restart ? 1 : 0;
-
-            w = min;
-            reachedEnd = true;
-
-        }
-
-        return this;
-
-    };
-
+    return this
+  }
 
     /** Resets wavefront to default. */
-    that.reset = function() {
+  that.reset = function () {
+    w = min
 
-        w = min;
+    return this
+  }
 
-        return this;
+  that.start = function () {
+    sign = +1
 
-    };
+    return this
+  }
 
+  that.reachedEnd = function () {
+    return reachedEnd
+  }
 
-    that.start = function() {
+  that.restart = function () {
+    w = min
+    sign = +1
 
-        sign = +1;
-
-        return this;
-
-    };
-
-
-    that.reachedEnd = function() {
-
-        return reachedEnd;
-
-    };
-
-
-    that.restart = function() {
-
-        w = min;
-        sign = +1;
-
-        return this;
-
-    };
-
+    return this
+  }
 
     /** Sets maximum wavefront length. */
-    that.setMax = function(maxArg) {
+  that.setMax = function (maxArg) {
+    max = maxArg
 
-        max = maxArg;
-
-        return this;
-
-    };
-
+    return this
+  }
 
     /** Sets minimum wavefront length. */
-    that.setMin = function(minArg) {
+  that.setMin = function (minArg) {
+    min = minArg
 
-        min = minArg;
-
-        return this;
-
-    };
-
+    return this
+  }
 
     /** Sets period. */
-    that.setPeriod = function(periodArg) {
+  that.setPeriod = function (periodArg) {
+    period = periodArg
 
-        period = periodArg;
+    return this
+  }
 
-        return this;
-
-    };
-
-    return that;
-
-};
+  return that
+}
