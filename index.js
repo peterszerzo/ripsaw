@@ -47,15 +47,15 @@ Comp.Concept = function () {
         null,
         'These shelf prototypes would take a fair amount of time to design, redesign and evaluate in classical CAD programs.'
       ),
-      React.createElement('img', { src: '/images/concept/img-01.svg' }),
-      React.createElement('img', { src: '/images/concept/img-02.svg' }),
+      React.createElement('img', { src: 'images/concept/img-01.svg' }),
+      React.createElement('img', { src: 'images/concept/img-02.svg' }),
       React.createElement(
         'p',
         null,
         'ripsaw builds these complex shapes based on mere 5 control points. A slight change in the arrangement of these points - as shown on the images below - produces significant changes in the geometry, which is understood and customized easily by anyone.'
       ),
-      React.createElement('img', { src: '/images/concept/img-03.svg' }),
-      React.createElement('img', { src: '/images/concept/img-04.svg' }),
+      React.createElement('img', { src: 'images/concept/img-03.svg' }),
+      React.createElement('img', { src: 'images/concept/img-04.svg' }),
       React.createElement(
         'p',
         null,
@@ -102,7 +102,7 @@ Comp.Footer = function () {
     React.createElement(
       'div',
       { className: 'center footer__logo' },
-      React.createElement('img', { className: 'center', src: '/images/logo.svg' })
+      React.createElement('img', { className: 'center', src: 'images/logo.svg' })
     ),
     React.createElement(
       'p',
@@ -136,7 +136,7 @@ Comp.Header = function (_React$Component) {
         React.createElement(
           'div',
           { className: 'header__logo center' },
-          React.createElement('img', { className: 'center', src: '/images/logo.svg' })
+          React.createElement('img', { className: 'center', src: 'images/logo.svg' })
         ),
         React.createElement(
           'h1',
@@ -909,7 +909,7 @@ function start() {
       Router = _window$ReactRouter.Router,
       Route = _window$ReactRouter.Route,
       IndexRoute = _window$ReactRouter.IndexRoute,
-      browserHistory = _window$ReactRouter.browserHistory;
+      hashHistory = _window$ReactRouter.hashHistory;
   var Header = Comp.Header,
       Footer = Comp.Footer,
       Home = Comp.Home,
@@ -937,7 +937,7 @@ function start() {
 
   ReactDOM.render(React.createElement(
     Router,
-    { history: browserHistory },
+    { history: hashHistory },
     React.createElement(
       Route,
       { path: '/', component: Layout },
