@@ -2,7 +2,6 @@ mkdir -p dist &&
 cat \
   website/app/init.jsx \
   website/app/concept.jsx \
-  website/app/documentation.jsx \
   website/app/footer.jsx \
   website/app/header.jsx \
   website/app/home.jsx \

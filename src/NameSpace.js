@@ -43,13 +43,6 @@ window.RIPSAW = {
   },
 
     /**
-     * ID of container element.
-     * @memberof RIPSAW
-     * @type {String}
-     */
-  containerID: 'ripsaw-app',
-
-    /**
      * Font.
      * @memberof RIPSAW
      * @type {String}

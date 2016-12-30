@@ -37,8 +37,7 @@ Comp.Modal = class extends React.Component {
   }
 
   componentDidMount() {
-    RIPSAW.init()
-    RIPSAW.launch()
+    RIPSAW.render()
   }
 
   componentWillUnmount() {}

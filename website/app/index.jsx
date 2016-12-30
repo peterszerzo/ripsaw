@@ -8,8 +8,7 @@ function start() {
     Home,
     Concept,
     Tutorial,
-    Code,
-    Documentation
+    Code
   } = Comp
 
   function Layout(props) {
@@ -33,7 +32,6 @@ function start() {
         <Route path='code' component={Code}/>
         <Route path='concept' component={Concept}/>
         <Route path='tutorial' component={Tutorial}/>
-        <Route path='documentation' component={Documentation}/>
       </Route>
     </Router>
   ), document.getElementById('app'))

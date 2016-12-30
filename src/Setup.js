@@ -26,16 +26,16 @@ RIPSAW.addTouchHandlers = function () {
 }
 
 /** Creates and appends canvas element to container div (ID set to RIPSAW.canvas.id). */
-RIPSAW.createCanvas = function () {
+RIPSAW.createCanvas = function (node) {
+  if (!this.container) {
+    this.container = node
+  }
   this.canvas = document.createElement('canvas')
   this.canvas.id = 'ripsaw-canvas'
-
   this.ctx = this.canvas.getContext('2d')
   this.ctx.lineCap = 'round'
   this.canvas.style.margin = 'auto'
-
   this.container.appendChild(this.canvas)
-
   return this
 }
 
@@ -114,20 +114,30 @@ RIPSAW.resize = function () {
   return this
 }
 
-/** Initializes application. */
-RIPSAW.init = function () {
-  this.container = document.getElementById(this.containerID)
-  this.createCanvas()
+/** Entry point */
+RIPSAW.render = function (node) {
+  this.createCanvas(node)
+  this.isRunning = true
   this.isModified = false
   this.addDefaultEventListeners()
   this.addTouchHandlers()
   window.addEventListener('resize', RIPSAW.resize, false)
   this.resize()
+  RIPSAW.resize()
+  function draw () {
+    if (!RIPSAW.isRunning) {
+      return
+    }
+    window.requestAnimationFrame(draw)
+    RIPSAW.resetCanvas()
+    RIPSAW.masterPiece.draw()
+  }
+  draw()
   return this
 }
 
 /** Sets basic drawing parameters. */
-RIPSAW.prepDraw = function () {
+RIPSAW.resetCanvas = function () {
   RIPSAW.ctx.fillStyle = RIPSAW.colors.get(0, 1)
   RIPSAW.pen.solidRect(0, 0, RIPSAW.W, RIPSAW.H)
   RIPSAW.ctx.textAlign = 'center'
@@ -136,18 +146,8 @@ RIPSAW.prepDraw = function () {
   return this
 }
 
-/** Launches application. */
-RIPSAW.launch = function () {
-  RIPSAW.resize()
-  RIPSAW.draw = function () {
-    RIPSAW.prepDraw()
-    RIPSAW.masterPiece.draw()
-  }
-  setInterval(RIPSAW.draw, RIPSAW.refreshInterval)
-  return this
-}
-
 RIPSAW.tearDown = function () {
+  this.isRunning = false
   this.canvas.parentNode.removeChild(this.canvas)
   return this
 }
