@@ -335,7 +335,7 @@ var Nav = function (_React$Component2) {
             React.createElement(
               'div',
               { className: 'grid__col grid__col--1-of-2' },
-              React.createElement('img', { className: 'center', src: '/images/design-1.svg' })
+              React.createElement('img', { className: 'center', src: 'images/design-1.svg' })
             )
           ),
           React.createElement('div', { className: 'content__separator' }),
@@ -345,7 +345,7 @@ var Nav = function (_React$Component2) {
             React.createElement(
               'div',
               { className: 'grid__col grid__col--1-of-2' },
-              React.createElement('img', { className: 'center', src: '/images/design-2.svg' })
+              React.createElement('img', { className: 'center', src: 'images/design-2.svg' })
             ),
             React.createElement(
               'div',
@@ -378,7 +378,7 @@ var Nav = function (_React$Component2) {
             React.createElement(
               'div',
               { className: 'grid__col grid__col--1-of-2' },
-              React.createElement('img', { className: 'center', src: '/images/fork3d.svg' })
+              React.createElement('img', { className: 'center', src: 'images/fork3d.svg' })
             )
           ),
           React.createElement('div', { className: 'content__separator' }),
