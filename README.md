@@ -1,4 +1,3 @@
-ripsaw-js
-=========
+# ripsaw-js
 
 JavaScript library for interactive product design.

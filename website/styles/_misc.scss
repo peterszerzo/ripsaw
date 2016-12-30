@@ -1,0 +1,53 @@
+.wrapper {
+	width: 100%;
+}
+
+i {
+	color: $color-base;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	&:hover { color: $color-hover; }
+}
+
+.active {
+	color: lighten($color-base, 30);
+}
+
+.section {
+	margin: 20px auto;
+}
+
+#ripsaw-app {
+
+	height: 350px;
+
+	-webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+	border-radius: 15px;
+
+	display: block;
+
+	@media screen and (max-width: $breakpoint) {
+
+		width: 80%;
+		margin-left: 10%;
+
+	}
+
+	canvas {
+
+		-webkit-border-radius: 15px;
+	  -moz-border-radius: 15px;
+		border-radius: 15px;
+
+	}
+
+}
+
+.icon-group {
+	display: inline;
+	&:hover {
+		color: $color-hover;
+	}
+}
