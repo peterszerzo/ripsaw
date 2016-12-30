@@ -63,7 +63,7 @@
               <p>{text[0][0]}</p>
             </div>
             <div className='grid__col grid__col--1-of-2'>
-              <img className='center' src='/images/design-1.svg'/>
+              <img className='center' src='images/design-1.svg'/>
             </div>
           </div>
 
@@ -71,7 +71,7 @@
 
           <div className='grid'>
             <div className='grid__col grid__col--1-of-2'>
-              <img className='center' src='/images/design-2.svg'/>
+              <img className='center' src='images/design-2.svg'/>
             </div>
             <div className='grid__col grid__col--1-of-2'>
               <p>{text[1][0]}</p>
@@ -86,7 +86,7 @@
               <p>{text[2][0]}</p>
             </div>
             <div className='grid__col grid__col--1-of-2'>
-              <img className='center' src='/images/fork3d.svg'/>
+              <img className='center' src='images/fork3d.svg'/>
             </div>
           </div>
 

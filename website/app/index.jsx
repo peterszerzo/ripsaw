@@ -1,7 +1,6 @@
 function start() {
 
-  var Router = window.ReactRouter
-  var {Route, IndexRoute, browserHistory} = window.ReactRouter
+  var {Router, Route, IndexRoute, hashHistory} = window.ReactRouter
 
   var {
     Header,
@@ -13,13 +12,13 @@ function start() {
     Documentation
   } = Comp
 
-  function Layout() {
+  function Layout(props) {
     return (
       <div>
         <Header/>
         <div className='content'>
           <div className='content__margin'/>
-          <RouteHandler/>
+          {props.children}
           <div className='content__margin'/>
         </div>
         <Footer/>
@@ -28,13 +27,13 @@ function start() {
   }
 
   ReactDOM.render((
-    <Router history={browserHistory}>
-      <Route component={Layout}>
-        <IndexRoute name='home' path='home' component={Home}/>
-        <Route name='code' path='code' component={Code}/>
-        <Route name='concept' path='concept' component={Concept}/>
-        <Route name='tutorial' path='tutorial' component={Tutorial}/>
-        <Route name='documentation' path='documentation' component={Documentation}/>
+    <Router history={hashHistory}>
+      <Route path='/' component={Layout}>
+        <IndexRoute component={Home}/>
+        <Route path='code' component={Code}/>
+        <Route path='concept' component={Concept}/>
+        <Route path='tutorial' component={Tutorial}/>
+        <Route path='documentation' component={Documentation}/>
       </Route>
     </Router>
   ), document.getElementById('app'))

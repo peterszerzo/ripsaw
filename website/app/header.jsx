@@ -10,7 +10,7 @@ Comp.Header = class Header extends React.Component {
     return (
       <div className='header'>
         <div className='header__logo center'>
-          <img className='center' src='/images/logo.svg'/>
+          <img className='center' src='images/logo.svg'/>
         </div>
 
         <h1 className='header__title center'>ripsaw.js</h1>

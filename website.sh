@@ -11,5 +11,6 @@ cat \
   website/app/tutorial.jsx \
   website/app/index.jsx \
   | ./node_modules/.bin/babel --presets=es2015,react > dist/index.js &&
-node-sass website/styles/index.scss -o dist &&
-cp website/index.html dist
+./node_modules/.bin/node-sass website/styles/index.scss -o dist &&
+cp website/index.html dist &&
+cp -r website/public/* dist
