@@ -1,34 +1,34 @@
 mkdir -p dist &&
 cat \
-  ./src/NameSpace.js \
-  ./src/TextAssets.js \
-  ./src/Setup.js \
+  ./src/global.js \
+  ./src/text.js \
+  ./src/init.js \
   ./src/util/events.js \
-  ./src/util/Observer.js \
-  ./src/util/Inheritance.js \
-  ./src/util/Util.js \
-  ./src/math/Matrix.js \
-  ./src/math/Vector.js \
-  ./src/math/DragNode.js \
-  ./src/math/PointCloud.js \
-  ./src/math/Line.js \
-  ./src/render/Camera.js \
+  ./src/util/observer.js \
+  ./src/util/inheritance.js \
+  ./src/util/utilities.js \
+  ./src/math/matrix.js \
+  ./src/math/vector.js \
+  ./src/math/drag-node.js \
+  ./src/math/point-cloud.js \
+  ./src/math/line.js \
+  ./src/render/camera.js \
   ./src/render/colors.js \
   ./src/render/pen.js \
   ./src/app/mouse.js \
   ./src/app/stage.js \
   ./src/app/tutorial.js \
-  ./src/app/nav/MenuButton.js \
-  ./src/app/nav/Navigation.js \
-  ./src/masterpieces/MasterPiece.js \
-  ./src/masterpieces/MasterPiecePermissions.js \
-  ./src/masterpieces/Bezier/BezierSVGPath.js \
-  ./src/masterpieces/Bezier/BezierHandle.js \
-  ./src/masterpieces/Bezier/Bezier2D.js \
-  ./src/masterpieces/Bezier/Bezier3D.js \
-  ./src/masterpieces/pantograph/Pantograph.js \
-  ./src/masterpieces/pantograph/CurvingPantograph.js \
-  ./src/masterpieces/voronoi/VoronoiIntersection.js \
-  ./src/masterpieces/voronoi/voronoiWave.js \
-  ./src/masterpieces/voronoi/voronoiWaveFront.js \
-  ./src/masterpieces/voronoi/Voronoi.js > dist/ripsaw.js
+  ./src/app/menu-button.js \
+  ./src/app/navigation.js \
+  ./src/master-pieces/index.js \
+  ./src/master-pieces/permissions.js \
+  ./src/master-pieces/Bezier/svg-path.js \
+  ./src/master-pieces/Bezier/handle.js \
+  ./src/master-pieces/Bezier/2d.js \
+  ./src/master-pieces/Bezier/3d.js \
+  ./src/master-pieces/pantograph/index.js \
+  ./src/master-pieces/pantograph/curving.js \
+  ./src/master-pieces/voronoi/intersection.js \
+  ./src/master-pieces/voronoi/wave.js \
+  ./src/master-pieces/voronoi/wave-front.js \
+  ./src/master-pieces/voronoi/index.js > dist/ripsaw.js
