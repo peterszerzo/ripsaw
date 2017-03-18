@@ -1,16 +1,14 @@
 .header {
-
-	
 	padding: 100px 0 50px 0;
 
-	&__logo { 
-		height: 200px; 
+	&__logo {
+		height: 200px;
 		text-align: center;
 		img { height: 100%; }
 	}
 
 	&__title {
-		font-family: 'Ubuntu';
+		font-family: 'Ubuntu Mono';
 		font-size: 3rem;
 		margin: 20px 0 10px 0;
 	}
@@ -19,5 +17,4 @@
 		font-size: 1.2rem;
 		margin: 0;
 	}
-
 }

@@ -1,5 +1,4 @@
 .footer {
-
 	padding: 80px 0 80px 0;
 
 	&__logo, &__credit { text-align: center; }
@@ -14,9 +13,9 @@
 		display: block;
 		font-size: 1rem;
 		color: #222;
+
 		span {
-			font-family: 'Ubuntu';
+			font-family: 'Ubuntu Mono';
 		}
 	}
-
 }

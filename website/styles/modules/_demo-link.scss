@@ -17,11 +17,11 @@
 		border-radius: 6px;
 		cursor: pointer;
 
-		p, a { color: white; text-align: center; @include font-size(18px); font-family: 'Ubuntu'; }
+		p, a { color: white; text-align: center; @include font-size(18px); font-family: 'Ubuntu Mono'; }
 
 	}
 
 	opacity: 0.6;
 	&:hover { opacity: 1; }
-	
+
 }
