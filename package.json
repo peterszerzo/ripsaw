@@ -11,6 +11,10 @@
     "design",
     "javascript"
   ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/peterszerzo/ripsaw.git"
+  },
   "author": "Peter Szerzo",
   "devDependencies": {},
   "dependencies": {
