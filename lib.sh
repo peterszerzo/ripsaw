@@ -1,4 +1,4 @@
-mkdir -p dist &&
+mkdir -p lib &&
 cat \
   ./src/global.js \
   ./src/text.js \
@@ -31,4 +31,4 @@ cat \
   ./src/master-pieces/voronoi/intersection.js \
   ./src/master-pieces/voronoi/wave.js \
   ./src/master-pieces/voronoi/wave-front.js \
-  ./src/master-pieces/voronoi/index.js > dist/ripsaw.js
+  ./src/master-pieces/voronoi/index.js > lib/ripsaw.js

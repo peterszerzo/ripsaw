@@ -1,6 +1,6 @@
 {
   "name": "ripsaw",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "js library powering guided interactive product design applications in the browser",
   "main": "index.js",
   "scripts": {

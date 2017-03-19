@@ -1,4 +1,4 @@
-mkdir -p dist &&
+mkdir -p dist-website &&
 cat \
   website/app/init.jsx \
   website/app/concept.jsx \
@@ -9,7 +9,7 @@ cat \
   website/app/modal.jsx \
   website/app/tutorial.jsx \
   website/app/index.jsx \
-  | ./node_modules/.bin/babel --presets=es2015,react > dist/index.js &&
-./node_modules/.bin/node-sass website/styles/index.scss -o dist &&
-cp website/index.html dist &&
-cp -r website/public/* dist
+  | ./node_modules/.bin/babel --presets=es2015,react > dist-website/index.js &&
+./node_modules/.bin/node-sass website/styles/index.scss -o dist-website &&
+cp website/index.html dist-website &&
+cp -r website/public/* dist-website
