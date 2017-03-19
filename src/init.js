@@ -116,7 +116,8 @@
   }
 
 /** Entry point */
-  RIPSAW.render = function (node) {
+  RIPSAW.render = function (masterPiece, node) {
+    this.masterPiece = masterPiece
     this.createCanvas(node)
     this.isRunning = true
     this.isModified = false
