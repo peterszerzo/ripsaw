@@ -26,26 +26,57 @@ main =
 -- Model
 
 
+type Dragged
+    = Dragged String Int Int Int Int
+
+
 type alias Model =
     { controlPoints : List ( Float, Float )
+    , dragged : Maybe Dragged
+    , scale : Float
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model
-        [ ( 10, 10 )
-        , ( 20, 50 )
-        , ( 80, 50 )
-        , ( 90, 90 )
-        ]
+    ( { controlPoints =
+            [ ( 10, 10 )
+            , ( 20, 50 )
+            , ( 80, 50 )
+            , ( 90, 90 )
+            ]
+      , dragged = Nothing
+      , scale = 6
+      }
     , Cmd.none
     )
 
 
-unsafeGetControlPoint : Model -> Int -> ( Float, Float )
-unsafeGetControlPoint model index =
-    model.controlPoints |> List.drop index |> List.head |> Maybe.withDefault ( 0, 0 )
+temporaryControlPoint : Model -> Int -> Point2d
+temporaryControlPoint model index =
+    let
+        id =
+            (controlPointId index)
+
+        ( offsetX, offsetY ) =
+            case model.dragged of
+                Just (Dragged dragId x0 y0 xd yd) ->
+                    if id == dragId then
+                        ( (toFloat (xd - x0)) / model.scale
+                        , (toFloat (yd - y0)) / model.scale
+                        )
+                    else
+                        ( 0, 0 )
+
+                _ ->
+                    ( 0, 0 )
+    in
+        model.controlPoints
+            |> List.drop index
+            |> List.head
+            |> Maybe.map (\( x, y ) -> ( x + offsetX, y + offsetY ))
+            |> Maybe.withDefault ( 0, 0 )
+            |> Point2d
 
 
 
@@ -53,8 +84,9 @@ unsafeGetControlPoint model index =
 
 
 type Msg
-    = NoOp
-    | MouseMove Int Int
+    = MouseMove Int Int
+    | MouseDown String Int Int
+    | MouseUp String Int Int
 
 
 
@@ -63,19 +95,38 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        NoOp ->
+    case ( msg, model.dragged ) of
+        ( MouseMove xm ym, Just (Dragged dragId x0 y0 xd yd) ) ->
+            ( { model
+                | dragged =
+                    Just (Dragged dragId x0 y0 xm ym)
+              }
+            , Cmd.none
+            )
+
+        ( MouseDown id x y, _ ) ->
+            ( { model | dragged = Just (Dragged id x y x y) }, Cmd.none )
+
+        ( MouseUp id x y, Just (Dragged dragId x0 y0 xd yd) ) ->
+            ( { model
+                | dragged = Nothing
+                , controlPoints =
+                    List.indexedMap
+                        (\index ( ptx, pty ) ->
+                            if controlPointId index == id then
+                                ( ptx + (toFloat (x - x0)) / model.scale
+                                , pty + (toFloat (y - y0)) / model.scale
+                                )
+                            else
+                                ( ptx, pty )
+                        )
+                        model.controlPoints
+              }
+            , Cmd.none
+            )
+
+        ( _, _ ) ->
             ( model, Cmd.none )
-
-        MouseMove x y ->
-            let
-                _ =
-                    Debug.log "x" x
-
-                a_ =
-                    Debug.log "y" y
-            in
-                ( model, Cmd.none )
 
 
 
@@ -112,8 +163,20 @@ viewLine ( pt1, pt2 ) =
             []
 
 
-viewControlPoint : Point2d -> Html Msg
-viewControlPoint pt =
+controlPointId : Int -> String
+controlPointId index =
+    "ctrl" ++ (toString index)
+
+
+controlPointIndex : String -> Int
+controlPointIndex id =
+    String.dropLeft 4 id
+        |> String.toInt
+        |> Result.withDefault 0
+
+
+viewControlPoint : Int -> Point2d -> Html Msg
+viewControlPoint index pt =
     let
         ( x, y ) =
             coordinates pt
@@ -122,8 +185,13 @@ viewControlPoint pt =
             [ cx (toString x)
             , cy (toString y)
             , r "2"
-            , on "mousemove"
-                (Decode.map2 MouseMove
+            , on "mouseup"
+                (Decode.map2 (MouseUp (controlPointId index))
+                    (Decode.field "screenX" Decode.int)
+                    (Decode.field "screenY" Decode.int)
+                )
+            , on "mousedown"
+                (Decode.map2 (MouseDown (controlPointId index))
                     (Decode.field "screenX" Decode.int)
                     (Decode.field "screenY" Decode.int)
                 )
@@ -131,41 +199,23 @@ viewControlPoint pt =
             []
 
 
-viewSpline : CubicSpline2d -> Html Msg
-viewSpline spline =
-    let
-        ( pt1, pt2, pt3, pt4 ) =
-            controlPoints spline
-    in
-        g []
-            [ OpenSolid.Svg.cubicSpline2d
-                [ fill "none"
-                , stroke "black"
-                , strokeLinecap "round"
-                , strokeLinejoin "round"
-                , strokeWidth "1"
-                ]
-                spline
-            , g []
-                [ viewControlPoint pt1
-                , viewControlPoint pt2
-                , viewControlPoint pt3
-                , viewControlPoint pt4
-                ]
-            , g []
-                [ viewLine ( pt1, pt2 )
-                , viewLine ( pt3, pt4 )
-                ]
-            ]
-
-
 view : Model -> Html Msg
 view model =
     let
-        getPt =
-            (\index ->
-                unsafeGetControlPoint model index |> Point2d
-            )
+        pt1 =
+            temporaryControlPoint model 0
+
+        pt2 =
+            temporaryControlPoint model 1
+
+        pt3 =
+            temporaryControlPoint model 2
+
+        pt4 =
+            temporaryControlPoint model 3
+
+        spline =
+            bezier pt1 pt2 pt3 pt4
     in
         div
             [ style
@@ -178,19 +228,38 @@ view model =
             , svg
                 [ viewBox "0 0 100 100"
                 , style
-                    [ ( "width", "600px" )
-                    , ( "height", "600px" )
+                    [ ( "width", (model.scale * 100 |> toString) ++ "px" )
+                    , ( "height", (model.scale * 100 |> toString) ++ "px" )
                     , ( "margin-top", "40px" )
                     , ( "border", "1px solid #ddd" )
                     ]
-                ]
-                [ viewSpline
-                    (bezier
-                        (getPt 0)
-                        (getPt 1)
-                        (getPt 2)
-                        (getPt 3)
+                , on "mousemove"
+                    (Decode.map2 MouseMove
+                        (Decode.field "screenX" Decode.int)
+                        (Decode.field "screenY" Decode.int)
                     )
+                ]
+                [ g
+                    []
+                    [ OpenSolid.Svg.cubicSpline2d
+                        [ fill "none"
+                        , stroke "black"
+                        , strokeLinecap "round"
+                        , strokeLinejoin "round"
+                        , strokeWidth "1"
+                        ]
+                        spline
+                    , g []
+                        [ viewLine ( pt1, pt2 )
+                        , viewLine ( pt3, pt4 )
+                        ]
+                    , g []
+                        [ viewControlPoint 0 pt1
+                        , viewControlPoint 1 pt2
+                        , viewControlPoint 2 pt3
+                        , viewControlPoint 3 pt4
+                        ]
+                    ]
                 ]
             ]
 
