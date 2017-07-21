@@ -1,4 +1,12 @@
-module Drag exposing (Drag, init, start, move, stop, status)
+module Drag
+    exposing
+        ( Drag
+        , init
+        , start
+        , move
+        , stop
+        , state
+        )
 
 
 type Drag
@@ -47,7 +55,7 @@ stop id (Drag drag) =
     Drag Nothing
 
 
-status : Drag -> Maybe ( String, ( Int, Int ) )
-status (Drag drag) =
+state : Drag -> Maybe ( String, ( Int, Int ) )
+state (Drag drag) =
     drag
         |> Maybe.map (\d -> ( d.id, ( d.xd - d.x0, d.yd - d.y0 ) ))

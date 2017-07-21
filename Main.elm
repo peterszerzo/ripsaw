@@ -27,10 +27,6 @@ main =
 -- Model
 
 
-type Dragged
-    = Dragged String Int Int Int Int
-
-
 type alias Model =
     { controlPoints : List ( Float, Float )
     , drag : Drag.Drag
@@ -60,7 +56,7 @@ temporaryControlPoint model index =
             (controlPointId index)
 
         ( offsetX, offsetY ) =
-            case Drag.status model.drag of
+            case Drag.state model.drag of
                 Just ( dragId, ( diffX, diffY ) ) ->
                     if id == dragId then
                         ( (toFloat diffX) / model.scale
@@ -120,7 +116,7 @@ update msg model =
                                 ptId =
                                     controlPointId index
                             in
-                                case Drag.status model.drag of
+                                case Drag.state model.drag of
                                     Just ( dragId, ( diffX, diffY ) ) ->
                                         if ptId == dragId then
                                             ( ptx + (toFloat diffX) / model.scale
