@@ -10,6 +10,7 @@ import OpenSolid.Geometry.Types exposing (..)
 import OpenSolid.CubicSpline2d exposing (bezier, controlPoints)
 import OpenSolid.Point2d exposing (coordinates)
 import OpenSolid.Svg
+import Drag
 
 
 main : Program Never Model Msg
@@ -32,7 +33,7 @@ type Dragged
 
 type alias Model =
     { controlPoints : List ( Float, Float )
-    , dragged : Maybe Dragged
+    , drag : Drag.Drag
     , scale : Float
     }
 
@@ -45,7 +46,7 @@ init =
             , ( 80, 50 )
             , ( 90, 90 )
             ]
-      , dragged = Nothing
+      , drag = Drag.init
       , scale = 6
       }
     , Cmd.none
@@ -59,16 +60,16 @@ temporaryControlPoint model index =
             (controlPointId index)
 
         ( offsetX, offsetY ) =
-            case model.dragged of
-                Just (Dragged dragId x0 y0 xd yd) ->
+            case Drag.status model.drag of
+                Just ( dragId, ( diffX, diffY ) ) ->
                     if id == dragId then
-                        ( (toFloat (xd - x0)) / model.scale
-                        , (toFloat (yd - y0)) / model.scale
+                        ( (toFloat diffX) / model.scale
+                        , (toFloat diffY) / model.scale
                         )
                     else
                         ( 0, 0 )
 
-                _ ->
+                Nothing ->
                     ( 0, 0 )
     in
         model.controlPoints
@@ -95,38 +96,46 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case ( msg, model.dragged ) of
-        ( MouseMove xm ym, Just (Dragged dragId x0 y0 xd yd) ) ->
+    case msg of
+        MouseMove xm ym ->
             ( { model
-                | dragged =
-                    Just (Dragged dragId x0 y0 xm ym)
+                | drag =
+                    Drag.move xm ym model.drag
               }
             , Cmd.none
             )
 
-        ( MouseDown id x y, _ ) ->
-            ( { model | dragged = Just (Dragged id x y x y) }, Cmd.none )
+        MouseDown id x y ->
+            ( { model | drag = Drag.start id x y }
+            , Cmd.none
+            )
 
-        ( MouseUp id x y, Just (Dragged dragId x0 y0 xd yd) ) ->
+        MouseUp id x y ->
             ( { model
-                | dragged = Nothing
+                | drag = Drag.init
                 , controlPoints =
                     List.indexedMap
                         (\index ( ptx, pty ) ->
-                            if controlPointId index == id then
-                                ( ptx + (toFloat (x - x0)) / model.scale
-                                , pty + (toFloat (y - y0)) / model.scale
-                                )
-                            else
-                                ( ptx, pty )
+                            let
+                                ptId =
+                                    controlPointId index
+                            in
+                                case Drag.status model.drag of
+                                    Just ( dragId, ( diffX, diffY ) ) ->
+                                        if ptId == dragId then
+                                            ( ptx + (toFloat diffX) / model.scale
+                                            , pty + (toFloat diffY) / model.scale
+                                            )
+                                        else
+                                            ( ptx, pty )
+
+                                    Nothing ->
+                                        ( ptx, pty )
                         )
                         model.controlPoints
               }
             , Cmd.none
             )
-
-        ( _, _ ) ->
-            ( model, Cmd.none )
 
 
 
