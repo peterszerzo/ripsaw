@@ -8,11 +8,15 @@ module Drag
         , state
         )
 
+import Types exposing (..)
 
-type Drag
+
+{-| The drag data type contains the current drag state. If there is dragging, it contains the screen position where the drag began, where the cursor currently is, and which point is being dragged. The client can define any way of identifying points, hence the pointId type variable.
+-}
+type Drag pointId
     = Drag
         (Maybe
-            { id : String
+            { id : pointId
             , x0 : Float
             , y0 : Float
             , xd : Float
@@ -21,12 +25,12 @@ type Drag
         )
 
 
-init : Drag
+init : Drag pointId
 init =
     Drag Nothing
 
 
-start : String -> Float -> Float -> Drag
+start : pointId -> Float -> Float -> Drag pointId
 start id x0 y0 =
     Drag
         (Just
@@ -39,23 +43,28 @@ start id x0 y0 =
         )
 
 
-move : Float -> Float -> Drag -> Drag
+move : Float -> Float -> Drag pointId -> Drag pointId
 move xm ym (Drag drag) =
     case drag of
         Just dg ->
             Drag
-                (Just { dg | xd = xm, yd = ym })
+                (Just
+                    { dg
+                        | xd = xm
+                        , yd = ym
+                    }
+                )
 
         Nothing ->
             Drag drag
 
 
-stop : String -> Drag -> Drag
+stop : pointId -> Drag pointId -> Drag pointId
 stop id (Drag drag) =
     Drag Nothing
 
 
-state : Drag -> Maybe ( String, ( Float, Float ) )
+state : Drag pointId -> Maybe ( pointId, RawPoint2d )
 state (Drag drag) =
     drag
         |> Maybe.map (\d -> ( d.id, ( d.xd - d.x0, d.yd - d.y0 ) ))

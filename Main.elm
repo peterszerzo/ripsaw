@@ -30,7 +30,7 @@ main =
 
 type alias Model =
     { controlPoints : List RawPoint2d
-    , drag : Drag.Drag
+    , drag : Drag.Drag String
     , scale : Float
     }
 

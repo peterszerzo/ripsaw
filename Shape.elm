@@ -1,10 +1,20 @@
-module Shape exposing (..)
+module Shape
+    exposing
+        ( ControlPointLocation(..)
+        , Shape
+        , ControlPointAddress
+        , RenderedShape
+        , shape
+        , render
+        )
 
 import Handle exposing (Handle, handle)
 import Types exposing (..)
 import OpenSolid.Geometry.Types exposing (..)
 
 
+{-| A shape is define as a mere list of control handles.
+-}
 type alias Shape =
     List Handle
 
