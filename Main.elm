@@ -3,6 +3,7 @@ module Main exposing (main)
 import Json.Decode as Decode
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (style)
+import Types exposing (..)
 import Svg exposing (svg, path, line, g, circle)
 import Svg.Attributes exposing (d, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
 import Svg.Events exposing (on)
@@ -28,7 +29,7 @@ main =
 
 
 type alias Model =
-    { controlPoints : List ( Float, Float )
+    { controlPoints : List RawPoint2d
     , drag : Drag.Drag
     , scale : Float
     }
@@ -59,8 +60,8 @@ temporaryControlPoint model index =
             case Drag.state model.drag of
                 Just ( dragId, ( diffX, diffY ) ) ->
                     if id == dragId then
-                        ( (toFloat diffX) / model.scale
-                        , (toFloat diffY) / model.scale
+                        ( diffX / model.scale
+                        , diffY / model.scale
                         )
                     else
                         ( 0, 0 )
@@ -81,9 +82,9 @@ temporaryControlPoint model index =
 
 
 type Msg
-    = MouseMove Int Int
-    | MouseDown String Int Int
-    | MouseUp String Int Int
+    = MouseMove Float Float
+    | MouseDown String Float Float
+    | MouseUp String Float Float
 
 
 
@@ -119,8 +120,8 @@ update msg model =
                                 case Drag.state model.drag of
                                     Just ( dragId, ( diffX, diffY ) ) ->
                                         if ptId == dragId then
-                                            ( ptx + (toFloat diffX) / model.scale
-                                            , pty + (toFloat diffY) / model.scale
+                                            ( ptx + diffX / model.scale
+                                            , pty + diffY / model.scale
                                             )
                                         else
                                             ( ptx, pty )
@@ -192,13 +193,13 @@ viewControlPoint index pt =
             , r "2"
             , on "mouseup"
                 (Decode.map2 (MouseUp (controlPointId index))
-                    (Decode.field "screenX" Decode.int)
-                    (Decode.field "screenY" Decode.int)
+                    (Decode.field "screenX" Decode.float)
+                    (Decode.field "screenY" Decode.float)
                 )
             , on "mousedown"
                 (Decode.map2 (MouseDown (controlPointId index))
-                    (Decode.field "screenX" Decode.int)
-                    (Decode.field "screenY" Decode.int)
+                    (Decode.field "screenX" Decode.float)
+                    (Decode.field "screenY" Decode.float)
                 )
             ]
             []
@@ -240,8 +241,8 @@ view model =
                     ]
                 , on "mousemove"
                     (Decode.map2 MouseMove
-                        (Decode.field "screenX" Decode.int)
-                        (Decode.field "screenY" Decode.int)
+                        (Decode.field "screenX" Decode.float)
+                        (Decode.field "screenY" Decode.float)
                     )
                 ]
                 [ g

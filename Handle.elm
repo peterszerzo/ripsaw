@@ -12,21 +12,21 @@ module Handle
         , couple
         )
 
+import Types exposing (..)
 
+
+{-| When a handle is coupled, the left and right control points move together, preserving smoothness at the handle's center. When they're not coupled, they can move independently.
+-}
 type Coupling
     = Coupled
     | Decoupled
 
 
-type alias Point =
-    ( Float, Float )
-
-
 type Handle
     = Handle
-        { left : Maybe Point
-        , center : Point
-        , right : Maybe Point
+        { left : Maybe RawPoint2d
+        , center : RawPoint2d
+        , right : Maybe RawPoint2d
         , coupling : Coupling
         }
 
@@ -35,7 +35,7 @@ type Handle
 -- Factory
 
 
-handle : Maybe Point -> Point -> Maybe Point -> Handle
+handle : Maybe RawPoint2d -> RawPoint2d -> Maybe RawPoint2d -> Handle
 handle left center right =
     Handle
         { left = left
@@ -49,17 +49,17 @@ handle left center right =
 -- Accessors
 
 
-left : Handle -> Maybe Point
+left : Handle -> Maybe RawPoint2d
 left (Handle h) =
     h.left
 
 
-center : Handle -> Point
+center : Handle -> RawPoint2d
 center (Handle h) =
     h.center
 
 
-right : Handle -> Maybe Point
+right : Handle -> Maybe RawPoint2d
 right (Handle h) =
     h.left
 
@@ -68,22 +68,32 @@ right (Handle h) =
 -- Operations
 
 
-moveLeft : Point -> Handle -> Handle
-moveLeft diff handle =
-    -- TODO: finish
-    handle
+moveLeft : RawPoint2d -> Handle -> Handle
+moveLeft ( diffX, diffY ) (Handle handle) =
+    -- TODO: account for coupling
+    Handle
+        { handle
+            | left = handle.left |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+        }
 
 
-moveCenter : Point -> Handle -> Handle
-moveCenter diff (Handle handle) =
-    -- TODO: finish
-    Handle handle
+moveCenter : RawPoint2d -> Handle -> Handle
+moveCenter ( diffX, diffY ) (Handle handle) =
+    Handle
+        { handle
+            | left = handle.left |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+            , center = handle.center |> (\( x, y ) -> ( x + diffX, y + diffY ))
+            , right = handle.right |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+        }
 
 
-moveRight : Point -> Handle -> Handle
-moveRight diff (Handle handle) =
-    -- TODO: finish
-    Handle handle
+moveRight : RawPoint2d -> Handle -> Handle
+moveRight ( diffX, diffY ) (Handle handle) =
+    -- TODO: account for coupling
+    Handle
+        { handle
+            | right = handle.right |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+        }
 
 
 decouple : Handle -> Handle
