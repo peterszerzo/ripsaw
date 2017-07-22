@@ -2,9 +2,12 @@ module Handle
     exposing
         ( Handle
         , handle
-        , updateLeft
-        , updateCenter
-        , updateRight
+        , left
+        , center
+        , right
+        , moveLeft
+        , moveCenter
+        , moveRight
         , decouple
         , couple
         )
@@ -28,6 +31,10 @@ type Handle
         }
 
 
+
+-- Factory
+
+
 handle : Maybe Point -> Point -> Maybe Point -> Handle
 handle left center right =
     Handle
@@ -38,22 +45,45 @@ handle left center right =
         }
 
 
-updateLeft : Point -> Handle -> Handle
-updateLeft diff handle =
+
+-- Accessors
+
+
+left : Handle -> Maybe Point
+left (Handle h) =
+    h.left
+
+
+center : Handle -> Point
+center (Handle h) =
+    h.center
+
+
+right : Handle -> Maybe Point
+right (Handle h) =
+    h.left
+
+
+
+-- Operations
+
+
+moveLeft : Point -> Handle -> Handle
+moveLeft diff handle =
     -- TODO: finish
     handle
 
 
-updateCenter : Point -> Handle -> Handle
-updateCenter diff handle =
+moveCenter : Point -> Handle -> Handle
+moveCenter diff (Handle handle) =
     -- TODO: finish
-    handle
+    Handle handle
 
 
-updateRight : Point -> Handle -> Handle
-updateRight diff handle =
+moveRight : Point -> Handle -> Handle
+moveRight diff (Handle handle) =
     -- TODO: finish
-    handle
+    Handle handle
 
 
 decouple : Handle -> Handle
