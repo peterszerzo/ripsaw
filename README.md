@@ -1,3 +1,7 @@
 # ripsaw
 
-An interactive 3d product design playground.
+A 3d spline shape editor.
+
+## Run locally
+
+./bin/start.sh

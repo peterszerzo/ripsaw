@@ -3,15 +3,14 @@ module Main exposing (main)
 import Json.Decode as Decode
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (style)
-import Types exposing (..)
 import Svg exposing (svg, path, line, g, circle)
 import Svg.Attributes exposing (d, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
 import Svg.Events exposing (on)
 import OpenSolid.Geometry.Types exposing (..)
-import OpenSolid.CubicSpline2d exposing (bezier, controlPoints)
 import OpenSolid.Point2d exposing (coordinates)
 import OpenSolid.Svg
 import Drag
+import Shape
 
 
 main : Program Never Model Msg
@@ -29,20 +28,20 @@ main =
 
 
 type alias Model =
-    { controlPoints : List RawPoint2d
-    , drag : Drag.Drag String
+    { shape : Shape.Shape
+    , drag : Drag.Drag Shape.ControlPointAddress
     , scale : Float
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { controlPoints =
-            [ ( 10, 10 )
-            , ( 20, 50 )
-            , ( 80, 50 )
-            , ( 90, 90 )
-            ]
+    ( { shape =
+            Shape.shape
+                [ ( Just ( 0, 0 ), ( 10, 10 ), Nothing )
+                , ( Nothing, ( 50, 50 ), Nothing )
+                , ( Nothing, ( 90, 10 ), Nothing )
+                ]
       , drag = Drag.init
       , scale = 6
       }
@@ -50,41 +49,10 @@ init =
     )
 
 
-temporaryControlPoint : Model -> Int -> Point2d
-temporaryControlPoint model index =
-    let
-        id =
-            (controlPointId index)
-
-        ( offsetX, offsetY ) =
-            case Drag.state model.drag of
-                Just ( dragId, ( diffX, diffY ) ) ->
-                    if id == dragId then
-                        ( diffX / model.scale
-                        , diffY / model.scale
-                        )
-                    else
-                        ( 0, 0 )
-
-                Nothing ->
-                    ( 0, 0 )
-    in
-        model.controlPoints
-            |> List.drop index
-            |> List.head
-            |> Maybe.map (\( x, y ) -> ( x + offsetX, y + offsetY ))
-            |> Maybe.withDefault ( 0, 0 )
-            |> Point2d
-
-
-
--- Msg
-
-
 type Msg
     = MouseMove Float Float
-    | MouseDown String Float Float
-    | MouseUp String Float Float
+    | MouseDown Shape.ControlPointAddress Float Float
+    | MouseUp Shape.ControlPointAddress Float Float
 
 
 
@@ -97,39 +65,29 @@ update msg model =
         MouseMove xm ym ->
             ( { model
                 | drag =
-                    Drag.move xm ym model.drag
+                    Drag.move ( xm, ym ) model.drag
               }
             , Cmd.none
             )
 
-        MouseDown id x y ->
-            ( { model | drag = Drag.start id x y }
+        MouseDown address x y ->
+            ( { model
+                | drag =
+                    Drag.start address ( x, y )
+              }
             , Cmd.none
             )
 
-        MouseUp id x y ->
+        MouseUp address x y ->
             ( { model
                 | drag = Drag.init
-                , controlPoints =
-                    List.indexedMap
-                        (\index ( ptx, pty ) ->
-                            let
-                                ptId =
-                                    controlPointId index
-                            in
-                                case Drag.state model.drag of
-                                    Just ( dragId, ( diffX, diffY ) ) ->
-                                        if ptId == dragId then
-                                            ( ptx + diffX / model.scale
-                                            , pty + diffY / model.scale
-                                            )
-                                        else
-                                            ( ptx, pty )
+                , shape =
+                    case Drag.state model.drag of
+                        Just ( _, ( diffX, diffY ) ) ->
+                            Shape.moveControlPoint address ( diffX / model.scale, diffY / model.scale ) model.shape
 
-                                    Nothing ->
-                                        ( ptx, pty )
-                        )
-                        model.controlPoints
+                        Nothing ->
+                            model.shape
               }
             , Cmd.none
             )
@@ -169,20 +127,8 @@ viewLine ( pt1, pt2 ) =
             []
 
 
-controlPointId : Int -> String
-controlPointId index =
-    "ctrl" ++ (toString index)
-
-
-controlPointIndex : String -> Int
-controlPointIndex id =
-    String.dropLeft 4 id
-        |> String.toInt
-        |> Result.withDefault 0
-
-
-viewControlPoint : Int -> Point2d -> Html Msg
-viewControlPoint index pt =
+viewControlPoint : Shape.ControlPointAddress -> Point2d -> Html Msg
+viewControlPoint address pt =
     let
         ( x, y ) =
             coordinates pt
@@ -192,12 +138,12 @@ viewControlPoint index pt =
             , cy (toString y)
             , r "2"
             , on "mouseup"
-                (Decode.map2 (MouseUp (controlPointId index))
+                (Decode.map2 (MouseUp address)
                     (Decode.field "screenX" Decode.float)
                     (Decode.field "screenY" Decode.float)
                 )
             , on "mousedown"
-                (Decode.map2 (MouseDown (controlPointId index))
+                (Decode.map2 (MouseDown address)
                     (Decode.field "screenX" Decode.float)
                     (Decode.field "screenY" Decode.float)
                 )
@@ -208,20 +154,16 @@ viewControlPoint index pt =
 view : Model -> Html Msg
 view model =
     let
-        pt1 =
-            temporaryControlPoint model 0
+        renderedShape =
+            case Drag.state model.drag of
+                Just ( address, ( diffX, diffY ) ) ->
+                    Shape.moveControlPoint address ( diffX / model.scale, diffY / model.scale ) model.shape
 
-        pt2 =
-            temporaryControlPoint model 1
+                Nothing ->
+                    model.shape
 
-        pt3 =
-            temporaryControlPoint model 2
-
-        pt4 =
-            temporaryControlPoint model 3
-
-        spline =
-            bezier pt1 pt2 pt3 pt4
+        { controlHandles, controlPoints, splines } =
+            Shape.render renderedShape
     in
         div
             [ style
@@ -247,24 +189,21 @@ view model =
                 ]
                 [ g
                     []
-                    [ OpenSolid.Svg.cubicSpline2d
-                        [ fill "none"
-                        , stroke "black"
-                        , strokeLinecap "round"
-                        , strokeLinejoin "round"
-                        , strokeWidth "1"
-                        ]
-                        spline
-                    , g []
-                        [ viewLine ( pt1, pt2 )
-                        , viewLine ( pt3, pt4 )
-                        ]
-                    , g []
-                        [ viewControlPoint 0 pt1
-                        , viewControlPoint 1 pt2
-                        , viewControlPoint 2 pt3
-                        , viewControlPoint 3 pt4
-                        ]
+                    [ g [] <|
+                        List.map
+                            (OpenSolid.Svg.cubicSpline2d
+                                [ fill "none"
+                                , stroke "black"
+                                , strokeLinecap "round"
+                                , strokeLinejoin "round"
+                                , strokeWidth "1"
+                                ]
+                            )
+                            splines
+                    , g [] <|
+                        List.map viewLine controlHandles
+                    , g [] <|
+                        List.map (\( address, point ) -> viewControlPoint address point) controlPoints
                     ]
                 ]
             ]
