@@ -94,10 +94,10 @@ right (Handle h) =
 -}
 moveLeft : RawPoint2d -> Handle -> Handle
 moveLeft ( diffX, diffY ) (Handle handle) =
-    -- TODO: account for coupling
     Handle
         { handle
             | left = handle.left |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+            , right = handle.right |> Maybe.map (\( x, y ) -> ( x - diffX, y - diffY ))
         }
 
 
@@ -121,6 +121,7 @@ moveRight ( diffX, diffY ) (Handle handle) =
     Handle
         { handle
             | right = handle.right |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+            , left = handle.left |> Maybe.map (\( x, y ) -> ( x - diffX, y - diffY ))
         }
 
 

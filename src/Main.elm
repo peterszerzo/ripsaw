@@ -38,9 +38,9 @@ init : ( Model, Cmd Msg )
 init =
     ( { shape =
             Shape.shape
-                [ ( Just ( 0, 0 ), ( 10, 10 ), Nothing )
-                , ( Nothing, ( 50, 50 ), Nothing )
-                , ( Nothing, ( 90, 10 ), Nothing )
+                [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
+                , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
+                , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
                 ]
       , drag = Drag.init
       , scale = 6
