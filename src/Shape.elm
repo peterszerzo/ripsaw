@@ -36,7 +36,7 @@ type Shape
     = Shape (List Handle)
 
 
-{-| An opaque type encoding information that maps a control point to its corresponding handle on the shape and location on its handle (left, center or right). This contextual information can then be passed on to `Html` messages when any if these points are dragged, so that the shape can be updated accordingly.
+{-| An opaque type encoding information that maps a control point to its corresponding handle on the shape and location on its handle (left, center or right). This contextual information can then be passed along with `Html` messages, so that whenever a point is dragged, the shape can be updated accordingly.
 -}
 type ControlPointAddress
     = ControlPointAddress

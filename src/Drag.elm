@@ -4,7 +4,6 @@ module Drag
         , init
         , start
         , move
-        , stop
         , state
         )
 
@@ -17,7 +16,7 @@ module Drag
 @docs init, start
 
 # Update utilities
-@docs start, move, stop
+@docs start, move
 
 # Accessors
 @docs state
@@ -26,12 +25,12 @@ module Drag
 import Types exposing (..)
 
 
-{-| This opaque data type contains the current drag state. If there is dragging, it contains the screen position where the drag began, where the cursor currently is, and which point is being dragged, specified by a [ControlPointAddress](/Shape#ControlPointAddress). The client can define any way of identifying points, hence the pointId type variable.
+{-| This opaque data type contains the current drag state. If there is dragging, it contains the screen position where the drag began, where the cursor currently is, and an identifier of the point being dragged. The client can define any way of identifying points, as indicated by the `identifier` type variable.
 -}
-type Drag pointId
+type Drag identifier
     = Drag
         (Maybe
-            { id : pointId
+            { id : identifier
             , x0 : Float
             , y0 : Float
             , xd : Float
@@ -40,16 +39,16 @@ type Drag pointId
         )
 
 
-{-| Initialize a `Drag` data type as no drag.
+{-| Initialize new drag with an empty drag state.
 -}
-init : Drag pointId
+init : Drag identifier
 init =
     Drag Nothing
 
 
-{-| Start a new drag.
+{-| Initialize a new drag with a drag state where the current drag position and the drag start positions are the same.
 -}
-start : pointId -> RawPoint2d -> Drag pointId
+start : identifier -> RawPoint2d -> Drag identifier
 start id ( x0, y0 ) =
     Drag
         (Just
@@ -64,7 +63,7 @@ start id ( x0, y0 ) =
 
 {-| Set a new drag position under the current drag.
 -}
-move : RawPoint2d -> Drag pointId -> Drag pointId
+move : RawPoint2d -> Drag identifier -> Drag identifier
 move ( xm, ym ) (Drag drag) =
     case drag of
         Just dg ->
@@ -80,16 +79,9 @@ move ( xm, ym ) (Drag drag) =
             Drag drag
 
 
-{-| Stop the current drag.
--}
-stop : pointId -> Drag pointId -> Drag pointId
-stop id (Drag drag) =
-    Drag Nothing
-
-
 {-| Retrieve drag state.
 -}
-state : Drag pointId -> Maybe ( pointId, RawPoint2d )
+state : Drag identifier -> Maybe ( identifier, RawPoint2d )
 state (Drag drag) =
     drag
         |> Maybe.map (\d -> ( d.id, ( d.xd - d.x0, d.yd - d.y0 ) ))
