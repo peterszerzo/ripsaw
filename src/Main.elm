@@ -29,6 +29,8 @@ main =
 
 type alias Model =
     { shape : Shape.Shape
+    , topDepthProfile : Shape.Shape
+    , bottomDepthProfile : Shape.Shape
     , drag : Drag.Drag Shape.ControlPointAddress
     , scale : Float
     }
@@ -41,6 +43,18 @@ init =
                 [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
                 , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
                 , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
+                ]
+      , topDepthProfile =
+            Shape.shape
+                [ ( Just ( -10, 0.05 ), ( 0, 0.05 ), Just ( 10, 0.05 ) )
+                , ( Just ( 40, 0.05 ), ( 50, 0.05 ), Just ( 60, 0.05 ) )
+                , ( Just ( 90, 0.05 ), ( 100, 0.05 ), Just ( 110, 0.05 ) )
+                ]
+      , bottomDepthProfile =
+            Shape.shape
+                [ ( Just ( -10, -0.05 ), ( 0, -0.05 ), Just ( 10, -0.05 ) )
+                , ( Just ( 40, -0.05 ), ( 50, -0.05 ), Just ( 60, -0.05 ) )
+                , ( Just ( 90, -0.05 ), ( 100, -0.05 ), Just ( 110, -0.05 ) )
                 ]
       , drag = Drag.init
       , scale = 6
