@@ -52,7 +52,7 @@ init =
 type Msg
     = MouseMove Float Float
     | MouseDown Shape.ControlPointAddress Float Float
-    | MouseUp Shape.ControlPointAddress Float Float
+    | MouseUp Float Float
 
 
 
@@ -78,12 +78,12 @@ update msg model =
             , Cmd.none
             )
 
-        MouseUp address x y ->
+        MouseUp x y ->
             ( { model
                 | drag = Drag.init
                 , shape =
                     case Drag.state model.drag of
-                        Just ( _, ( diffX, diffY ) ) ->
+                        Just ( address, ( diffX, diffY ) ) ->
                             Shape.moveControlPoint address ( diffX / model.scale, diffY / model.scale ) model.shape
 
                         Nothing ->
@@ -138,7 +138,8 @@ viewControlPoint address pt =
             , cy (toString y)
             , r "2"
             , on "mouseup"
-                (Decode.map2 (MouseUp address)
+                (Decode.map2
+                    MouseUp
                     (Decode.field "screenX" Decode.float)
                     (Decode.field "screenY" Decode.float)
                 )
