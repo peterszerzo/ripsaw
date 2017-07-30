@@ -33,7 +33,7 @@ import Utils
 {-| A shape is define as a mere list of control handles.
 -}
 type Shape
-    = Shape (List Handle)
+    = Shape Bool (List Handle)
 
 
 {-| An opaque type encoding information that maps a control point to its corresponding handle on the shape and location on its handle (left, center or right). This contextual information can then be passed along with `Html` messages, so that whenever a point is dragged, the shape can be updated accordingly.
@@ -56,15 +56,15 @@ type alias RenderedShape =
 
 {-| Construct a shape from a list of handle data.
 -}
-shape : List ( Maybe RawPoint2d, RawPoint2d, Maybe RawPoint2d ) -> Shape
-shape handleData =
-    List.map (\( left, center, right ) -> handle left center right) handleData |> Shape
+shape : Bool -> List ( Maybe RawPoint2d, RawPoint2d, Maybe RawPoint2d ) -> Shape
+shape isClosed handleData =
+    List.map (\( left, center, right ) -> handle left center right) handleData |> Shape isClosed
 
 
 {-| Update a single handle in the shape, as specified by the `ControlPointAddress` argument.
 -}
 moveControlPoint : ControlPointAddress -> RawPoint2d -> Shape -> Shape
-moveControlPoint (ControlPointAddress address) diff (Shape shape) =
+moveControlPoint (ControlPointAddress address) diff (Shape isClosed shape) =
     List.indexedMap
         (\index handle ->
             if index == address.handle then
@@ -81,13 +81,13 @@ moveControlPoint (ControlPointAddress address) diff (Shape shape) =
                 handle
         )
         shape
-        |> Shape
+        |> Shape isClosed
 
 
 {-| Create RenderedShape from raw shape.
 -}
 render : Shape -> RenderedShape
-render (Shape shape) =
+render (Shape isClosed shape) =
     { controlHandles =
         List.map
             (\handle ->
@@ -161,4 +161,9 @@ render (Shape shape) =
                     bezier pt1 pt2 pt3 pt4
             )
             shape
+            |> (if isClosed then
+                    identity
+                else
+                    (\list -> List.take ((List.length list) - 1) list)
+               )
     }

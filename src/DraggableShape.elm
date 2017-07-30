@@ -1,6 +1,6 @@
 module DraggableShape exposing (..)
 
-import Html exposing (Html)
+import Html exposing (Html, Attribute)
 import Html.Attributes exposing (style)
 import Shape
 import Drag
@@ -124,9 +124,12 @@ viewLine ( pt1, pt2 ) =
             []
 
 
-view : ( Float, Float ) -> Model -> Html Msg
-view ( width, height ) model =
+view : { isClosed : Bool, size : ( Float, Float ) } -> List (Attribute Msg) -> Model -> Html Msg
+view { isClosed, size } attrs model =
     let
+        ( width, height ) =
+            size
+
         scale =
             (min width height) / 100
 
@@ -142,17 +145,19 @@ view ( width, height ) model =
             Shape.render renderedShape
     in
         svg
-            [ viewBox "0 0 100 100"
-            , style
+            ([ viewBox "0 0 100 100"
+             , style
                 [ ( "width", Utils.toPx width )
                 , ( "height", Utils.toPx height )
                 ]
-            , on "mousemove"
+             , on "mousemove"
                 (Decode.map2 MouseMove
                     (Decode.field "screenX" Decode.float)
                     (Decode.field "screenY" Decode.float)
                 )
-            ]
+             ]
+                ++ attrs
+            )
             [ g
                 []
                 [ g [] <|

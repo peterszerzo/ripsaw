@@ -33,43 +33,48 @@ type alias Model =
     }
 
 
-shape : Shape.Shape
-shape =
-    Shape.shape
-        [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
-        , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
-        , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
-        ]
+defaultThickness : Float
+defaultThickness =
+    6
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { shape =
-            (DraggableShape.init << Shape.shape)
-                [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
-                , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
-                , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
-                ]
-      , topDepthProfile =
-            (DraggableShape.init << Shape.shape)
-                [ ( Just ( -10, 0.05 ), ( 0, 0.05 ), Just ( 10, 0.05 ) )
-                , ( Just ( 40, 0.05 ), ( 50, 0.05 ), Just ( 60, 0.05 ) )
-                , ( Just ( 90, 0.05 ), ( 100, 0.05 ), Just ( 110, 0.05 ) )
-                ]
-      , bottomDepthProfile =
-            (DraggableShape.init << Shape.shape)
-                [ ( Just ( -10, -0.05 ), ( 0, -0.05 ), Just ( 10, -0.05 ) )
-                , ( Just ( 40, -0.05 ), ( 50, -0.05 ), Just ( 60, -0.05 ) )
-                , ( Just ( 90, -0.05 ), ( 100, -0.05 ), Just ( 110, -0.05 ) )
-                ]
-      , windowSize = { width = 0, height = 0 }
-      }
-    , Task.perform Resize Window.size
-    )
+    let
+        topY =
+            50 + defaultThickness
+
+        bottomY =
+            50 - defaultThickness
+    in
+        ( { shape =
+                (DraggableShape.init << (Shape.shape True))
+                    [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
+                    , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
+                    , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
+                    ]
+          , topDepthProfile =
+                (DraggableShape.init << (Shape.shape False))
+                    [ ( Just ( -10, topY ), ( 0, topY ), Just ( 10, topY ) )
+                    , ( Just ( 40, topY ), ( 50, topY ), Just ( 60, topY ) )
+                    , ( Just ( 90, topY ), ( 100, topY ), Just ( 110, topY ) )
+                    ]
+          , bottomDepthProfile =
+                (DraggableShape.init << (Shape.shape False))
+                    [ ( Just ( -10, bottomY ), ( 0, bottomY ), Just ( 10, bottomY ) )
+                    , ( Just ( 40, bottomY ), ( 50, bottomY ), Just ( 60, bottomY ) )
+                    , ( Just ( 90, bottomY ), ( 100, bottomY ), Just ( 110, bottomY ) )
+                    ]
+          , windowSize = { width = 0, height = 0 }
+          }
+        , Task.perform Resize Window.size
+        )
 
 
 type Msg
     = ShapeMsg DraggableShape.Msg
+    | TopDepthProfileMsg DraggableShape.Msg
+    | BottomDepthProfileMsg DraggableShape.Msg
     | Resize Window.Size
 
 
@@ -82,6 +87,12 @@ update msg model =
     case msg of
         ShapeMsg msg ->
             ( { model | shape = DraggableShape.update (smallWindow model.windowSize) msg model.shape }, Cmd.none )
+
+        TopDepthProfileMsg msg ->
+            ( { model | topDepthProfile = DraggableShape.update (smallWindow model.windowSize) msg model.topDepthProfile }, Cmd.none )
+
+        BottomDepthProfileMsg msg ->
+            ( { model | bottomDepthProfile = DraggableShape.update (smallWindow model.windowSize) msg model.bottomDepthProfile }, Cmd.none )
 
         Resize windowSize ->
             ( { model | windowSize = windowSize }, Cmd.none )
@@ -150,7 +161,7 @@ view model =
                     ]
                         ++ windowBaseStyle
                 ]
-                [ DraggableShape.view ( smallW, smallH ) model.shape
+                [ DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [] model.shape
                     |> Html.map ShapeMsg
                 ]
             , div
@@ -162,7 +173,11 @@ view model =
                     ]
                         ++ windowBaseStyle
                 ]
-                []
+                [ DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style [ ( "position", "absolute" ), ( "top", "0" ), ( "left", "0" ) ] ] model.topDepthProfile
+                    |> Html.map TopDepthProfileMsg
+                , DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style [ ( "position", "absolute" ), ( "top", "0" ), ( "left", "0" ) ] ] model.bottomDepthProfile
+                    |> Html.map BottomDepthProfileMsg
+                ]
             , div
                 [ style <|
                     [ ( "width", toPx largeW )
