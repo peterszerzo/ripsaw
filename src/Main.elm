@@ -240,15 +240,13 @@ view model =
                 ]
                 [ logo ]
             , div
-                [ style
+                [ style <|
                     [ ( "width", toPx smallW )
                     , ( "height", toPx smallH )
                     , ( "top", "20px" )
                     , ( "left", "20px" )
-                    , ( "position", "absolute" )
-                    , ( "border", "1px solid #EEEEEE" )
-                    , ( "border-radius", "6px" )
                     ]
+                        ++ windowBaseStyle
                 ]
                 [ svg
                     [ viewBox "0 0 100 100"
@@ -283,30 +281,34 @@ view model =
                     ]
                 ]
             , div
-                [ style
+                [ style <|
                     [ ( "width", toPx smallW )
                     , ( "height", toPx smallH )
                     , ( "bottom", "20px" )
                     , ( "left", "20px" )
-                    , ( "position", "absolute" )
-                    , ( "border", "1px solid #EEEEEE" )
-                    , ( "border-radius", "6px" )
                     ]
+                        ++ windowBaseStyle
                 ]
                 []
             , div
-                [ style
+                [ style <|
                     [ ( "width", toPx largeW )
                     , ( "height", toPx largeH )
                     , ( "top", "20px" )
                     , ( "right", "20px" )
-                    , ( "position", "absolute" )
-                    , ( "border", "1px solid #EEEEEE" )
-                    , ( "border-radius", "6px" )
                     ]
+                        ++ windowBaseStyle
                 ]
                 []
             ]
+
+
+windowBaseStyle : List ( String, String )
+windowBaseStyle =
+    [ ( "position", "absolute" )
+    , ( "border", "1px solid #EEEEEE" )
+    , ( "border-radius", "6px" )
+    ]
 
 
 logo : Html msg
