@@ -34,7 +34,6 @@ type alias Model =
     , topDepthProfile : Shape.Shape
     , bottomDepthProfile : Shape.Shape
     , drag : Drag.Drag Shape.ControlPointAddress
-    , scale : Float
     , windowSize : Window.Size
     }
 
@@ -60,7 +59,6 @@ init =
                 , ( Just ( 90, -0.05 ), ( 100, -0.05 ), Just ( 110, -0.05 ) )
                 ]
       , drag = Drag.init
-      , scale = 2
       , windowSize = { width = 0, height = 0 }
       }
     , Task.perform Resize Window.size
@@ -80,39 +78,46 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        MouseMove xm ym ->
-            ( { model
-                | drag =
-                    Drag.move ( xm, ym ) model.drag
-              }
-            , Cmd.none
-            )
+    let
+        ( smallW, smallH ) =
+            smallWindow model.windowSize
 
-        MouseDown address x y ->
-            ( { model
-                | drag =
-                    Drag.start address ( x, y )
-              }
-            , Cmd.none
-            )
+        scale =
+            (min smallW smallH) / 100
+    in
+        case msg of
+            MouseMove xm ym ->
+                ( { model
+                    | drag =
+                        Drag.move ( xm, ym ) model.drag
+                  }
+                , Cmd.none
+                )
 
-        MouseUp x y ->
-            ( { model
-                | drag = Drag.init
-                , shape =
-                    case Drag.state model.drag of
-                        Just ( address, ( diffX, diffY ) ) ->
-                            Shape.moveControlPoint address ( diffX / model.scale, diffY / model.scale ) model.shape
+            MouseDown address x y ->
+                ( { model
+                    | drag =
+                        Drag.start address ( x, y )
+                  }
+                , Cmd.none
+                )
 
-                        Nothing ->
-                            model.shape
-              }
-            , Cmd.none
-            )
+            MouseUp x y ->
+                ( { model
+                    | drag = Drag.init
+                    , shape =
+                        case Drag.state model.drag of
+                            Just ( address, ( diffX, diffY ) ) ->
+                                Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
 
-        Resize windowSize ->
-            ( { model | windowSize = windowSize }, Cmd.none )
+                            Nothing ->
+                                model.shape
+                  }
+                , Cmd.none
+                )
+
+            Resize windowSize ->
+                ( { model | windowSize = windowSize }, Cmd.none )
 
 
 
@@ -174,13 +179,41 @@ viewControlPoint address pt =
             []
 
 
+toPx : Float -> String
+toPx =
+    floor >> toString >> (\s -> s ++ "px")
+
+
+smallWindow : Window.Size -> ( Float, Float )
+smallWindow size =
+    ( (toFloat size.width) / 2 - 30
+    , (toFloat size.height) / 2 - 30
+    )
+
+
+largeWindow : Window.Size -> ( Float, Float )
+largeWindow size =
+    ( (toFloat size.width) / 2 - 30
+    , (toFloat size.height) - 40
+    )
+
+
 view : Model -> Html Msg
 view model =
     let
+        ( smallW, smallH ) =
+            smallWindow model.windowSize
+
+        ( largeW, largeH ) =
+            largeWindow model.windowSize
+
+        scale =
+            (min smallW smallH) / 100
+
         renderedShape =
             case Drag.state model.drag of
                 Just ( address, ( diffX, diffY ) ) ->
-                    Shape.moveControlPoint address ( diffX / model.scale, diffY / model.scale ) model.shape
+                    Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
 
                 Nothing ->
                     model.shape
@@ -208,8 +241,8 @@ view model =
                 [ logo ]
             , div
                 [ style
-                    [ ( "width", "calc(50% - 30px)" )
-                    , ( "height", "calc(50% - 30px)" )
+                    [ ( "width", toPx smallW )
+                    , ( "height", toPx smallH )
                     , ( "top", "20px" )
                     , ( "left", "20px" )
                     , ( "position", "absolute" )
@@ -220,12 +253,8 @@ view model =
                 [ svg
                     [ viewBox "0 0 100 100"
                     , style
-                        [ ( "width", (model.scale * 100 |> toString) ++ "px" )
-                        , ( "height", (model.scale * 100 |> toString) ++ "px" )
-                        , ( "position", "absolute" )
-                        , ( "top", "50%" )
-                        , ( "left", "50%" )
-                        , ( "transform", "translate3d(-50%, -50%, 0)" )
+                        [ ( "width", toPx smallW )
+                        , ( "height", toPx smallH )
                         ]
                     , on "mousemove"
                         (Decode.map2 MouseMove
@@ -255,8 +284,8 @@ view model =
                 ]
             , div
                 [ style
-                    [ ( "width", "calc(50% - 30px)" )
-                    , ( "height", "calc(50% - 30px)" )
+                    [ ( "width", toPx smallW )
+                    , ( "height", toPx smallH )
                     , ( "bottom", "20px" )
                     , ( "left", "20px" )
                     , ( "position", "absolute" )
@@ -267,8 +296,8 @@ view model =
                 []
             , div
                 [ style
-                    [ ( "width", "calc(50% - 30px)" )
-                    , ( "height", "calc(100% - 40px)" )
+                    [ ( "width", toPx largeW )
+                    , ( "height", toPx largeH )
                     , ( "top", "20px" )
                     , ( "right", "20px" )
                     , ( "position", "absolute" )
