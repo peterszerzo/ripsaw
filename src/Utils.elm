@@ -1,9 +1,9 @@
-module Utils exposing (closedLinkedMap)
+module Utils exposing (closedLinkedMap, toPx)
 
 {-| Utility methods.
 
 # List
-@docs closedLinkedMap
+@docs closedLinkedMap, toPx
 -}
 
 
@@ -37,3 +37,10 @@ closedLinkedMapHelper fn veryFirst list =
 
                 second :: rest_ ->
                     [ fn first second ] ++ (closedLinkedMapHelper fn veryFirst rest)
+
+
+{-| Converts a floating point value to a pixel value.
+-}
+toPx : Float -> String
+toPx =
+    floor >> toString >> (\s -> s ++ "px")

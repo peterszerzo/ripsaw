@@ -2,17 +2,13 @@ module Main exposing (main)
 
 import Window
 import Task
-import Json.Decode as Decode
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (style)
 import Svg exposing (svg, path, line, g, circle)
 import Svg.Attributes exposing (d, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
-import Svg.Events exposing (on)
-import OpenSolid.Geometry.Types exposing (..)
-import OpenSolid.Point2d exposing (coordinates)
-import OpenSolid.Svg
-import Drag
+import DraggableShape
 import Shape
+import Utils exposing (toPx)
 
 
 main : Program Never Model Msg
@@ -30,35 +26,42 @@ main =
 
 
 type alias Model =
-    { shape : Shape.Shape
-    , topDepthProfile : Shape.Shape
-    , bottomDepthProfile : Shape.Shape
-    , drag : Drag.Drag Shape.ControlPointAddress
+    { shape : DraggableShape.Model
+    , topDepthProfile : DraggableShape.Model
+    , bottomDepthProfile : DraggableShape.Model
     , windowSize : Window.Size
     }
+
+
+shape : Shape.Shape
+shape =
+    Shape.shape
+        [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
+        , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
+        , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
+        ]
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { shape =
-            Shape.shape
+            (DraggableShape.init << Shape.shape)
                 [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
                 , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
                 , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
                 ]
       , topDepthProfile =
-            Shape.shape
+            (DraggableShape.init << Shape.shape)
                 [ ( Just ( -10, 0.05 ), ( 0, 0.05 ), Just ( 10, 0.05 ) )
                 , ( Just ( 40, 0.05 ), ( 50, 0.05 ), Just ( 60, 0.05 ) )
                 , ( Just ( 90, 0.05 ), ( 100, 0.05 ), Just ( 110, 0.05 ) )
                 ]
       , bottomDepthProfile =
-            Shape.shape
+            (DraggableShape.init << Shape.shape)
                 [ ( Just ( -10, -0.05 ), ( 0, -0.05 ), Just ( 10, -0.05 ) )
                 , ( Just ( 40, -0.05 ), ( 50, -0.05 ), Just ( 60, -0.05 ) )
                 , ( Just ( 90, -0.05 ), ( 100, -0.05 ), Just ( 110, -0.05 ) )
                 ]
-      , drag = Drag.init
       , windowSize = { width = 0, height = 0 }
       }
     , Task.perform Resize Window.size
@@ -66,9 +69,7 @@ init =
 
 
 type Msg
-    = MouseMove Float Float
-    | MouseDown Shape.ControlPointAddress Float Float
-    | MouseUp Float Float
+    = ShapeMsg DraggableShape.Msg
     | Resize Window.Size
 
 
@@ -78,46 +79,12 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    let
-        ( smallW, smallH ) =
-            smallWindow model.windowSize
+    case msg of
+        ShapeMsg msg ->
+            ( { model | shape = DraggableShape.update (smallWindow model.windowSize) msg model.shape }, Cmd.none )
 
-        scale =
-            (min smallW smallH) / 100
-    in
-        case msg of
-            MouseMove xm ym ->
-                ( { model
-                    | drag =
-                        Drag.move ( xm, ym ) model.drag
-                  }
-                , Cmd.none
-                )
-
-            MouseDown address x y ->
-                ( { model
-                    | drag =
-                        Drag.start address ( x, y )
-                  }
-                , Cmd.none
-                )
-
-            MouseUp x y ->
-                ( { model
-                    | drag = Drag.init
-                    , shape =
-                        case Drag.state model.drag of
-                            Just ( address, ( diffX, diffY ) ) ->
-                                Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
-
-                            Nothing ->
-                                model.shape
-                  }
-                , Cmd.none
-                )
-
-            Resize windowSize ->
-                ( { model | windowSize = windowSize }, Cmd.none )
+        Resize windowSize ->
+            ( { model | windowSize = windowSize }, Cmd.none )
 
 
 
@@ -131,57 +98,6 @@ subscriptions model =
 
 
 -- Views
-
-
-viewLine : ( Point2d, Point2d ) -> Html Msg
-viewLine ( pt1, pt2 ) =
-    let
-        ( x1_, y1_ ) =
-            coordinates pt1
-
-        ( x2_, y2_ ) =
-            coordinates pt2
-    in
-        line
-            [ x1 (toString x1_)
-            , y1 (toString y1_)
-            , x2 (toString x2_)
-            , y2 (toString y2_)
-            , stroke "#333"
-            , strokeDasharray "3, 3"
-            , strokeWidth "1"
-            ]
-            []
-
-
-viewControlPoint : Shape.ControlPointAddress -> Point2d -> Html Msg
-viewControlPoint address pt =
-    let
-        ( x, y ) =
-            coordinates pt
-    in
-        circle
-            [ cx (toString x)
-            , cy (toString y)
-            , r "2"
-            , on "mouseup"
-                (Decode.map2
-                    MouseUp
-                    (Decode.field "screenX" Decode.float)
-                    (Decode.field "screenY" Decode.float)
-                )
-            , on "mousedown"
-                (Decode.map2 (MouseDown address)
-                    (Decode.field "screenX" Decode.float)
-                    (Decode.field "screenY" Decode.float)
-                )
-            ]
-            []
-
-
-toPx : Float -> String
-toPx =
-    floor >> toString >> (\s -> s ++ "px")
 
 
 smallWindow : Window.Size -> ( Float, Float )
@@ -206,20 +122,6 @@ view model =
 
         ( largeW, largeH ) =
             largeWindow model.windowSize
-
-        scale =
-            (min smallW smallH) / 100
-
-        renderedShape =
-            case Drag.state model.drag of
-                Just ( address, ( diffX, diffY ) ) ->
-                    Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
-
-                Nothing ->
-                    model.shape
-
-        { controlHandles, controlPoints, splines } =
-            Shape.render renderedShape
     in
         div
             [ style
@@ -248,37 +150,8 @@ view model =
                     ]
                         ++ windowBaseStyle
                 ]
-                [ svg
-                    [ viewBox "0 0 100 100"
-                    , style
-                        [ ( "width", toPx smallW )
-                        , ( "height", toPx smallH )
-                        ]
-                    , on "mousemove"
-                        (Decode.map2 MouseMove
-                            (Decode.field "screenX" Decode.float)
-                            (Decode.field "screenY" Decode.float)
-                        )
-                    ]
-                    [ g
-                        []
-                        [ g [] <|
-                            List.map
-                                (OpenSolid.Svg.cubicSpline2d
-                                    [ fill "none"
-                                    , stroke "black"
-                                    , strokeLinecap "round"
-                                    , strokeLinejoin "round"
-                                    , strokeWidth "1"
-                                    ]
-                                )
-                                splines
-                        , g [] <|
-                            List.map viewLine controlHandles
-                        , g [] <|
-                            List.map (\( address, point ) -> viewControlPoint address point) controlPoints
-                        ]
-                    ]
+                [ DraggableShape.view ( smallW, smallH ) model.shape
+                    |> Html.map ShapeMsg
                 ]
             , div
                 [ style <|
