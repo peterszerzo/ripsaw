@@ -6,6 +6,8 @@ import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (style)
 import Svg exposing (svg, path, line, g, circle)
 import Svg.Attributes exposing (d, width, height, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
+import Math.Vector3 as Vector3 exposing (vec3)
+import Math.Matrix4 as Matrix4
 import EditableShape
 import Shape
 import Utils exposing (toPx)
@@ -133,6 +135,24 @@ largeWindow size =
     )
 
 
+camera : Matrix4.Mat4
+camera =
+    Matrix4.mul
+        (Matrix4.makePerspective 45 1 0.01 1000)
+        (Matrix4.makeLookAt (vec3 50 (50 + 100) (0 + 100)) (vec3 50 50 0) (vec3 0 0 1))
+
+
+project : ( Float, Float ) -> ( Float, Float )
+project ( x, y ) =
+    Matrix4.transform camera (vec3 x y 0)
+        |> Vector3.scale 80
+        |> (\v ->
+                ( (Vector3.getX v) + 50
+                , (Vector3.getY v) + 50
+                )
+           )
+
+
 view : Model -> Html Msg
 view model =
     let
@@ -227,7 +247,7 @@ view model =
                                     ]
                                     []
                             )
-                            discretePoints
+                            (List.map project discretePoints)
                         )
                     ]
                 ]
