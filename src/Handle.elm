@@ -97,11 +97,21 @@ right (Handle h) =
 -}
 moveLeft : RawPoint2d -> Handle -> Handle
 moveLeft ( diffX, diffY ) (Handle handle) =
-    Handle
-        { handle
-            | left = handle.left |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
-            , right = handle.right |> Maybe.map (\( x, y ) -> ( x - diffX, y - diffY ))
-        }
+    let
+        couplingFactor =
+            -- TODO: make coupling more sophisticated, taking into account the lengths of the control handles.
+            case handle.coupling of
+                Coupled ->
+                    -1
+
+                Decoupled ->
+                    0
+    in
+        Handle
+            { handle
+                | left = handle.left |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+                , right = handle.right |> Maybe.map (\( x, y ) -> ( x + (couplingFactor * diffX), y + (couplingFactor * diffY) ))
+            }
 
 
 {-| Move the center control point. This will move left and right points by the same amount as well, in case they exist.
@@ -120,12 +130,21 @@ moveCenter ( diffX, diffY ) (Handle handle) =
 -}
 moveRight : RawPoint2d -> Handle -> Handle
 moveRight ( diffX, diffY ) (Handle handle) =
-    -- TODO: account for coupling
-    Handle
-        { handle
-            | right = handle.right |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
-            , left = handle.left |> Maybe.map (\( x, y ) -> ( x - diffX, y - diffY ))
-        }
+    let
+        couplingFactor =
+            -- TODO: make coupling more sophisticated, taking into account the lengths of the control handles.
+            case handle.coupling of
+                Coupled ->
+                    -1
+
+                Decoupled ->
+                    0
+    in
+        Handle
+            { handle
+                | right = handle.right |> Maybe.map (\( x, y ) -> ( x + diffX, y + diffY ))
+                , left = handle.left |> Maybe.map (\( x, y ) -> ( x + (couplingFactor * diffX), y + (couplingFactor * diffY) ))
+            }
 
 
 {-| Couple left and right control points so they move together.
