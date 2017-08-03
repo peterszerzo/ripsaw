@@ -141,6 +141,9 @@ view { isClosed, size } attrs model =
                 Nothing ->
                     model.shape
 
+        oldSplines =
+            Shape.render model.shape |> .splines
+
         { controlHandles, controlPoints, splines } =
             Shape.render renderedShape
     in
@@ -161,6 +164,17 @@ view { isClosed, size } attrs model =
             [ g
                 []
                 [ g [] <|
+                    List.map
+                        (OpenSolid.Svg.cubicSpline2d
+                            [ fill "none"
+                            , stroke "#DDDDDD"
+                            , strokeLinecap "round"
+                            , strokeLinejoin "round"
+                            , strokeWidth "0.5"
+                            ]
+                        )
+                        oldSplines
+                , g [] <|
                     List.map
                         (OpenSolid.Svg.cubicSpline2d
                             [ fill "none"
