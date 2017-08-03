@@ -29,6 +29,9 @@ module Handle
 -}
 
 import Types exposing (..)
+import OpenSolid.Geometry.Types exposing (..)
+import OpenSolid.Point2d exposing (coordinates)
+import OpenSolid.CubicSpline2d exposing (bezier, point)
 
 
 {-| When a handle is coupled, the left and right control points move together, preserving smoothness at the handle's center. When they're not coupled, they can move independently.
@@ -137,3 +140,37 @@ decouple (Handle h) =
 couple : Handle -> Handle
 couple (Handle h) =
     Handle { h | coupling = Coupled }
+
+
+{-| Get a list of discrete points to a second handle.
+-}
+discretePoints : Int -> Handle -> Handle -> List RawPoint2d
+discretePoints count (Handle h1) (Handle h2) =
+    let
+        range =
+            List.range 0 (count - 1)
+                |> List.map
+                    (\index ->
+                        (toFloat index) / (toFloat (count - 1))
+                    )
+
+        pt1 =
+            Point2d h1.center
+
+        pt2 =
+            h1.right |> Maybe.map Point2d |> Maybe.withDefault pt1
+
+        pt4 =
+            Point2d h2.center
+
+        pt3 =
+            h2.left |> Maybe.map Point2d |> Maybe.withDefault pt4
+
+        spline =
+            bezier pt1 pt2 pt3 pt4
+    in
+        List.map
+            (\coord ->
+                point spline coord |> coordinates
+            )
+            range
