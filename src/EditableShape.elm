@@ -1,4 +1,4 @@
-module DraggableShape exposing (..)
+module EditableShape exposing (..)
 
 import Html exposing (Html, Attribute)
 import Html.Attributes exposing (style)
@@ -26,6 +26,20 @@ type alias Model =
 init : Shape.Shape -> Model
 init shape =
     Model shape Drag.init
+
+
+editedShape : ( Float, Float ) -> Model -> Shape.Shape
+editedShape ( width, height ) model =
+    let
+        scale =
+            (min width height) / 100
+    in
+        case Drag.state model.drag of
+            Just ( address, ( diffX, diffY ) ) ->
+                Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
+
+            Nothing ->
+                model.shape
 
 
 
@@ -130,16 +144,8 @@ view { isClosed, size } attrs model =
         ( width, height ) =
             size
 
-        scale =
-            (min width height) / 100
-
         renderedShape =
-            case Drag.state model.drag of
-                Just ( address, ( diffX, diffY ) ) ->
-                    Shape.moveControlPoint address ( diffX / scale, diffY / scale ) model.shape
-
-                Nothing ->
-                    model.shape
+            editedShape size model
 
         oldSplines =
             Shape.render model.shape |> .splines

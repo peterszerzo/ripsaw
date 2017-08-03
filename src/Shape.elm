@@ -6,6 +6,7 @@ module Shape
         , shape
         , render
         , moveControlPoint
+        , discretePoints
         )
 
 {-| This module models a closed spline shape as a collection of control handles (see [Handle](/Handle)).
@@ -17,7 +18,7 @@ module Shape
 @docs shape
 
 # Update methods
-@docs moveControlPoint
+@docs moveControlPoint, discretePoints
 
 # The renderer
 @docs render
@@ -82,6 +83,27 @@ moveControlPoint (ControlPointAddress address) diff (Shape isClosed shape) =
         )
         shape
         |> Shape isClosed
+
+
+{-| Subdivide shape into discrete points.
+-}
+discretePoints : Int -> Shape -> List RawPoint2d
+discretePoints count (Shape isClosed handles) =
+    Utils.closedLinkedMap (\h1 h2 -> Handle.discretePoints count h1 h2) handles
+        |> (\list ->
+                if isClosed then
+                    list
+                else
+                    List.take ((List.length list) - 1) list
+           )
+        |> List.indexedMap
+            (\index list ->
+                if (not isClosed) && (index == (List.length handles) - 2) then
+                    list
+                else
+                    List.take ((List.length list) - 1) list
+            )
+        |> List.foldr (++) []
 
 
 {-| Create RenderedShape from raw shape.

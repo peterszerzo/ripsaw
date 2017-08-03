@@ -5,8 +5,8 @@ import Task
 import Html exposing (Html, program, div, text)
 import Html.Attributes exposing (style)
 import Svg exposing (svg, path, line, g, circle)
-import Svg.Attributes exposing (d, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
-import DraggableShape
+import Svg.Attributes exposing (d, width, height, viewBox, stroke, strokeWidth, fill, cx, cy, r, x1, x2, y1, y2, strokeLinecap, strokeLinejoin, strokeMiterlimit, strokeDasharray)
+import EditableShape
 import Shape
 import Utils exposing (toPx)
 
@@ -26,9 +26,9 @@ main =
 
 
 type alias Model =
-    { shape : DraggableShape.Model
-    , topDepthProfile : DraggableShape.Model
-    , bottomDepthProfile : DraggableShape.Model
+    { shape : EditableShape.Model
+    , topDepthProfile : EditableShape.Model
+    , bottomDepthProfile : EditableShape.Model
     , windowSize : Window.Size
     }
 
@@ -46,21 +46,29 @@ init =
 
         bottomY =
             50 - defaultThickness
+
+        shape_ =
+            Shape.shape True
+                [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
+                , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
+                , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
+                ]
+                |> Shape.discretePoints 3
     in
         ( { shape =
-                (DraggableShape.init << (Shape.shape True))
+                (EditableShape.init << (Shape.shape True))
                     [ ( Just ( 30, 10 ), ( 20, 20 ), Just ( 10, 30 ) )
                     , ( Just ( 40, 80 ), ( 50, 70 ), Just ( 60, 60 ) )
                     , ( Just ( 80, 30 ), ( 70, 20 ), Just ( 60, 10 ) )
                     ]
           , topDepthProfile =
-                (DraggableShape.init << (Shape.shape False))
+                (EditableShape.init << (Shape.shape False))
                     [ ( Just ( -10, topY ), ( 0, topY ), Just ( 10, topY ) )
                     , ( Just ( 40, topY ), ( 50, topY ), Just ( 60, topY ) )
                     , ( Just ( 90, topY ), ( 100, topY ), Just ( 110, topY ) )
                     ]
           , bottomDepthProfile =
-                (DraggableShape.init << (Shape.shape False))
+                (EditableShape.init << (Shape.shape False))
                     [ ( Just ( -10, bottomY ), ( 0, bottomY ), Just ( 10, bottomY ) )
                     , ( Just ( 40, bottomY ), ( 50, bottomY ), Just ( 60, bottomY ) )
                     , ( Just ( 90, bottomY ), ( 100, bottomY ), Just ( 110, bottomY ) )
@@ -72,9 +80,9 @@ init =
 
 
 type Msg
-    = ShapeMsg DraggableShape.Msg
-    | TopDepthProfileMsg DraggableShape.Msg
-    | BottomDepthProfileMsg DraggableShape.Msg
+    = ShapeMsg EditableShape.Msg
+    | TopDepthProfileMsg EditableShape.Msg
+    | BottomDepthProfileMsg EditableShape.Msg
     | Resize Window.Size
 
 
@@ -86,13 +94,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShapeMsg msg ->
-            ( { model | shape = DraggableShape.update (smallWindow model.windowSize) msg model.shape }, Cmd.none )
+            ( { model | shape = EditableShape.update (smallWindow model.windowSize) msg model.shape }, Cmd.none )
 
         TopDepthProfileMsg msg ->
-            ( { model | topDepthProfile = DraggableShape.update (smallWindow model.windowSize) msg model.topDepthProfile }, Cmd.none )
+            ( { model | topDepthProfile = EditableShape.update (smallWindow model.windowSize) msg model.topDepthProfile }, Cmd.none )
 
         BottomDepthProfileMsg msg ->
-            ( { model | bottomDepthProfile = DraggableShape.update (smallWindow model.windowSize) msg model.bottomDepthProfile }, Cmd.none )
+            ( { model | bottomDepthProfile = EditableShape.update (smallWindow model.windowSize) msg model.bottomDepthProfile }, Cmd.none )
 
         Resize windowSize ->
             ( { model | windowSize = windowSize }, Cmd.none )
@@ -128,67 +136,109 @@ largeWindow size =
 view : Model -> Html Msg
 view model =
     let
+        isWindowSizeKnown =
+            model.windowSize.width == 0
+
         ( smallW, smallH ) =
             smallWindow model.windowSize
 
         ( largeW, largeH ) =
             largeWindow model.windowSize
+
+        editedShape =
+            EditableShape.editedShape ( smallW, smallH ) model.shape
+
+        discretePoints =
+            Shape.discretePoints 30 editedShape
     in
-        div
-            [ style
-                [ ( "width", "100vw" )
-                , ( "height", "100vh" )
-                , ( "position", "relative" )
-                ]
-            ]
-            [ div
+        if isWindowSizeKnown then
+            div [] []
+        else
+            div
                 [ style
-                    [ ( "width", "80px" )
-                    , ( "height", "80px" )
-                    , ( "position", "absolute" )
-                    , ( "top", "calc(50% - 40px)" )
-                    , ( "left", "calc(50% - 40px)" )
-                    , ( "z-index", "100" )
+                    [ ( "width", "100vw" )
+                    , ( "height", "100vh" )
+                    , ( "position", "relative" )
                     ]
                 ]
-                [ logo ]
-            , div
-                [ style <|
-                    [ ( "width", toPx smallW )
-                    , ( "height", toPx smallH )
-                    , ( "top", "20px" )
-                    , ( "left", "20px" )
+                [ div
+                    [ style
+                        [ ( "width", "80px" )
+                        , ( "height", "80px" )
+                        , ( "position", "absolute" )
+                        , ( "top", "calc(50% - 40px)" )
+                        , ( "left", "calc(50% - 40px)" )
+                        , ( "z-index", "100" )
+                        ]
                     ]
-                        ++ windowBaseStyle
-                ]
-                [ DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [] model.shape
-                    |> Html.map ShapeMsg
-                ]
-            , div
-                [ style <|
-                    [ ( "width", toPx smallW )
-                    , ( "height", toPx smallH )
-                    , ( "bottom", "20px" )
-                    , ( "left", "20px" )
+                    [ logo ]
+                , div
+                    [ style <|
+                        [ ( "width", toPx smallW )
+                        , ( "height", toPx smallH )
+                        , ( "top", "20px" )
+                        , ( "left", "20px" )
+                        ]
+                            ++ windowBaseStyle
                     ]
-                        ++ windowBaseStyle
-                ]
-                [ DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style [ ( "position", "absolute" ), ( "top", "0" ), ( "left", "0" ) ] ] model.topDepthProfile
-                    |> Html.map TopDepthProfileMsg
-                , DraggableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style [ ( "position", "absolute" ), ( "top", "0" ), ( "left", "0" ) ] ] model.bottomDepthProfile
-                    |> Html.map BottomDepthProfileMsg
-                ]
-            , div
-                [ style <|
-                    [ ( "width", toPx largeW )
-                    , ( "height", toPx largeH )
-                    , ( "top", "20px" )
-                    , ( "right", "20px" )
+                    [ EditableShape.view { isClosed = True, size = ( smallW, smallH ) } [] model.shape
+                        |> Html.map ShapeMsg
                     ]
-                        ++ windowBaseStyle
+                , div
+                    [ style <|
+                        [ ( "width", toPx smallW )
+                        , ( "height", toPx smallH )
+                        , ( "bottom", "20px" )
+                        , ( "left", "20px" )
+                        ]
+                            ++ windowBaseStyle
+                    ]
+                    [ EditableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style absoluteTopLeftStyle ] model.topDepthProfile
+                        |> Html.map TopDepthProfileMsg
+                    , EditableShape.view { isClosed = True, size = ( smallW, smallH ) } [ style absoluteTopLeftStyle ] model.bottomDepthProfile
+                        |> Html.map BottomDepthProfileMsg
+                    ]
+                , div
+                    [ style <|
+                        [ ( "width", toPx largeW )
+                        , ( "height", toPx largeH )
+                        , ( "top", "20px" )
+                        , ( "right", "20px" )
+                        ]
+                            ++ windowBaseStyle
+                    ]
+                    [ svg
+                        [ width (toString largeW)
+                        , height (toString largeH)
+                        , viewBox "0 0 100 100"
+                        ]
+                      <|
+                        (Utils.closedLinkedMap
+                            (\( x1_, y1_ ) ( x2_, y2_ ) ->
+                                line
+                                    [ x1 (toString x1_)
+                                    , y1 (toString y1_)
+                                    , x2 (toString x2_)
+                                    , y2 (toString y2_)
+                                    , stroke "black"
+                                    , strokeWidth "1"
+                                    , strokeLinecap "round"
+                                    , strokeLinejoin "round"
+                                    ]
+                                    []
+                            )
+                            discretePoints
+                        )
+                    ]
                 ]
-                []
-            ]
+
+
+absoluteTopLeftStyle : List ( String, String )
+absoluteTopLeftStyle =
+    [ ( "position", "absolute" )
+    , ( "top", "0" )
+    , ( "left", "0" )
+    ]
 
 
 windowBaseStyle : List ( String, String )

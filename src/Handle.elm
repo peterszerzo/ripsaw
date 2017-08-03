@@ -11,6 +11,7 @@ module Handle
         , moveRight
         , decouple
         , couple
+        , discretePoints
         )
 
 {-| This module models a single control handle of a spline shape.
